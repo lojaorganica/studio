@@ -4,25 +4,51 @@
 import Image from "next/image"
 import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Badge } from "./ui/badge"
 
 type GalleryItemProps = {
   item: MediaItemType
   index: number
   onClick: () => void
+  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragEnd: () => void
+  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void
 }
 
 export function GalleryItem({
   item,
   index,
   onClick,
+  ...dragProps
 }: GalleryItemProps) {
+  const [isDragging, setIsDragging] = React.useState(false);
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    if (dragProps.onDragStart) {
+      dragProps.onDragStart(e);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    if (dragProps.onDragEnd) {
+      dragProps.onDragEnd();
+    }
+  };
+
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid"
+        "group relative mb-4 break-inside-avoid cursor-grab",
+        isDragging ? "opacity-50" : "opacity-100"
       )}
+      draggable
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      {...dragProps}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
@@ -31,6 +57,7 @@ export function GalleryItem({
           onClick={onClick}
           className="w-full h-full"
           aria-label={`View details for ${item.alt}`}
+          draggable={false} // Prevents button drag from interfering
         >
           {item.type === 'image' ? (
             <Image
@@ -40,6 +67,7 @@ export function GalleryItem({
               height={800}
               data-ai-hint={item['data-ai-hint']}
               className="object-cover w-full h-full"
+              draggable={false}
             />
           ) : (
             <video
@@ -49,6 +77,7 @@ export function GalleryItem({
               autoPlay
               playsInline
               className="object-cover w-full h-full"
+              draggable={false}
             />
           )}
 
