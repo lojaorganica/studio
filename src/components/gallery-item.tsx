@@ -28,8 +28,6 @@ export function GalleryItem({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', item.id);
-    
     // Set a transparent drag image. The visual feedback will be the semi-transparent
     // original item, which is controlled by the `isDragging` state.
     const canvas = document.createElement('canvas');
