@@ -112,11 +112,12 @@ export default function Home() {
   };
 
   const handleDragEnter = (id: string) => {
+    if (draggingId === id) return;
     dragOverItemId.current = id;
   };
   
   const handleDragEnd = () => {
-    if (draggingId === null || dragOverItemId.current === null || draggingId === dragOverItemId.current) {
+    if (!draggingId || !dragOverItemId.current || draggingId === dragOverItemId.current) {
         setDraggingId(null);
         dragOverItemId.current = null;
         return;

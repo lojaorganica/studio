@@ -12,8 +12,8 @@ type GalleryItemProps = {
   item: MediaItemType
   isDragging: boolean
   onClick: () => void
-  onDragStart: () => void
-  onDragEnter: () => void
+  onDragStart: (id: string) => void
+  onDragEnter: (id: string) => void
   onDragEnd: () => void
 }
 
@@ -27,21 +27,25 @@ export function GalleryItem({
 }: GalleryItemProps) {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // Set a transparent drag image to hide the default browser one
-    const crt = e.currentTarget.cloneNode(true) as HTMLElement;
-    crt.style.position = 'absolute';
-    crt.style.top = '0';
-    crt.style.left = '-9999px';
-    document.body.appendChild(crt);
-    e.dataTransfer.setDragImage(crt, 0, 0);
+    // This is essential to let the browser know we're starting a drag
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', item.id);
     
-    // Defer removal to avoid flicker
-    setTimeout(() => {
-      document.body.removeChild(crt);
-    }, 0);
+    // Set a transparent drag image. The visual feedback will be the semi-transparent
+    // original item, which is controlled by the `isDragging` state.
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    if (ctx) ctx.clearRect(0, 0, 1, 1);
+    e.dataTransfer.setDragImage(canvas, 0, 0);
 
-    onDragStart();
+    onDragStart(item.id);
   };
+  
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault(); // This is crucial to allow a drop.
+    onDragEnter(item.id);
+  }
 
   return (
     <div
@@ -52,9 +56,8 @@ export function GalleryItem({
       )}
       draggable
       onDragStart={handleDragStart}
-      onDragEnter={onDragEnter}
+      onDragOver={handleDragOver}
       onDragEnd={onDragEnd}
-      onDragOver={(e) => e.preventDefault()}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
