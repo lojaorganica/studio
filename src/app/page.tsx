@@ -71,6 +71,7 @@ export default function Home() {
     const handleMouseMove = (event: MouseEvent) => {
       if (window.innerWidth < TABLET_BREAKPOINT) return;
       if (event.clientY < MOUSE_Y_THRESHOLD_TOP) {
+        if (menuLeaveTimer.current) clearTimeout(menuLeaveTimer.current);
         setMenuOpen(true);
       }
     };
@@ -83,6 +84,7 @@ export default function Home() {
       clearTimeout(menuLeaveTimer.current);
       menuLeaveTimer.current = null;
     }
+    setMenuOpen(true);
   };
 
   const handleMouseLeaveMenu = () => {
@@ -99,15 +101,71 @@ export default function Home() {
 
 
   const filteredItems = React.useMemo(() => {
+    const fairKeywords: { [key: string]: string } = {
+      'Tijuca': 'feira_tijuca',
+      'Grajaú': 'feira_grajau',
+      'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
+      'Botafogo': 'feira_botafogo',
+      'Leme': 'feira_leme',
+    };
+
+    let baseItems = items;
     if (showOnlyFavorites) {
-        return items.filter(item => favoritedIds.has(item.id));
+        baseItems = items.filter(item => favoritedIds.has(item.id));
     }
-    return items.filter((item) => {
-      const fairFilter = filters.fairs.size === 0 || [...filters.fairs].some(fair => item.fair.includes(fair))
-      const styleFilter = filters.styles.size === 0 || filters.styles.has(item.style)
-      return fairFilter && styleFilter
-    })
-  }, [items, filters, favoritedIds, showOnlyFavorites])
+
+    return baseItems.filter((item) => {
+      const srcLower = item.src.toLowerCase();
+      const filename = srcLower.split('/').pop() || '';
+
+      // --- Fair Filter Logic ---
+      let fairFilterPassed = true;
+      if (filters.fairs.size > 0) {
+        const selectedFairs = [...filters.fairs];
+        const isStoryStyle = filters.styles.has('Story');
+
+        fairFilterPassed = selectedFairs.some(fair => {
+          if (isStoryStyle && fair !== 'Flamengo e Laranjeiras') {
+            return filename.includes('todas_feiras');
+          }
+          const keyword = fairKeywords[fair];
+          return keyword ? filename.includes(keyword) : false;
+        });
+      }
+
+      // --- Style Filter Logic ---
+      let styleFilterPassed = true;
+      if (filters.styles.size > 0) {
+        const selectedStyles = [...filters.styles];
+        styleFilterPassed = selectedStyles.some(style => {
+          switch (style) {
+            case 'Animações de Agricultores':
+              return filename.includes('aagr');
+            case 'Animações de Alimentos':
+              return filename.includes('aali');
+            case 'Animações de Personagens':
+              return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            case 'Fotografia':
+              return filename.includes('fot');
+            case 'Flyer':
+              return filename.includes('flyer');
+            case 'Cartoon':
+              return filename.includes('cartoon');
+            case 'Story':
+              return filename.includes('story');
+            case 'Datas Especiais':
+              return filename.includes('especial');
+            case 'Dias de Chuva':
+              return filename.includes('chuva');
+            default:
+              return false;
+          }
+        });
+      }
+
+      return fairFilterPassed && styleFilterPassed;
+    });
+  }, [items, filters, favoritedIds, showOnlyFavorites]);
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
