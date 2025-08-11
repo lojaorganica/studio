@@ -74,14 +74,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}>
+            className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
             <button
               key={fair}
               onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
+              className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : ''}`}
             >
               {fair}
             </button>
@@ -93,14 +93,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}>
+            className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
              <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
+              className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : ''}`}
             >
               {style}
             </button>
@@ -129,7 +129,6 @@ export function FilterMenu({
                         alt={item.alt}
                         layout="fill"
                         objectFit="cover"
-                        className=""
                         data-ai-hint={item['data-ai-hint']}
                     />
                  </div>
