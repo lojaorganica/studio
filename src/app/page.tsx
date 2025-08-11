@@ -154,11 +154,11 @@ export default function Home() {
   )
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-black">
        <Collapsible
         open={isFilterMenuOpen}
         onOpenChange={setFilterMenuOpen}
-        className="sticky top-0 z-30 flex flex-col border-b bg-background/95 backdrop-blur-sm"
+        className="sticky top-0 z-30 flex flex-col border-b bg-black/80 backdrop-blur-sm"
       >
         <header className="flex h-16 items-center gap-4 px-4 md:px-6">
             <div className="flex items-center gap-2">
@@ -211,7 +211,7 @@ export default function Home() {
         </header>
 
           {/* Desktop Collapsible Content */}
-        <CollapsibleContent className="hidden md:block border-t">
+        <CollapsibleContent className="hidden md:block border-t border-white/20">
           <div className="p-6">
             {filterMenuComponent}
           </div>
