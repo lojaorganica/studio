@@ -1,6 +1,7 @@
 
 "use client"
 
+import * as React from "react"
 import Image from "next/image"
 import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
