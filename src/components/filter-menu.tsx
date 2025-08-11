@@ -83,20 +83,25 @@ export function FilterMenu({
         {/* Col 1: Feiras */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
-          <button 
-            onClick={clearFairs}
-            className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
-            Todas as Feiras
-          </button>
-          {fairs.map((fair) => (
-            <button
-              key={fair}
-              onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : ''}`}
-            >
-              {fair}
+          <div className="flex flex-col">
+            <button 
+              onClick={clearFairs}
+              className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
+              Todas as Feiras
             </button>
-          ))}
+            {fairs.map((fair) => (
+              <button
+                key={fair}
+                onClick={() => handleFairChange(fair)}
+                className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : ''}`}
+              >
+                {fair}
+              </button>
+            ))}
+            <div className="mt-4">
+               <UploadButton onUpload={onUpload} />
+            </div>
+          </div>
         </div>
 
         {/* Col 2: Estilos */}
@@ -160,13 +165,12 @@ export function FilterMenu({
 
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
-           <div className="bg-gray-800 bg-opacity-50 p-4 mb-6">
-              <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-accent" /><span className="text-accent">FAVORITOS</span></h3>
+           <div className="bg-gray-800 bg-opacity-50 p-4 mb-4">
+              <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-yellow-400" /><span className="text-yellow-400">FAVORITOS</span></h3>
               <p className="text-sm text-gray-300 mb-2">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
-               <UploadButton onUpload={onUpload} />
            </div>
            
-           <div className="mb-6">
+           <div className="mb-4">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                 <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
@@ -179,7 +183,7 @@ export function FilterMenu({
 
            <div>
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
-              <p className="text-sm text-gray-300 mb-2">
+              <p className="text-sm text-gray-300 mb-2 space-y-1">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
               <div className="bg-gray-800 p-2 text-center">
