@@ -150,7 +150,7 @@ export default function Home() {
           ref={menuRef}
           onMouseLeave={handleMouseLeaveMenu}
           className={cn(
-              "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-500 ease-in-out"
+              "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-700 ease-in-out"
           )}
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 text-center">
