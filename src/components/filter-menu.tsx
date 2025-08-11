@@ -20,8 +20,6 @@ type FilterMenuProps = {
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
 }
 
-const columnPreviews = allMedia.slice(0, 9);
-
 export function FilterMenu({
   filters,
   onFiltersChange,
@@ -53,7 +51,6 @@ export function FilterMenu({
     })
   }
 
-
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fairs: new Set() }))
   const clearStyles = () => onFiltersChange(prev => ({ ...prev, styles: new Set() }))
 
@@ -63,6 +60,15 @@ export function FilterMenu({
     3: 'grid-cols-3',
     4: 'grid-cols-4',
   };
+  
+  const columnPreviews = React.useMemo(() => {
+    let count = 9;
+    if (columns === 1) count = 2;
+    else if (columns === 2) count = 6;
+    else if (columns === 3) count = 15;
+    else if (columns === 4) count = 24;
+    return allMedia.slice(0, count);
+  }, [columns]);
 
 
   return (
@@ -110,11 +116,11 @@ export function FilterMenu({
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
-          <div className="flex justify-start items-center mb-4">
+          <div className="grid grid-cols-4 gap-0 mb-4">
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
-                className={`w-10 h-10 flex items-center justify-center mr-2 ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700 hover:bg-gray-600'}`}
+                className={`w-full h-10 flex items-center justify-center ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700 hover:bg-gray-600'}`}
                 onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
               >
                 {num}
