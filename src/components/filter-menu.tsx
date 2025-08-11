@@ -71,7 +71,7 @@ export function FilterMenu({
 
         {/* Col 1: Feiras */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA AS FEIRAS</h3>
+          <h3 className="font-bold mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
             className={`w-full text-left p-2 mb-2 rounded ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
@@ -90,7 +90,7 @@ export function FilterMenu({
 
         {/* Col 2: Estilos */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA OS ESTILOS</h3>
+          <h3 className="font-bold mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
             className={`w-full text-left p-2 mb-2 rounded ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
@@ -109,7 +109,7 @@ export function FilterMenu({
 
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA O N° DE COLUNAS</h3>
+          <h3 className="font-bold mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
           <div className="flex justify-start items-center mb-4">
             {[1, 2, 3, 4].map((num) => (
               <button
