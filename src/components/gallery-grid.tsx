@@ -1,7 +1,6 @@
 
 "use client"
 
-import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
@@ -29,11 +28,12 @@ export function GalleryGrid({
     triggerOnce: false,
   })
 
-  React.useEffect(() => {
-    if (inView && hasMore) {
-      loadMore()
-    }
-  }, [inView, hasMore, loadMore])
+  // This useEffect is now commented out to disable infinite scroll.
+  // React.useEffect(() => {
+  //   if (inView && hasMore) {
+  //     loadMore()
+  //   }
+  // }, [inView, hasMore, loadMore])
 
   const columnClasses = {
     1: "sm:columns-1",
@@ -61,7 +61,7 @@ export function GalleryGrid({
       </div>
       <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
-          <Button onClick={loadMore} variant="secondary" size="lg">
+          <Button onClick={loadMore} variant="default" size="lg" className="bg-accent hover:bg-accent/90">
             Carregar Mais
           </Button>
         )}
