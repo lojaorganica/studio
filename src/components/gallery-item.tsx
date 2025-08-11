@@ -37,9 +37,9 @@ export function GalleryItem({
 
     onDragStart(item.id);
   };
-  
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault(); // This is crucial to allow a drop.
+    e.preventDefault();
     onDragEnter(item.id);
   }
 
