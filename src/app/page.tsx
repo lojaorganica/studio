@@ -44,8 +44,8 @@ export default function Home() {
   const [isMenuOpen, setMenuOpen] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement>(null)
   
-  const dragItem = React.useRef<number | null>(null);
-  const dragOverItem = React.useRef<number | null>(null);
+  const dragItemId = React.useRef<string | null>(null);
+  const dragOverItemId = React.useRef<string | null>(null);
 
 
   React.useEffect(() => {
@@ -89,7 +89,7 @@ export default function Home() {
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
-  }, [filteredItems, visibleCount]);
+  }, [filteredItems, visibleCount])
 
   const hasMore = visibleCount < filteredItems.length;
 
@@ -117,9 +117,8 @@ export default function Home() {
   }
   
   // Drag and Drop handlers
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    dragItem.current = index;
-    // This is to make the drag image transparent
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+    dragItemId.current = id;
     const crt = e.currentTarget.cloneNode(true) as HTMLElement;
     crt.style.backgroundColor = 'transparent';
     crt.style.opacity = '0';
@@ -127,20 +126,32 @@ export default function Home() {
     e.dataTransfer.setDragImage(crt, 0, 0);
   };
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    dragOverItem.current = index;
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+    dragOverItemId.current = id;
   };
   
   const handleDragEnd = () => {
-    if (dragItem.current === null || dragOverItem.current === null) return;
-    if (dragItem.current === dragOverItem.current) return;
+    if (dragItemId.current === null || dragOverItemId.current === null || dragItemId.current === dragOverItemId.current) {
+        dragItemId.current = null;
+        dragOverItemId.current = null;
+        return;
+    }
 
     setItems(oldItems => {
-       const newItems = [...oldItems];
-        const draggedItemContent = newItems.splice(dragItem.current!, 1)[0];
-        newItems.splice(dragOverItem.current!, 0, draggedItemContent);
-        dragItem.current = null;
-        dragOverItem.current = null;
+        const dragItemIndex = oldItems.findIndex(item => item.id === dragItemId.current);
+        const dragOverItemIndex = oldItems.findIndex(item => item.id === dragOverItemId.current);
+
+        if (dragItemIndex === -1 || dragOverItemIndex === -1) {
+            return oldItems;
+        }
+        
+        const newItems = [...oldItems];
+        const [draggedItem] = newItems.splice(dragItemIndex, 1);
+        newItems.splice(dragOverItemIndex, 0, draggedItem);
+
+        dragItemId.current = null;
+        dragOverItemId.current = null;
+
         return newItems;
     });
   };

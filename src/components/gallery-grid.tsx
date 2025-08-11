@@ -14,8 +14,8 @@ type GalleryGridProps = {
   onItemClick: (index: number) => void
   loadMore: () => void
   hasMore: boolean
-  handleDragStart: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
-  handleDragEnter: (e: React.DragEvent<HTMLDivElement>, index: number) => void;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, id: string) => void;
+  handleDragEnter: (e: React.DragEvent<HTMLDivElement>, id: string) => void;
   handleDragEnd: () => void;
 }
 
@@ -35,10 +35,10 @@ export function GalleryGrid({
   })
 
   React.useEffect(() => {
-    if (inView && hasMore) {
+    if (inView) {
       loadMore()
     }
-  }, [inView, hasMore, loadMore])
+  }, [inView, loadMore])
 
   const columnClasses = {
     1: "sm:columns-1",
@@ -61,8 +61,8 @@ export function GalleryGrid({
             item={item}
             index={index}
             onClick={() => onItemClick(index)}
-            onDragStart={(e) => handleDragStart(e, index)}
-            onDragEnter={(e) => handleDragEnter(e, index)}
+            onDragStart={(e) => handleDragStart(e, item.id)}
+            onDragEnter={(e) => handleDragEnter(e, item.id)}
             onDragEnd={handleDragEnd}
             onDragOver={(e) => e.preventDefault()}
           />
@@ -70,7 +70,7 @@ export function GalleryGrid({
       </div>
       <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
-           <Button onClick={loadMore} variant="secondary">Carregar Mais</Button>
+           <Button onClick={loadMore} variant="secondary" className="bg-accent hover:bg-accent/90">Carregar Mais</Button>
         )}
       </div>
     </div>
