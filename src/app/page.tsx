@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils"
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
 const MOUSE_Y_THRESHOLD_TOP = 50
-const MOUSE_Y_THRESHOLD_BOTTOM = 250
 
 // Function to shuffle an array
 const shuffleArray = (array: MediaItem[]) => {
@@ -49,6 +48,8 @@ export default function Home() {
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
   const [isMenuOpen, setMenuOpen] = React.useState(false)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const menuRef = React.useRef<HTMLDivElement>(null)
+
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -56,12 +57,8 @@ export default function Home() {
       if (!isDesktop) return;
 
       const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
-      const shouldBeClosed = event.clientY > MOUSE_Y_THRESHOLD_BOTTOM;
-
       if (shouldBeOpen) {
         setMenuOpen(true);
-      } else if (shouldBeClosed) {
-        setMenuOpen(false);
       }
     };
 
@@ -71,6 +68,15 @@ export default function Home() {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  const handleMouseLeaveMenu = (event: React.MouseEvent) => {
+    if (menuRef.current) {
+        // Check if the mouse is moving to an element outside the menu
+        if (!menuRef.current.contains(event.relatedTarget as Node)) {
+             setMenuOpen(false);
+        }
+    }
+  };
 
   const filteredItems = React.useMemo(() => {
     return items.filter((item) => {
@@ -144,28 +150,33 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full bg-black">
-      <Collapsible
-        open={isMenuOpen}
-        onOpenChange={setMenuOpen}
-        className={cn(
-          "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-500 ease-in-out"
-        )}
+      <div 
+        ref={menuRef}
+        onMouseLeave={handleMouseLeaveMenu}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 text-center">
-            <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-            <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
-        </div>
-        <CollapsibleContent>
-           <div className="p-6">
-              <FilterMenu
-                  filters={filters}
-                  onFiltersChange={setFilters}
-                  columns={columns}
-                  onColumnsChange={setColumns}
-                />
-           </div>
-        </CollapsibleContent>
-      </Collapsible>
+        <Collapsible
+          open={isMenuOpen}
+          onOpenChange={setMenuOpen}
+          className={cn(
+            "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-500 ease-in-out"
+          )}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 text-center">
+              <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+              <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
+          </div>
+          <CollapsibleContent>
+             <div className="p-6">
+                <FilterMenu
+                    filters={filters}
+                    onFiltersChange={setFilters}
+                    columns={columns}
+                    onColumnsChange={setColumns}
+                  />
+             </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
 
 
       <main className="flex-1 overflow-auto">
