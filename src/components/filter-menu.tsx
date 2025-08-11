@@ -77,8 +77,8 @@ export function FilterMenu({
   const columnPreviewsCount: Record<1 | 2 | 3 | 4, number> = {
     1: 2,
     2: 6,
-    3: 9,
-    4: 12
+    3: 15,
+    4: 24
   };
   
   const columnPreviews = React.useMemo(() => {
