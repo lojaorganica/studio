@@ -12,8 +12,8 @@ type GalleryItemProps = {
   item: MediaItemType
   isDragging: boolean
   onClick: () => void
-  onDragStart: (id: string) => void
-  onDragEnter: (id: string) => void
+  onDragStart: () => void
+  onDragEnter: () => void
   onDragEnd: () => void
 }
 
@@ -39,12 +39,12 @@ export function GalleryItem({
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
 
-    onDragStart(item.id);
+    onDragStart();
   };
   
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault(); // This is crucial to allow a drop.
-    onDragEnter(item.id);
+    onDragEnter();
   }
 
   return (

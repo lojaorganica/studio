@@ -15,9 +15,9 @@ type GalleryGridProps = {
   loadMore: () => void
   hasMore: boolean
   draggingId: string | null;
-  onDragStart: (id: string) => void;
-  onDragEnter: (id: string) => void;
-  onDragEnd: () => void;
+  onItemDragStart: (id: string) => void;
+  onItemDragEnter: (id: string) => void;
+  onItemDragEnd: () => void;
 }
 
 export function GalleryGrid({
@@ -27,9 +27,9 @@ export function GalleryGrid({
   loadMore,
   hasMore,
   draggingId,
-  onDragStart,
-  onDragEnter,
-  onDragEnd,
+  onItemDragStart,
+  onItemDragEnter,
+  onItemDragEnd,
 }: GalleryGridProps) {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -63,13 +63,13 @@ export function GalleryGrid({
             item={item}
             isDragging={draggingId === item.id}
             onClick={() => onItemClick(index)}
-            onDragStart={() => onDragStart(item.id)}
-            onDragEnter={() => onDragEnter(item.id)}
-            onDragEnd={onDragEnd}
+            onDragStart={() => onItemDragStart(item.id)}
+            onDragEnter={() => onItemDragEnter(item.id)}
+            onDragEnd={onItemDragEnd}
           />
         ))}
       </div>
-      <div className="h-20 w-full mt-10 flex justify-center items-center">
+       <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
            <Button onClick={loadMore} variant="secondary" className="bg-accent hover:bg-accent/90">Carregar Mais</Button>
         )}

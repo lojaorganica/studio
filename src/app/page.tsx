@@ -183,9 +183,9 @@ export default function Home() {
           loadMore={loadMore}
           hasMore={hasMore}
           draggingId={draggingId}
-          onDragStart={handleDragStart}
-          onDragEnter={handleDragEnter}
-          onDragEnd={handleDragEnd}
+          onItemDragStart={handleDragStart}
+          onItemDragEnter={handleDragEnter}
+          onItemDragEnd={handleDragEnd}
         />
       </main>
 
