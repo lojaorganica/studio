@@ -57,7 +57,7 @@ export default function Home() {
       if (!isDesktop) return;
 
       const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
-      if (shouldBeOpen) {
+      if (shouldBeOpen && !isMenuOpen) {
         setMenuOpen(true);
       }
     };
@@ -67,15 +67,12 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   const handleMouseLeaveMenu = (event: React.MouseEvent) => {
-    if (menuRef.current) {
-        // Check if the mouse is moving to an element outside the menu
-        if (!menuRef.current.contains(event.relatedTarget as Node)) {
-             setMenuOpen(false);
-        }
-    }
+     if (menuRef.current && !menuRef.current.contains(event.relatedTarget as Node)) {
+         setMenuOpen(false);
+     }
   };
 
   const filteredItems = React.useMemo(() => {
