@@ -30,6 +30,8 @@ type GalleryItemProps = {
   onDragStart: (id: string) => void
   onDragEnter: (id: string) => void
   onDragEnd: () => void
+  isFavorited: boolean
+  onToggleFavorite: (id: string) => void
 }
 
 export function GalleryItem({
@@ -39,10 +41,11 @@ export function GalleryItem({
   onDragStart,
   onDragEnter,
   onDragEnd,
+  isFavorited,
+  onToggleFavorite,
 }: GalleryItemProps) {
   const videoRef = React.useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = React.useState(true)
-  const [isFavorited, setIsFavorited] = React.useState(false)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     // Logic for custom drag visual
@@ -80,9 +83,9 @@ export function GalleryItem({
     }
   }
 
-  const toggleFavorite = (e: React.MouseEvent) => {
+  const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setIsFavorited(!isFavorited)
+    onToggleFavorite(item.id)
   }
 
   const handleShare = async (e: React.MouseEvent) => {
@@ -178,7 +181,7 @@ export function GalleryItem({
           <div className="flex justify-between items-center">
             {/* Favorite Button */}
             <button
-              onClick={toggleFavorite}
+              onClick={handleToggleFavorite}
               className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label="Favoritar"
             >

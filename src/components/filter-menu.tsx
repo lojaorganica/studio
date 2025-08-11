@@ -21,6 +21,8 @@ type FilterMenuProps = {
   columns: 1 | 2 | 3 | 4
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
   onUpload: (newMedia: MediaItem[]) => void
+  showOnlyFavorites: boolean
+  onToggleFavorites: () => void
 }
 
 export function FilterMenu({
@@ -30,6 +32,8 @@ export function FilterMenu({
   columns,
   onColumnsChange,
   onUpload,
+  showOnlyFavorites,
+  onToggleFavorites,
 }: FilterMenuProps) {
 
   const handleFairChange = (fair: string) => {
@@ -166,8 +170,13 @@ export function FilterMenu({
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
            <div className="bg-gray-800 bg-opacity-50 p-4 mb-4">
-              <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-yellow-400" /><span className="text-yellow-400">FAVORITOS</span></h3>
-              <p className="text-sm text-gray-300 mb-2">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
+               <button
+                  onClick={onToggleFavorites}
+                  className={`w-full text-left p-2 text-xl flex items-center hover:bg-yellow-400/80 ${showOnlyFavorites ? 'bg-yellow-400 text-black' : 'text-yellow-400'}`}
+                >
+                  <Star className={`w-5 h-5 mr-2 ${showOnlyFavorites ? 'text-black' : 'text-yellow-400'}`} />
+                  <span className="font-bold">FAVORITOS</span>
+                </button>
            </div>
            
            <div className="mb-4">

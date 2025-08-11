@@ -18,6 +18,8 @@ type GalleryGridProps = {
   onItemDragStart: (id: string) => void;
   onItemDragEnter: (id: string) => void;
   onItemDragEnd: () => void;
+  favoritedIds: Set<string>;
+  onToggleFavorite: (id: string) => void;
 }
 
 export function GalleryGrid({
@@ -30,6 +32,8 @@ export function GalleryGrid({
   onItemDragStart,
   onItemDragEnter,
   onItemDragEnd,
+  favoritedIds,
+  onToggleFavorite,
 }: GalleryGridProps) {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -66,6 +70,8 @@ export function GalleryGrid({
             onDragStart={onItemDragStart}
             onDragEnter={onItemDragEnter}
             onDragEnd={onItemDragEnd}
+            isFavorited={favoritedIds.has(item.id)}
+            onToggleFavorite={onToggleFavorite}
           />
         ))}
       </div>

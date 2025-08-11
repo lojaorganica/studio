@@ -46,6 +46,25 @@ export default function Home() {
   const [draggingId, setDraggingId] = React.useState<string | null>(null);
   const [dragOverItemId, setDragOverItemId] = React.useState<string | null>(null);
 
+  const [favoritedIds, setFavoritedIds] = React.useState<Set<string>>(new Set());
+  const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
+
+  const toggleFavorite = (id: string) => {
+    setFavoritedIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleShowOnlyFavorites = () => {
+    setShowOnlyFavorites(prev => !prev);
+  }
+
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -70,12 +89,15 @@ export default function Home() {
 
 
   const filteredItems = React.useMemo(() => {
+    if (showOnlyFavorites) {
+        return items.filter(item => favoritedIds.has(item.id));
+    }
     return items.filter((item) => {
       const fairFilter = filters.fairs.size === 0 || [...filters.fairs].some(fair => item.fair.includes(fair))
       const styleFilter = filters.styles.size === 0 || filters.styles.has(item.style)
       return fairFilter && styleFilter
     })
-  }, [items, filters])
+  }, [items, filters, favoritedIds, showOnlyFavorites])
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
@@ -146,7 +168,7 @@ export default function Home() {
   // Reset visibility when filters change
   React.useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE_ITEMS);
-  }, [filters]);
+  }, [filters, showOnlyFavorites]);
 
   return (
     <div className="min-h-screen w-full bg-background text-foreground">
@@ -171,6 +193,8 @@ export default function Home() {
                   columns={columns}
                   onColumnsChange={setColumns}
                   onUpload={handleUploadMedia}
+                  showOnlyFavorites={showOnlyFavorites}
+                  onToggleFavorites={toggleShowOnlyFavorites}
                 />
             </div>
         </div>
@@ -187,6 +211,8 @@ export default function Home() {
           onItemDragStart={handleDragStart}
           onItemDragEnter={handleDragEnter}
           onItemDragEnd={handleDragEnd}
+          favoritedIds={favoritedIds}
+          onToggleFavorite={toggleFavorite}
         />
       </main>
 
