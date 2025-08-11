@@ -1,3 +1,4 @@
+
 "use client"
 
 import type { Dispatch, SetStateAction } from "react"
@@ -128,7 +129,6 @@ export function FilterMenu({
           </div>
         </div>
       </div>
-       <p className="text-xs text-muted-foreground mt-6 text-center">Arraste e solte para reordenar as obras de arte.</p>
     </>
   )
 }

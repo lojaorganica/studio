@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -18,8 +19,24 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
 
+// Function to shuffle an array
+const shuffleArray = (array: MediaItem[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
+
 export default function Home() {
-  const [items, setItems] = React.useState<MediaItem[]>(allMedia)
+  const [items, setItems] = React.useState<MediaItem[]>([]);
+  
+  React.useEffect(() => {
+    setItems(shuffleArray(allMedia));
+  }, []);
+
   const [columns, setColumns] = React.useState<1 | 2 | 3 | 4>(3)
   const [filters, setFilters] = React.useState<Filters>({
     fairs: new Set(),
@@ -92,7 +109,6 @@ export default function Home() {
         author: 'Local Upload',
         fair: 'Art Basel', // Default values
         style: 'Abstract', // Default values
-        'data-ai-hint': 'local upload',
       };
       newItems.push(newItem);
     }
@@ -115,7 +131,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Collapsible
+       <Collapsible
         asChild
         open={isFilterMenuOpen}
         onOpenChange={setFilterMenuOpen}
@@ -139,6 +155,7 @@ export default function Home() {
                     </Button>
                   </CollapsibleTrigger>
               </div>
+              
               {/* Mobile filter button */}
               <Sheet>
                 <SheetTrigger asChild>
@@ -178,16 +195,17 @@ export default function Home() {
           </CollapsibleContent>
         </header>
       </Collapsible>
+
       <main className="flex-1 overflow-auto">
         <GalleryGrid
           items={itemsToShow}
-          setItems={setItems}
           columns={columns}
           onItemClick={openLightbox}
           loadMore={loadMore}
           hasMore={hasMore}
         />
       </main>
+
       {lightboxOpen && (
         <Lightbox
           item={filteredItems[activeIndex]}
