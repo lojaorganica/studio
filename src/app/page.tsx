@@ -68,6 +68,13 @@ export default function Home() {
   const handleMouseLeaveMenu = () => {
      setMenuOpen(false);
   };
+  
+  const handleUploadMedia = (newMediaItems: MediaItem[]) => {
+    setItems(prevItems => [...newMediaItems, ...prevItems]);
+    // Optionally scroll to top to show the new items
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
 
   const filteredItems = React.useMemo(() => {
     return items.filter((item) => {
@@ -117,8 +124,9 @@ export default function Home() {
         ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out will-change-transform",
-            isMenuOpen ? "translate-y-0" : "-translate-y-full"
+            "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out",
+            isMenuOpen ? "translate-y-0" : "-translate-y-full",
+            "will-change-transform"
         )}
       >
         <div className="bg-black/80 backdrop-blur-sm">
@@ -132,6 +140,7 @@ export default function Home() {
                   onFiltersChange={setFilters}
                   columns={columns}
                   onColumnsChange={setColumns}
+                  onUpload={handleUploadMedia}
                 />
             </div>
         </div>

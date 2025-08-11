@@ -4,8 +4,9 @@
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
-import { fairs, styles, allMedia } from "@/lib/media"
-import { Star } from "lucide-react"
+import { fairs, styles, allMedia, type MediaItem } from "@/lib/media"
+import { Star, Upload } from "lucide-react"
+import { Button } from "./ui/button"
 
 export type Filters = {
   fairs: Set<string>
@@ -17,6 +18,7 @@ type FilterMenuProps = {
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
+  onUpload: (newItems: MediaItem[]) => void
 }
 
 const columnPreviews = allMedia.slice(0, 9);
@@ -26,7 +28,10 @@ export function FilterMenu({
   onFiltersChange,
   columns,
   onColumnsChange,
+  onUpload
 }: FilterMenuProps) {
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleFairChange = (fair: string) => {
     onFiltersChange((prevFilters) => {
@@ -51,6 +56,37 @@ export function FilterMenu({
       return { ...prevFilters, styles: newSet }
     })
   }
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files) return;
+
+    const newItems: MediaItem[] = [];
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const src = e.target?.result as string;
+        const type = file.type.startsWith('image/') ? 'image' : 'video';
+        
+        const newItem: MediaItem = {
+          id: `local-${Date.now()}-${Math.random()}`,
+          type: type,
+          src: src,
+          alt: file.name,
+          author: "Usuário Local",
+          fair: "Tijuca", // Default or ask user
+          style: "Fotografia", // Default or ask user
+        };
+        newItems.push(newItem);
+
+        // When the last file is processed, update the state
+        if (newItems.length === files.length) {
+            onUpload(newItems);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fairs: new Set() }))
   const clearStyles = () => onFiltersChange(prev => ({ ...prev, styles: new Set() }))
@@ -131,8 +167,20 @@ export function FilterMenu({
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-5">
            <div className="bg-gray-800 bg-opacity-50 p-4 rounded-lg mb-6">
-              <h3 className="font-bold flex items-center mb-2"><Star className="w-5 h-5 mr-2 text-yellow-400" />FAVORITOS</h3>
-              <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
+              <h3 className="font-bold flex items-center mb-2"><Upload className="w-5 h-5 mr-2 text-accent" />UPLOAD DE MÍDIAS</h3>
+              <p className="text-sm text-gray-300 mb-4">Carregue suas próprias imagens e vídeos para visualizá-los na galeria.</p>
+               <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+                multiple
+                accept="image/*,video/*"
+                className="hidden"
+              />
+              <Button onClick={() => fileInputRef.current?.click()} className="w-full bg-accent hover:bg-accent/90">
+                <Upload className="w-4 h-4 mr-2" />
+                Escolher Arquivos
+              </Button>
            </div>
            
            <div className="mb-6">
