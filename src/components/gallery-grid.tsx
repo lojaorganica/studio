@@ -53,6 +53,11 @@ export function GalleryGrid({
     4: "sm:columns-4",
   }
 
+  const handleDragEnd = () => {
+    document.body.classList.remove("dragging");
+    onItemDragEnd();
+  }
+
   return (
     <div className="p-4 md:p-6">
       <div
@@ -60,6 +65,7 @@ export function GalleryGrid({
           "columns-1 gap-4 md:gap-6",
           columnClasses[columns]
         )}
+        onDragEnd={handleDragEnd}
       >
         {items.map((item, index) => (
           <GalleryItem

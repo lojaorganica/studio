@@ -48,7 +48,6 @@ export function GalleryItem({
   const [isPlaying, setIsPlaying] = React.useState(true)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // Logic for custom drag visual
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
