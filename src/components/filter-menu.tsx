@@ -74,7 +74,7 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 mb-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
@@ -93,7 +93,7 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 mb-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
