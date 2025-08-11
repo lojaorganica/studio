@@ -7,6 +7,7 @@ import Image from "next/image"
 import { fairs, styles, allMedia, type MediaItem } from "@/lib/media"
 import { Star, Upload } from "lucide-react"
 import { Button } from "./ui/button"
+import { cn } from "@/lib/utils"
 
 export type Filters = {
   fairs: Set<string>
@@ -91,6 +92,13 @@ export function FilterMenu({
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fairs: new Set() }))
   const clearStyles = () => onFiltersChange(prev => ({ ...prev, styles: new Set() }))
 
+  const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
+    1: 'grid-cols-1',
+    2: 'grid-cols-2',
+    3: 'grid-cols-3',
+    4: 'grid-cols-4',
+  };
+
 
   return (
     <div className="text-white pt-8">
@@ -148,7 +156,7 @@ export function FilterMenu({
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-1">
+          <div className={cn("grid gap-1", columnGridClasses[columns])}>
             {columnPreviews.map(item => (
                  <div key={item.id} className="relative aspect-square">
                     <Image
@@ -167,20 +175,8 @@ export function FilterMenu({
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-5">
            <div className="bg-gray-800 bg-opacity-50 p-4 rounded-lg mb-6">
-              <h3 className="font-bold flex items-center mb-2"><Upload className="w-5 h-5 mr-2 text-accent" />UPLOAD DE MÍDIAS</h3>
-              <p className="text-sm text-gray-300 mb-4">Carregue suas próprias imagens e vídeos para visualizá-los na galeria.</p>
-               <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                multiple
-                accept="image/*,video/*"
-                className="hidden"
-              />
-              <Button onClick={() => fileInputRef.current?.click()} className="w-full bg-accent hover:bg-accent/90">
-                <Upload className="w-4 h-4 mr-2" />
-                Escolher Arquivos
-              </Button>
+              <h3 className="font-bold flex items-center mb-2"><Star className="w-5 h-5 mr-2 text-accent" />FAVORITOS</h3>
+              <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
            </div>
            
            <div className="mb-6">
