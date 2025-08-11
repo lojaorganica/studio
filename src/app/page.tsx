@@ -175,9 +175,8 @@ export default function Home() {
       <div 
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out bg-black/90",
-            isMenuOpen ? "translate-y-0" : "-translate-y-full",
-            "will-change-transform backdrop-blur-sm"
+            "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-700 ease-in-out will-change-transform backdrop-blur-sm",
+            isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
         <div className="pt-6 pb-6">
