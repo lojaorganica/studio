@@ -2,12 +2,6 @@
 "use client"
 
 import * as React from "react"
-import {
-  Collapsible,
-  CollapsibleContent,
-} from "@/components/ui/collapsible"
-import { Filter, Leaf, Upload, X } from "lucide-react"
-
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
@@ -48,7 +42,6 @@ export default function Home() {
   
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
   const [isMenuOpen, setMenuOpen] = React.useState(false)
-  const fileInputRef = React.useRef<HTMLInputElement>(null)
   const menuRef = React.useRef<HTMLDivElement>(null)
 
 
@@ -57,9 +50,8 @@ export default function Home() {
       const isDesktopOrTablet = window.innerWidth >= TABLET_BREAKPOINT;
       if (!isDesktopOrTablet) return;
 
-      const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
-      if (shouldBeOpen !== isMenuOpen) {
-        setMenuOpen(shouldBeOpen);
+      if (event.clientY < MOUSE_Y_THRESHOLD_TOP) {
+        setMenuOpen(true);
       }
     };
 
@@ -68,7 +60,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [isMenuOpen]);
+  }, []);
 
   const handleMouseLeaveMenu = () => {
      setMenuOpen(false);
@@ -111,34 +103,6 @@ export default function Home() {
     )
   }
   
-  const handleUploadClick = () => {
-    fileInputRef.current?.click()
-  }
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      handleMediaUpload(event.target.files)
-    }
-  }
-
-  const handleMediaUpload = (files: FileList) => {
-    const newItems: MediaItem[] = [];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const newItem: MediaItem = {
-        id: `${Date.now()}-${i}`,
-        type: file.type.startsWith('image/') ? 'image' : 'video',
-        src: URL.createObjectURL(file),
-        alt: file.name,
-        author: 'Local Upload',
-        fair: 'Tijuca', // Default values
-        style: 'Fotografia', // Default values
-      };
-      newItems.push(newItem);
-    }
-    setItems((prevItems) => [...newItems, ...prevItems]);
-  };
-
   // Reset visibility when filters change
   React.useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE_ITEMS);
