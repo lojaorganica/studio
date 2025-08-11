@@ -116,7 +116,8 @@ export default function Home() {
 
     return baseItems.filter((item) => {
       const srcLower = item.src.toLowerCase();
-      const filename = srcLower.split('/').pop() || '';
+      // Use alt as a reliable source for filename, especially for data URIs
+      const filename = item.alt.toLowerCase();
 
       // --- Fair Filter Logic ---
       let fairFilterPassed = true;
@@ -144,7 +145,7 @@ export default function Home() {
             case 'Animações de Alimentos':
               return filename.includes('aali');
             case 'Animações de Personagens':
-              return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+              return filename.startsWith('ap') || filename.includes('ap_story') || filename.includes('as_story');
             case 'Fotografia':
               return filename.includes('fot');
             case 'Flyer':
@@ -241,13 +242,12 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
       <div
-        key="filter-menu-container"
-        onMouseEnter={handleMouseEnterMenu}
-        onMouseLeave={handleMouseLeaveMenu}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
+        onMouseEnter={handleMouseEnterMenu}
+        onMouseLeave={handleMouseLeaveMenu}
       >
         <div className="pt-6 pb-6">
            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
