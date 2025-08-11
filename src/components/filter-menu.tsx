@@ -169,15 +169,18 @@ export function FilterMenu({
 
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
-           <div className="bg-gray-800 bg-opacity-50 p-4 mb-4">
-               <button
-                  onClick={onToggleFavorites}
-                  className={`w-full text-left p-2 text-xl flex items-center hover:bg-yellow-400/80 ${showOnlyFavorites ? 'bg-yellow-400 text-black' : 'text-yellow-400'}`}
-                >
-                  <Star className={`w-5 h-5 mr-2 ${showOnlyFavorites ? 'text-black' : 'text-yellow-400'}`} />
-                  <span className="font-bold">FAVORITOS</span>
-                </button>
-           </div>
+            <button
+              onClick={onToggleFavorites}
+              className={cn(
+                'w-full p-2 text-xl flex items-center justify-center mb-4',
+                showOnlyFavorites 
+                  ? 'bg-accent text-accent-foreground' 
+                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
+              )}
+            >
+              <Star className="w-5 h-5 mr-2" />
+              <span className="font-bold">FAVORITOS</span>
+            </button>
            
            <div className="mb-4">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
