@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -6,6 +7,7 @@ import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Badge } from "./ui/badge"
+import { Heart, Share2, Download, Play, Pause } from "lucide-react"
 
 type GalleryItemProps = {
   item: MediaItemType
@@ -24,41 +26,94 @@ export function GalleryItem({
   onDragEnter,
   onDragEnd,
 }: GalleryItemProps) {
+  const videoRef = React.useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = React.useState(true)
+  const [isFavorited, setIsFavorited] = React.useState(false)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // Set the drag effect to move
     e.dataTransfer.effectAllowed = 'move';
-    
-    // Create a transparent drag image to hide the default ghost
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
-
-    // Add a global class to the body for the grabbing cursor
     document.body.classList.add("dragging");
-    
-    // Trigger the parent's drag start logic
     onDragStart(item.id);
   };
   
   const handleDragEnd = () => {
-    // Remove the global cursor styling class
     document.body.classList.remove("dragging");
-    // Trigger the parent's drag end logic
     onDragEnd();
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault(); // This is crucial for drop to work
+    e.preventDefault();
     onDragEnter(item.id);
   }
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    const video = videoRef.current
+    if (video) {
+      if (video.paused) {
+        video.play()
+        setIsPlaying(true)
+      } else {
+        video.pause()
+        setIsPlaying(false)
+      }
+    }
+  }
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsFavorited(!isFavorited)
+  }
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item.alt,
+          text: `Confira esta arte do Circuito Carioca de Feiras Orgânicas: ${item.alt}`,
+          url: window.location.href, // Or a direct link to the item if available
+        });
+      } catch (error) {
+        console.error("Erro ao compartilhar:", error)
+      }
+    } else {
+      alert("O compartilhamento não é suportado neste navegador.")
+    }
+  }
+
+  const handleDownload = async (e: React.MouseEvent) => {
+      e.stopPropagation();
+      try {
+          const response = await fetch(item.src);
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          // Extract filename from src or use alt
+          const filename = item.src.split('/').pop() || item.alt.replace(/ /g, '_');
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+      } catch (error) {
+          console.error("Erro ao fazer o download:", error);
+          alert("Não foi possível fazer o download do arquivo.");
+      }
+  };
+
 
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid cursor-grab",
+        "group relative mb-4 break-inside-avoid cursor-grab active:cursor-grabbing",
         isDragging && "opacity-50"
       )}
       draggable
@@ -70,11 +125,9 @@ export function GalleryItem({
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
       >
-        <button
+        <div // This div is the main click target, moved from button to avoid event conflicts
           onClick={onClick}
-          className="w-full h-full"
-          aria-label={`View details for ${item.alt}`}
-          draggable={false} // Prevent button from being dragged itself
+          className="w-full h-full cursor-pointer"
         >
           {item.type === 'image' ? (
             <Image
@@ -88,6 +141,7 @@ export function GalleryItem({
             />
           ) : (
             <video
+              ref={videoRef}
               src={item.src}
               loop
               muted
@@ -98,16 +152,59 @@ export function GalleryItem({
             />
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </button>
-        <div className="absolute bottom-0 left-0 p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <h3 className="font-bold text-white text-lg drop-shadow-md">{item.alt}</h3>
-            <p className="text-sm text-white/80 drop-shadow-md">{item.author}</p>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         </div>
+        
         <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Badge variant="secondary">{item.fair}</Badge>
             <Badge variant="secondary">{item.style}</Badge>
         </div>
+
+        {/* Action Buttons Overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="flex justify-between items-center">
+            {/* Favorite Button */}
+            <button
+              onClick={toggleFavorite}
+              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+              aria-label="Favoritar"
+            >
+              <Heart className={cn("w-5 h-5", isFavorited ? "fill-red-500 text-red-500" : "fill-transparent")} />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {/* Share Button */}
+              <button
+                onClick={handleShare}
+                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+                aria-label="Compartilhar"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
+              {/* Download Button */}
+              <button
+                onClick={handleDownload}
+                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+                aria-label="Download"
+              >
+                <Download className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Play/Pause button only for videos */}
+        {item.type === 'video' && (
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button
+              onClick={togglePlay}
+              className="p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+              aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+            >
+              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+            </button>
+          </div>
+        )}
       </Card>
     </div>
   )
