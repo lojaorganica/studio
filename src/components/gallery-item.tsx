@@ -174,7 +174,7 @@ export function GalleryItem({
         </div>
 
         {/* Action Buttons Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex justify-between items-center">
             {/* Favorite Button */}
             <button
@@ -214,7 +214,7 @@ export function GalleryItem({
               className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors pointer-events-auto focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label={isPlaying ? "Pausar" : "Reproduzir"}
             >
-              {isPlaying ? <PauseIcon className="w-10 h-10" /> : <PlayIcon className="w-10 h-10" />}
+              {isPlaying ? <PauseIcon className="w-12 h-12" /> : <PlayIcon className="w-12 h-12" />}
             </button>
           </div>
         )}
