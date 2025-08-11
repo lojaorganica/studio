@@ -114,7 +114,7 @@ export default function Home() {
         ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out lg:block",
+            "fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out",
             isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -132,10 +132,6 @@ export default function Home() {
           </div>
       </div>
       
-      <div className="lg:hidden">
-        {/* Mobile/Tablet sidebar goes here if needed, or trigger for it */}
-      </div>
-
       <main className="flex-1 overflow-auto">
         <GalleryGrid
           items={itemsToShow}
