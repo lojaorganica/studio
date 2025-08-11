@@ -14,9 +14,10 @@ type GalleryGridProps = {
   onItemClick: (index: number) => void
   loadMore: () => void
   hasMore: boolean
-  handleDragStart: (e: React.DragEvent<HTMLDivElement>, id: string) => void;
-  handleDragEnter: (e: React.DragEvent<HTMLDivElement>, id: string) => void;
-  handleDragEnd: () => void;
+  draggingId: string | null;
+  onDragStart: (id: string) => void;
+  onDragEnter: (id: string) => void;
+  onDragEnd: () => void;
 }
 
 export function GalleryGrid({
@@ -25,9 +26,10 @@ export function GalleryGrid({
   onItemClick,
   loadMore,
   hasMore,
-  handleDragStart,
-  handleDragEnter,
-  handleDragEnd,
+  draggingId,
+  onDragStart,
+  onDragEnter,
+  onDragEnd,
 }: GalleryGridProps) {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -57,18 +59,17 @@ export function GalleryGrid({
       >
         {items.map((item, index) => (
           <GalleryItem
-            key={`${item.id}-${index}`}
+            key={item.id}
             item={item}
-            index={index}
+            isDragging={draggingId === item.id}
             onClick={() => onItemClick(index)}
-            onDragStart={(e) => handleDragStart(e, item.id)}
-            onDragEnter={(e) => handleDragEnter(e, item.id)}
-            onDragEnd={handleDragEnd}
-            onDragOver={(e) => e.preventDefault()}
+            onDragStart={() => onDragStart(item.id)}
+            onDragEnter={() => onDragEnter(item.id)}
+            onDragEnd={onDragEnd}
           />
         ))}
       </div>
-      <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
+      <div className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
            <Button onClick={loadMore} variant="secondary" className="bg-accent hover:bg-accent/90">Carregar Mais</Button>
         )}

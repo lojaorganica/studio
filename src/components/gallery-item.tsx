@@ -10,46 +10,51 @@ import { Badge } from "./ui/badge"
 
 type GalleryItemProps = {
   item: MediaItemType
-  index: number
+  isDragging: boolean
   onClick: () => void
-  onDragStart: (e: React.DragEvent<HTMLDivElement>) => void
-  onDragEnter: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragStart: () => void
+  onDragEnter: () => void
   onDragEnd: () => void
-  onDragOver: (e: React.DragEvent<HTMLDivElement>) => void
 }
 
 export function GalleryItem({
   item,
-  index,
+  isDragging,
   onClick,
-  ...dragProps
+  onDragStart,
+  onDragEnter,
+  onDragEnd,
 }: GalleryItemProps) {
-  const [isDragging, setIsDragging] = React.useState(false);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    if (dragProps.onDragStart) {
-      dragProps.onDragStart(e);
-    }
-  };
+    // Set a transparent drag image to hide the default browser one
+    const crt = e.currentTarget.cloneNode(true) as HTMLElement;
+    crt.style.position = 'absolute';
+    crt.style.top = '0';
+    crt.style.left = '-9999px';
+    document.body.appendChild(crt);
+    e.dataTransfer.setDragImage(crt, 0, 0);
+    
+    // Defer removal to avoid flicker
+    setTimeout(() => {
+      document.body.removeChild(crt);
+    }, 0);
 
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    if (dragProps.onDragEnd) {
-      dragProps.onDragEnd();
-    }
+    onDragStart();
   };
 
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid cursor-grab",
-        isDragging ? "opacity-50" : "opacity-100"
+        "group relative mb-4 break-inside-avoid",
+        "cursor-grab active:cursor-grabbing",
+        isDragging && "opacity-50"
       )}
       draggable
       onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      {...dragProps}
+      onDragEnter={onDragEnter}
+      onDragEnd={onDragEnd}
+      onDragOver={(e) => e.preventDefault()}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"

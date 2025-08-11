@@ -44,7 +44,7 @@ export default function Home() {
   const [isMenuOpen, setMenuOpen] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement>(null)
   
-  const dragItemId = React.useRef<string | null>(null);
+  const [draggingId, setDraggingId] = React.useState<string | null>(null);
   const dragOverItemId = React.useRef<string | null>(null);
 
 
@@ -117,28 +117,23 @@ export default function Home() {
   }
   
   // Drag and Drop handlers
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
-    dragItemId.current = id;
-    const crt = e.currentTarget.cloneNode(true) as HTMLElement;
-    crt.style.backgroundColor = 'transparent';
-    crt.style.opacity = '0';
-    document.body.appendChild(crt);
-    e.dataTransfer.setDragImage(crt, 0, 0);
+  const handleDragStart = (id: string) => {
+    setDraggingId(id);
   };
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, id: string) => {
+  const handleDragEnter = (id: string) => {
     dragOverItemId.current = id;
   };
   
   const handleDragEnd = () => {
-    if (dragItemId.current === null || dragOverItemId.current === null || dragItemId.current === dragOverItemId.current) {
-        dragItemId.current = null;
+    if (draggingId === null || dragOverItemId.current === null || draggingId === dragOverItemId.current) {
+        setDraggingId(null);
         dragOverItemId.current = null;
         return;
     }
 
     setItems(oldItems => {
-        const dragItemIndex = oldItems.findIndex(item => item.id === dragItemId.current);
+        const dragItemIndex = oldItems.findIndex(item => item.id === draggingId);
         const dragOverItemIndex = oldItems.findIndex(item => item.id === dragOverItemId.current);
 
         if (dragItemIndex === -1 || dragOverItemIndex === -1) {
@@ -148,12 +143,12 @@ export default function Home() {
         const newItems = [...oldItems];
         const [draggedItem] = newItems.splice(dragItemIndex, 1);
         newItems.splice(dragOverItemIndex, 0, draggedItem);
-
-        dragItemId.current = null;
-        dragOverItemId.current = null;
-
+        
         return newItems;
     });
+
+    setDraggingId(null);
+    dragOverItemId.current = null;
   };
 
 
@@ -197,9 +192,10 @@ export default function Home() {
           onItemClick={openLightbox}
           loadMore={loadMore}
           hasMore={hasMore}
-          handleDragStart={handleDragStart}
-          handleDragEnter={handleDragEnter}
-          handleDragEnd={handleDragEnd}
+          draggingId={draggingId}
+          onDragStart={handleDragStart}
+          onDragEnter={handleDragEnter}
+          onDragEnd={handleDragEnd}
         />
       </main>
 
