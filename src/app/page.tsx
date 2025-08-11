@@ -48,6 +48,7 @@ export default function Home() {
 
   const [favoritedIds, setFavoritedIds] = React.useState<Set<string>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
+  const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
 
   const toggleFavorite = (id: string) => {
     setFavoritedIds(prev => {
@@ -77,8 +78,17 @@ export default function Home() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const handleMouseEnterMenu = () => {
+    if (menuLeaveTimer.current) {
+      clearTimeout(menuLeaveTimer.current);
+      menuLeaveTimer.current = null;
+    }
+  };
+
   const handleMouseLeaveMenu = () => {
-     setMenuOpen(false);
+    menuLeaveTimer.current = setTimeout(() => {
+      setMenuOpen(false);
+    }, 100);
   };
   
   const handleUploadMedia = (newMediaItems: MediaItem[]) => {
@@ -174,9 +184,10 @@ export default function Home() {
     <div className="min-h-screen w-full bg-background text-foreground">
       <div 
         key="filter-menu-container"
+        onMouseEnter={handleMouseEnterMenu}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-700 ease-in-out will-change-transform backdrop-blur-sm",
+            "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
             isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
