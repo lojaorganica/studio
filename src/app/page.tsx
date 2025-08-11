@@ -149,7 +149,7 @@ export default function Home() {
   }, [filters]);
 
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="min-h-screen w-full bg-background text-foreground">
       <div 
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
@@ -158,18 +158,17 @@ export default function Home() {
             "will-change-transform"
         )}
       >
-        <div className="bg-black/80 backdrop-blur-sm pt-6">
+        <div className="bg-black/80 backdrop-blur-sm pt-6 pb-6">
            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
                 <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
                 <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
             </div>
-            <div className="p-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <FilterMenu
                   filters={filters}
                   onFiltersChange={setFilters}
                   columns={columns}
                   onColumnsChange={setColumns}
-                  onUpload={handleUploadMedia}
                 />
             </div>
         </div>
