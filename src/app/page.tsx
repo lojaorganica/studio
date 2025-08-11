@@ -57,8 +57,8 @@ export default function Home() {
       if (!isDesktop) return;
 
       const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
-      if (shouldBeOpen) {
-        setMenuOpen(true);
+      if (shouldBeOpen !== isMenuOpen) {
+        setMenuOpen(shouldBeOpen);
       }
     };
 
@@ -67,7 +67,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [isMenuOpen]);
 
   const handleMouseLeaveMenu = () => {
      setMenuOpen(false);
@@ -149,7 +149,7 @@ export default function Home() {
         ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out",
+            "fixed top-0 left-0 right-0 z-30 bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out",
             isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -166,7 +166,6 @@ export default function Home() {
               />
           </div>
       </div>
-
 
       <main className="flex-1 overflow-auto">
         <GalleryGrid
