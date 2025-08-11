@@ -15,6 +15,7 @@ import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
 import { allMedia, type MediaItem } from "@/lib/media"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
@@ -154,11 +155,13 @@ export default function Home() {
   )
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-black">
+    <div className="min-h-screen w-full bg-black">
        <Collapsible
         open={isFilterMenuOpen}
         onOpenChange={setFilterMenuOpen}
-        className="sticky top-0 z-30 flex flex-col border-b bg-black/80 backdrop-blur-sm"
+        className={cn(
+          "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-500 ease-in-out"
+        )}
       >
         <header className="flex h-16 items-center gap-4 px-4 md:px-6">
             <div className="flex items-center gap-2">
