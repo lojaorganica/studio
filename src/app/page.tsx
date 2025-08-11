@@ -18,6 +18,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
+const MOUSE_Y_THRESHOLD_TOP = 50
+const MOUSE_Y_THRESHOLD_BOTTOM = 250
 
 // Function to shuffle an array
 const shuffleArray = (array: MediaItem[]) => {
@@ -49,6 +51,28 @@ export default function Home() {
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
   const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(false)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
+
+  React.useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const isDesktop = window.innerWidth >= 768; // md breakpoint
+      if (!isDesktop) return;
+
+      const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
+      const shouldBeClosed = event.clientY > MOUSE_Y_THRESHOLD_BOTTOM;
+
+      if (shouldBeOpen) {
+        setFilterMenuOpen(true);
+      } else if (shouldBeClosed) {
+        setFilterMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const filteredItems = React.useMemo(() => {
     return items.filter((item) => {
@@ -132,12 +156,11 @@ export default function Home() {
   return (
     <div className="flex min-h-screen w-full flex-col">
        <Collapsible
-        asChild
         open={isFilterMenuOpen}
         onOpenChange={setFilterMenuOpen}
+        className="sticky top-0 z-30 flex flex-col border-b bg-background/95 backdrop-blur-sm"
       >
-        <header className="sticky top-0 z-30 flex flex-col border-b bg-background/95 backdrop-blur-sm">
-          <div className="flex h-16 items-center gap-4 px-4 md:px-6">
+        <header className="flex h-16 items-center gap-4 px-4 md:px-6">
             <div className="flex items-center gap-2">
               <Leaf className="h-6 w-6 text-primary" />
               <h1 className="text-lg font-semibold tracking-wider text-foreground">
@@ -185,15 +208,14 @@ export default function Home() {
                 Carregar
               </Button>
             </div>
-          </div>
+        </header>
 
           {/* Desktop Collapsible Content */}
-          <CollapsibleContent className="hidden md:block border-t">
-            <div className="p-6">
-              {filterMenuComponent}
-            </div>
-          </CollapsibleContent>
-        </header>
+        <CollapsibleContent className="hidden md:block border-t">
+          <div className="p-6">
+            {filterMenuComponent}
+          </div>
+        </CollapsibleContent>
       </Collapsible>
 
       <main className="flex-1 overflow-auto">
