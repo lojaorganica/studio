@@ -134,7 +134,11 @@ export function FilterMenu({
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
-                className={`w-full p-2 text-xl flex items-center justify-center ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-black hover:bg-gray-600'}`}
+                className={cn('w-full p-2 text-xl flex items-center justify-center', 
+                  columns === num 
+                  ? 'bg-accent text-accent-foreground' 
+                  : 'bg-black hover:bg-gray-600'
+                )}
                 onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
               >
                 {num}
