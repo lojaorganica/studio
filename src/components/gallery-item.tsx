@@ -179,28 +179,28 @@ export function GalleryItem({
             {/* Favorite Button */}
             <button
               onClick={toggleFavorite}
-              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label="Favoritar"
             >
-              <Star className={cn("w-5 h-5", isFavorited ? "fill-yellow-400 text-yellow-400" : "fill-transparent")} />
+              <Star className={cn("w-6 h-6", isFavorited ? "fill-yellow-400 text-yellow-400" : "fill-transparent")} />
             </button>
 
             <div className="flex items-center gap-2">
               {/* Share Button */}
               <button
                 onClick={handleShare}
-                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
                 aria-label="Compartilhar"
               >
-                <Share2 className="w-5 h-5" />
+                <Share2 className="w-6 h-6" />
               </button>
               {/* Download Button */}
               <button
                 onClick={handleDownload}
-                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+                className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
                 aria-label="Download"
               >
-                <Download className="w-5 h-5" />
+                <Download className="w-6 h-6" />
               </button>
             </div>
           </div>
@@ -211,10 +211,10 @@ export function GalleryItem({
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <button
               onClick={togglePlay}
-              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors pointer-events-auto"
+              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors pointer-events-auto focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label={isPlaying ? "Pausar" : "Reproduzir"}
             >
-              {isPlaying ? <PauseIcon className="w-8 h-8" /> : <PlayIcon className="w-8 h-8" />}
+              {isPlaying ? <PauseIcon className="w-10 h-10" /> : <PlayIcon className="w-10 h-10" />}
             </button>
           </div>
         )}
