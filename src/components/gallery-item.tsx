@@ -7,7 +7,7 @@ import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Badge } from "./ui/badge"
-import { Heart, Share2, Download, Play, Pause } from "lucide-react"
+import { Star, Share2, Download, Play, Pause } from "lucide-react"
 
 type GalleryItemProps = {
   item: MediaItemType
@@ -31,12 +31,13 @@ export function GalleryItem({
   const [isFavorited, setIsFavorited] = React.useState(false)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.effectAllowed = 'move';
+    // Logic for custom drag visual
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
+    e.dataTransfer.effectAllowed = 'move';
     document.body.classList.add("dragging");
     onDragStart(item.id);
   };
@@ -77,7 +78,7 @@ export function GalleryItem({
         await navigator.share({
           title: item.alt,
           text: `Confira esta arte do Circuito Carioca de Feiras Orgânicas: ${item.alt}`,
-          url: window.location.href, // Or a direct link to the item if available
+          url: window.location.href,
         });
       } catch (error) {
         console.error("Erro ao compartilhar:", error)
@@ -96,7 +97,6 @@ export function GalleryItem({
           const a = document.createElement('a');
           a.style.display = 'none';
           a.href = url;
-          // Extract filename from src or use alt
           const filename = item.src.split('/').pop() || item.alt.replace(/ /g, '_');
           a.download = filename;
           document.body.appendChild(a);
@@ -109,11 +109,10 @@ export function GalleryItem({
       }
   };
 
-
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid cursor-grab active:cursor-grabbing",
+        "group relative mb-4 break-inside-avoid cursor-grab",
         isDragging && "opacity-50"
       )}
       draggable
@@ -125,7 +124,7 @@ export function GalleryItem({
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
       >
-        <div // This div is the main click target, moved from button to avoid event conflicts
+        <div
           onClick={onClick}
           className="w-full h-full cursor-pointer"
         >
@@ -169,7 +168,7 @@ export function GalleryItem({
               className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
               aria-label="Favoritar"
             >
-              <Heart className={cn("w-5 h-5", isFavorited ? "fill-red-500 text-red-500" : "fill-transparent")} />
+              <Star className={cn("w-5 h-5", isFavorited ? "fill-yellow-400 text-yellow-400" : "fill-transparent")} />
             </button>
 
             <div className="flex items-center gap-2">
