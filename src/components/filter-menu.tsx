@@ -1,3 +1,4 @@
+
 "use client"
 
 import type { Dispatch, SetStateAction } from "react"
@@ -73,14 +74,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 mb-2 rounded text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
             <button
               key={fair}
               onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 rounded text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {fair}
             </button>
@@ -92,14 +93,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 mb-2 rounded text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
              <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 rounded text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {style}
             </button>
@@ -113,7 +114,7 @@ export function FilterMenu({
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
-                className={`w-10 h-10 flex items-center justify-center rounded-md mr-2 ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700'}`}
+                className={`w-10 h-10 flex items-center justify-center mr-2 ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700'}`}
                 onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
               >
                 {num}
@@ -128,7 +129,7 @@ export function FilterMenu({
                         alt={item.alt}
                         layout="fill"
                         objectFit="cover"
-                        className="rounded-md"
+                        className=""
                         data-ai-hint={item['data-ai-hint']}
                     />
                  </div>
@@ -138,7 +139,7 @@ export function FilterMenu({
 
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
-           <div className="bg-gray-800 bg-opacity-50 p-4 rounded-lg mb-6">
+           <div className="bg-gray-800 bg-opacity-50 p-4 mb-6">
               <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-accent" />FAVORITOS</h3>
               <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
            </div>
@@ -159,7 +160,7 @@ export function FilterMenu({
               <p className="text-sm text-gray-300 mb-2">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
-              <div className="bg-gray-800 p-2 rounded-md text-center">
+              <div className="bg-gray-800 p-2 text-center">
                 <p className="text-xs break-all">clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj</p>
                 <p className="text-sm font-bold mt-1">QR</p>
               </div>
