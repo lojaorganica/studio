@@ -6,6 +6,11 @@ body {
   font-family: 'PT Sans', sans-serif;
 }
 
+body.dragging, body.dragging * {
+  cursor: grabbing !important;
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 0%;

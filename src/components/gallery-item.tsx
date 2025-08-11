@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -28,15 +27,20 @@ export function GalleryItem({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = 'move';
-    // This is a trick to hide the default browser drag preview
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
-
+    
+    document.body.classList.add("dragging");
     onDragStart(item.id);
   };
+  
+  const handleDragEnd = () => {
+    document.body.classList.remove("dragging");
+    onDragEnd();
+  }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -46,14 +50,13 @@ export function GalleryItem({
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid",
-        "cursor-grab active:cursor-grabbing",
+        "group relative mb-4 break-inside-avoid cursor-grab",
         isDragging && "opacity-50"
       )}
       draggable
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
-      onDragEnd={onDragEnd}
+      onDragEnd={handleDragEnd}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
@@ -62,7 +65,7 @@ export function GalleryItem({
           onClick={onClick}
           className="w-full h-full"
           aria-label={`View details for ${item.alt}`}
-          draggable={false} // Prevents button drag from interfering
+          draggable={false}
         >
           {item.type === 'image' ? (
             <Image
