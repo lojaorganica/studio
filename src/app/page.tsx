@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils"
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
 const MOUSE_Y_THRESHOLD_TOP = 50
+const TABLET_BREAKPOINT = 1024; // lg breakpoint
 
 // Function to shuffle an array
 const shuffleArray = (array: MediaItem[]) => {
@@ -53,8 +54,8 @@ export default function Home() {
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      const isDesktop = window.innerWidth >= 768; // md breakpoint
-      if (!isDesktop) return;
+      const isDesktopOrTablet = window.innerWidth >= TABLET_BREAKPOINT;
+      if (!isDesktopOrTablet) return;
 
       const shouldBeOpen = event.clientY < MOUSE_Y_THRESHOLD_TOP;
       if (shouldBeOpen !== isMenuOpen) {
@@ -149,7 +150,7 @@ export default function Home() {
         ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-30 bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out",
+            "fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm transition-transform duration-700 ease-in-out lg:block",
             isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -165,6 +166,10 @@ export default function Home() {
                 onColumnsChange={setColumns}
               />
           </div>
+      </div>
+      
+      <div className="lg:hidden">
+        {/* Mobile/Tablet sidebar goes here if needed, or trigger for it */}
       </div>
 
       <main className="flex-1 overflow-auto">
