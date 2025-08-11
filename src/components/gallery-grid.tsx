@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
 import type { MediaItem } from "@/lib/media"
 import { GalleryItem } from "@/components/gallery-item"
-import { Skeleton } from "./ui/skeleton"
+import { Button } from "./ui/button"
 
 type GalleryGridProps = {
   items: MediaItem[]
@@ -59,11 +59,11 @@ export function GalleryGrid({
           />
         ))}
       </div>
-      <div ref={ref} className="h-10 w-full mt-6">
+      <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
-          <div className="flex justify-center">
-            <Skeleton className="h-64 w-full max-w-sm" />
-          </div>
+          <Button onClick={loadMore} variant="secondary" size="lg">
+            Carregar Mais
+          </Button>
         )}
       </div>
     </div>

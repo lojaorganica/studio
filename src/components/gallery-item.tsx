@@ -25,7 +25,7 @@ export function GalleryItem({
       )}
     >
       <Card
-        className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:shadow-xl group-hover:scale-[1.02]"
+        className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
       >
         <button
           onClick={onClick}
@@ -39,7 +39,7 @@ export function GalleryItem({
               width={600}
               height={800}
               data-ai-hint={item['data-ai-hint']}
-              className="object-cover w-full h-auto"
+              className="object-cover w-full h-full"
             />
           ) : (
             <video
@@ -48,7 +48,7 @@ export function GalleryItem({
               muted
               autoPlay
               playsInline
-              className="object-cover w-full h-auto"
+              className="object-cover w-full h-full"
             />
           )}
 
