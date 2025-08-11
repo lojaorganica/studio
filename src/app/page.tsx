@@ -181,8 +181,8 @@ export default function Home() {
   }, [filters, showOnlyFavorites]);
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground">
-      <div 
+    <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
+      <div
         key="filter-menu-container"
         onMouseEnter={handleMouseEnterMenu}
         onMouseLeave={handleMouseLeaveMenu}
