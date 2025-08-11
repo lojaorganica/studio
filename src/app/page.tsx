@@ -2,16 +2,18 @@
 
 import * as React from "react"
 import {
-  SidebarProvider,
-  Sidebar,
-  SidebarTrigger,
-  SidebarInset,
-} from "@/components/ui/sidebar"
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { Button } from "@/components/ui/button"
+import { Filter, Leaf, Upload, X } from "lucide-react"
+
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
 import { allMedia, type MediaItem } from "@/lib/media"
-import { Leaf } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
@@ -28,6 +30,8 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = React.useState(0)
   
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
+  const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(false)
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   const filteredItems = React.useMemo(() => {
     return items.filter((item) => {
@@ -65,6 +69,16 @@ export default function Home() {
       (prev) => (prev - 1 + filteredItems.length) % filteredItems.length
     )
   }
+  
+  const handleUploadClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      handleMediaUpload(event.target.files)
+    }
+  }
 
   const handleMediaUpload = (files: FileList) => {
     const newItems: MediaItem[] = [];
@@ -90,44 +104,90 @@ export default function Home() {
     setVisibleCount(INITIAL_VISIBLE_ITEMS);
   }, [filters]);
 
+  const filterMenuComponent = (
+    <FilterMenu
+      filters={filters}
+      onFiltersChange={setFilters}
+      columns={columns}
+      onColumnsChange={setColumns}
+    />
+  )
+
   return (
-    <SidebarProvider>
-      <Sidebar
-        collapsible="icon"
-        className="backdrop-blur-sm"
-        variant="sidebar"
+    <div className="flex min-h-screen w-full flex-col">
+      <Collapsible
+        asChild
+        open={isFilterMenuOpen}
+        onOpenChange={setFilterMenuOpen}
       >
-        <FilterMenu
-          filters={filters}
-          onFiltersChange={setFilters}
-          columns={columns}
-          onColumnsChange={setColumns}
-          onMediaUpload={handleMediaUpload}
-        />
-      </Sidebar>
-      <SidebarInset>
-        <div className="flex h-full flex-col">
-          <header className="flex h-14 items-center gap-4 border-b bg-background/95 px-4 md:px-6 sticky top-0 z-30 backdrop-blur-sm">
-            <SidebarTrigger className="flex md:hidden" />
+        <header className="sticky top-0 z-30 flex flex-col border-b bg-background/95 backdrop-blur-sm">
+          <div className="flex h-16 items-center gap-4 px-4 md:px-6">
             <div className="flex items-center gap-2">
               <Leaf className="h-6 w-6 text-primary" />
               <h1 className="text-lg font-semibold tracking-wider text-foreground">
                 Organic Art Gallery
               </h1>
             </div>
-          </header>
-          <main className="flex-1 overflow-auto">
-            <GalleryGrid
-              items={itemsToShow}
-              setItems={setItems}
-              columns={columns}
-              onItemClick={openLightbox}
-              loadMore={loadMore}
-              hasMore={hasMore}
-            />
-          </main>
-        </div>
-      </SidebarInset>
+
+            <div className="ml-auto flex items-center gap-2">
+              {/* Desktop filter button */}
+              <div className="hidden md:block">
+                  <CollapsibleTrigger asChild>
+                    <Button variant="outline">
+                      {isFilterMenuOpen ? <X className="mr-2 h-4 w-4" /> : <Filter className="mr-2 h-4 w-4" />}
+                      Filtros
+                    </Button>
+                  </CollapsibleTrigger>
+              </div>
+              {/* Mobile filter button */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon" className="md:hidden">
+                    <Filter className="h-4 w-4" />
+                    <span className="sr-only">Filtros</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="md:hidden">
+                  <div className="p-4">
+                    <h2 className="text-lg font-semibold mb-4">Filtros</h2>
+                    {filterMenuComponent}
+                  </div>
+                </SheetContent>
+              </Sheet>
+              
+              <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                  multiple
+                  accept="image/*,video/*"
+                />
+              <Button onClick={handleUploadClick}>
+                <Upload className="mr-2 h-4 w-4" />
+                Carregar
+              </Button>
+            </div>
+          </div>
+
+          {/* Desktop Collapsible Content */}
+          <CollapsibleContent className="hidden md:block border-t">
+            <div className="p-6">
+              {filterMenuComponent}
+            </div>
+          </CollapsibleContent>
+        </header>
+      </Collapsible>
+      <main className="flex-1 overflow-auto">
+        <GalleryGrid
+          items={itemsToShow}
+          setItems={setItems}
+          columns={columns}
+          onItemClick={openLightbox}
+          loadMore={loadMore}
+          hasMore={hasMore}
+        />
+      </main>
       {lightboxOpen && (
         <Lightbox
           item={filteredItems[activeIndex]}
@@ -136,6 +196,6 @@ export default function Home() {
           onPrev={handlePrev}
         />
       )}
-    </SidebarProvider>
+    </div>
   )
 }
