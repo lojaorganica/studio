@@ -1,4 +1,3 @@
-
 "use client"
 
 import type { Dispatch, SetStateAction } from "react"
@@ -71,17 +70,17 @@ export function FilterMenu({
 
         {/* Col 1: Feiras */}
         <div className="md:col-span-3">
-          <h3 className="font-bold text-lg mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
+          <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 mb-2 rounded text-base ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 rounded text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
             <button
               key={fair}
               onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 rounded text-base ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 rounded text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {fair}
             </button>
@@ -90,17 +89,17 @@ export function FilterMenu({
 
         {/* Col 2: Estilos */}
         <div className="md:col-span-3">
-          <h3 className="font-bold text-lg mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
+          <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 mb-2 rounded text-base ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 rounded text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
              <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 rounded text-base ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 rounded text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {style}
             </button>
@@ -109,7 +108,7 @@ export function FilterMenu({
 
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
-          <h3 className="font-bold text-lg mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
+          <h3 className="font-bold text-xl mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
           <div className="flex justify-start items-center mb-4">
             {[1, 2, 3, 4].map((num) => (
               <button
@@ -140,12 +139,12 @@ export function FilterMenu({
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
            <div className="bg-gray-800 bg-opacity-50 p-4 rounded-lg mb-6">
-              <h3 className="font-bold flex items-center mb-2"><Star className="w-5 h-5 mr-2 text-accent" />FAVORITOS</h3>
+              <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-accent" />FAVORITOS</h3>
               <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
            </div>
            
            <div className="mb-6">
-              <h3 className="font-bold text-lg mb-2"><span className="text-accent">DICAS</span></h3>
+              <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                 <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
                 <li>Arraste e solte as imagens e vídeos para organizar</li>
@@ -156,7 +155,7 @@ export function FilterMenu({
            </div>
 
            <div>
-              <h3 className="font-bold text-lg mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
+              <h3 className="font-bold text-xl mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
               <p className="text-sm text-gray-300 mb-2">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
