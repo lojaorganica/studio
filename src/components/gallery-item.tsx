@@ -7,7 +7,21 @@ import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Badge } from "./ui/badge"
-import { Star, Share2, Download, Play, Pause } from "lucide-react"
+import { Star, Share2, Download } from "lucide-react"
+
+// Custom SVG Icons to match the reference image
+const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
+        <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clipRule="evenodd" />
+    </svg>
+);
+
+const PauseIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
+        <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM9 8.25a.75.75 0 00-.75.75v6c0 .414.336.75.75.75h.75a.75.75 0 00.75-.75V9a.75.75 0 00-.75-.75H9zm5.25 0a.75.75 0 00-.75.75v6c0 .414.336.75.75.75h.75a.75.75 0 00.75-.75V9a.75.75 0 00-.75-.75h-.75z" clipRule="evenodd" />
+    </svg>
+);
+
 
 type GalleryItemProps = {
   item: MediaItemType
@@ -194,13 +208,13 @@ export function GalleryItem({
 
         {/* Play/Pause button only for videos */}
         {item.type === 'video' && (
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <button
               onClick={togglePlay}
-              className="p-3 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors"
+              className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors pointer-events-auto"
               aria-label={isPlaying ? "Pausar" : "Reproduzir"}
             >
-              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+              {isPlaying ? <PauseIcon className="w-8 h-8" /> : <PlayIcon className="w-8 h-8" />}
             </button>
           </div>
         )}
