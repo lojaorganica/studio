@@ -26,24 +26,31 @@ export function GalleryItem({
 }: GalleryItemProps) {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    // Set the drag effect
     e.dataTransfer.effectAllowed = 'move';
+    
+    // Create a transparent drag image
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
-    
+
+    // Add class to body for global cursor styling
     document.body.classList.add("dragging");
+    
+    // Call the parent handler
     onDragStart(item.id);
   };
   
   const handleDragEnd = () => {
+    // Remove global cursor styling class
     document.body.classList.remove("dragging");
     onDragEnd();
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // This is crucial for drop to work
     onDragEnter(item.id);
   }
 
@@ -57,6 +64,7 @@ export function GalleryItem({
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      onDragEnter={() => onDragEnter(item.id)} // Added for better hover detection
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
@@ -65,7 +73,7 @@ export function GalleryItem({
           onClick={onClick}
           className="w-full h-full"
           aria-label={`View details for ${item.alt}`}
-          draggable={false}
+          draggable={false} // Prevent button from being dragged itself
         >
           {item.type === 'image' ? (
             <Image

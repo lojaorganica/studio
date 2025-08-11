@@ -112,30 +112,30 @@ export default function Home() {
   };
 
   const handleDragEnter = (id: string) => {
-    if (draggingId === id) return;
+    if (draggingId === null || draggingId === id) return;
     setDragOverItemId(id);
   };
   
   const handleDragEnd = () => {
     if (!draggingId || !dragOverItemId || draggingId === dragOverItemId) {
-        setDraggingId(null);
-        setDragOverItemId(null);
-        return;
+      setDraggingId(null);
+      setDragOverItemId(null);
+      return;
     }
 
-    setItems(oldItems => {
-        const dragItemIndex = oldItems.findIndex(item => item.id === draggingId);
-        const dragOverItemIndex = oldItems.findIndex(item => item.id === dragOverItemId);
+    setItems(currentItems => {
+      const dragItemIndex = currentItems.findIndex(item => item.id === draggingId);
+      const hoverItemIndex = currentItems.findIndex(item => item.id === dragOverItemId);
 
-        if (dragItemIndex === -1 || dragOverItemIndex === -1) {
-            return oldItems;
-        }
-        
-        const newItems = [...oldItems];
-        const [draggedItem] = newItems.splice(dragItemIndex, 1);
-        newItems.splice(dragOverItemIndex, 0, draggedItem);
-        
-        return newItems;
+      if (dragItemIndex === -1 || hoverItemIndex === -1) {
+        return currentItems; // Should not happen
+      }
+      
+      const newItems = [...currentItems];
+      const [draggedItem] = newItems.splice(dragItemIndex, 1);
+      newItems.splice(hoverItemIndex, 0, draggedItem);
+      
+      return newItems;
     });
 
     setDraggingId(null);
