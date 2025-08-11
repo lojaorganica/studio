@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -12,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import type { MediaItem } from "@/lib/media"
+import { Badge } from "./ui/badge"
 
 type LightboxProps = {
   item: MediaItem
@@ -49,8 +51,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             <DialogTitle className="text-xl font-bold">{item.alt}</DialogTitle>
             <DialogDescription className="text-base text-white/80">by {item.author}</DialogDescription>
             <div className="flex gap-2 mt-2">
-                <span className="text-xs px-2 py-1 bg-white/20 rounded-full">{item.fair}</span>
-                <span className="text-xs px-2 py-1 bg-white/20 rounded-full">{item.style}</span>
+                <Badge variant="secondary">{item.fair}</Badge>
+                <Badge variant="secondary">{item.style}</Badge>
             </div>
           </div>
 

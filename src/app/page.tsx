@@ -5,16 +5,13 @@ import * as React from "react"
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { Button } from "@/components/ui/button"
 import { Filter, Leaf, Upload, X } from "lucide-react"
 
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
 import { allMedia, type MediaItem } from "@/lib/media"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
 
 const INITIAL_VISIBLE_ITEMS = 12
@@ -50,7 +47,7 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = React.useState(0)
   
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
-  const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(false)
+  const [isMenuOpen, setMenuOpen] = React.useState(false)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
@@ -62,9 +59,9 @@ export default function Home() {
       const shouldBeClosed = event.clientY > MOUSE_Y_THRESHOLD_BOTTOM;
 
       if (shouldBeOpen) {
-        setFilterMenuOpen(true);
+        setMenuOpen(true);
       } else if (shouldBeClosed) {
-        setFilterMenuOpen(false);
+        setMenuOpen(false);
       }
     };
 
@@ -77,7 +74,7 @@ export default function Home() {
 
   const filteredItems = React.useMemo(() => {
     return items.filter((item) => {
-      const fairFilter = filters.fairs.size === 0 || filters.fairs.has(item.fair)
+      const fairFilter = filters.fairs.size === 0 || [...filters.fairs].some(fair => item.fair.includes(fair))
       const styleFilter = filters.styles.size === 0 || filters.styles.has(item.style)
       return fairFilter && styleFilter
     })
@@ -132,8 +129,8 @@ export default function Home() {
         src: URL.createObjectURL(file),
         alt: file.name,
         author: 'Local Upload',
-        fair: 'Art Basel', // Default values
-        style: 'Abstract', // Default values
+        fair: 'Tijuca', // Default values
+        style: 'Fotografia', // Default values
       };
       newItems.push(newItem);
     }
@@ -145,81 +142,31 @@ export default function Home() {
     setVisibleCount(INITIAL_VISIBLE_ITEMS);
   }, [filters]);
 
-  const filterMenuComponent = (
-    <FilterMenu
-      filters={filters}
-      onFiltersChange={setFilters}
-      columns={columns}
-      onColumnsChange={setColumns}
-    />
-  )
-
   return (
     <div className="min-h-screen w-full bg-black">
-       <Collapsible
-        open={isFilterMenuOpen}
-        onOpenChange={setFilterMenuOpen}
+      <Collapsible
+        open={isMenuOpen}
+        onOpenChange={setMenuOpen}
         className={cn(
           "fixed top-0 z-30 w-full bg-black/80 backdrop-blur-sm transition-all duration-500 ease-in-out"
         )}
       >
-        <header className="flex h-16 items-center gap-4 px-4 md:px-6">
-            <div className="flex items-center gap-2">
-              <Leaf className="h-6 w-6 text-primary" />
-              <h1 className="text-lg font-semibold tracking-wider text-foreground">
-                Organic Art Gallery
-              </h1>
-            </div>
-
-            <div className="ml-auto flex items-center gap-2">
-              {/* Desktop filter button */}
-              <div className="hidden md:block">
-                  <CollapsibleTrigger asChild>
-                    <Button variant="outline">
-                      {isFilterMenuOpen ? <X className="mr-2 h-4 w-4" /> : <Filter className="mr-2 h-4 w-4" />}
-                      Filtros
-                    </Button>
-                  </CollapsibleTrigger>
-              </div>
-              
-              {/* Mobile filter button */}
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="icon" className="md:hidden">
-                    <Filter className="h-4 w-4" />
-                    <span className="sr-only">Filtros</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="md:hidden">
-                  <div className="p-4">
-                    <h2 className="text-lg font-semibold mb-4">Filtros</h2>
-                    {filterMenuComponent}
-                  </div>
-                </SheetContent>
-              </Sheet>
-              
-              <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                  multiple
-                  accept="image/*,video/*"
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 text-center">
+            <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+            <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
+        </div>
+        <CollapsibleContent>
+           <div className="p-6">
+              <FilterMenu
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                  columns={columns}
+                  onColumnsChange={setColumns}
                 />
-              <Button onClick={handleUploadClick}>
-                <Upload className="mr-2 h-4 w-4" />
-                Carregar
-              </Button>
-            </div>
-        </header>
-
-          {/* Desktop Collapsible Content */}
-        <CollapsibleContent className="hidden md:block border-t border-white/20">
-          <div className="p-6">
-            {filterMenuComponent}
-          </div>
+           </div>
         </CollapsibleContent>
       </Collapsible>
+
 
       <main className="flex-1 overflow-auto">
         <GalleryGrid

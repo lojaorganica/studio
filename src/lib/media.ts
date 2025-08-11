@@ -1,51 +1,52 @@
+
 export type MediaItem = {
   id: string
   type: "image" | "video"
   src: string
   alt: string
   author: string
-  fair: "ArtRio" | "SP-Arte" | "Frieze" | "Art Basel"
-  style: "Abstract" | "Figurative" | "Street Art" | "Surrealism" | "Minimalism"
+  fair: "Tijuca" | "Grajaú" | "Flamengo e Laranjeiras" | "Botafogo" | "Leme"
+  style: "Animações de Agricultores" | "Animações de Alimentos" | "Animações de Personagens" | "Fotografia" | "Flyer" | "Cartoon" | "Story" | "Datas Especiais" | "Dias de Chuva"
+  "data-ai-hint"?: string
 }
 
 export const allMedia: MediaItem[] = [
-  // A diverse set of 36 items
-  { id: "1", type: "image", src: "https://placehold.co/600x800.png", alt: "Abstract painting 1", author: "Artist One", fair: "ArtRio", style: "Abstract", "data-ai-hint": "abstract painting" },
-  { id: "2", type: "image", src: "https://placehold.co/800x600.png", alt: "Figurative sculpture", author: "Artist Two", fair: "SP-Arte", style: "Figurative", "data-ai-hint": "figurative sculpture" },
-  { id: "3", type: "image", src: "https://placehold.co/600x600.png", alt: "Street art mural", author: "Artist Three", fair: "Frieze", style: "Street Art", "data-ai-hint": "street art" },
-  { id: "4", type: "image", src: "https://placehold.co/700x800.png", alt: "Surrealist drawing", author: "Artist Four", fair: "Art Basel", style: "Surrealism", "data-ai-hint": "surrealist drawing" },
-  { id: "5", type: "image", src: "https://placehold.co/800x800.png", alt: "Minimalist installation", author: "Artist Five", fair: "ArtRio", style: "Minimalism", "data-ai-hint": "minimalist installation" },
-  { id: "6", type: "image", src: "https://placehold.co/600x900.png", alt: "Abstract painting 2", author: "Artist One", fair: "SP-Arte", style: "Abstract", "data-ai-hint": "abstract colorful" },
-  { id: "7", type: "image", src: "https://placehold.co/900x600.png", alt: "Figurative painting", author: "Artist Two", fair: "Frieze", style: "Figurative", "data-ai-hint": "figurative painting" },
-  { id: "8", type: "image", src: "https://placehold.co/600x750.png", alt: "Street art graffiti", author: "Artist Three", fair: "Art Basel", style: "Street Art", "data-ai-hint": "urban graffiti" },
-  { id: "9", type: "image", src: "https://placehold.co/750x600.png", alt: "Surrealist collage", author: "Artist Four", fair: "ArtRio", style: "Surrealism", "data-ai-hint": "surreal collage" },
-  { id: "10", type: "image", src: "https://placehold.co/850x650.png", alt: "Minimalist sculpture", author: "Artist Five", fair: "SP-Arte", style: "Minimalism", "data-ai-hint": "minimalist sculpture" },
-  { id: "11", type: "image", src: "https://placehold.co/650x850.png", alt: "Abstract digital art", author: "Artist One", fair: "Frieze", style: "Abstract", "data-ai-hint": "digital abstract" },
-  { id: "12", type: "image", src: "https://placehold.co/800x700.png", alt: "Figurative drawing", author: "Artist Two", fair: "Art Basel", style: "Figurative", "data-ai-hint": "charcoal drawing" },
-  { id: "13", type: "image", src: "https://placehold.co/700x800.png", alt: "Street art stencil", author: "Artist Three", fair: "ArtRio", style: "Street Art", "data-ai-hint": "stencil art" },
-  { id: "14", type: "image", src: "https://placehold.co/600x800.png", alt: "Surrealist painting", author: "Artist Four", fair: "SP-Arte", style: "Surrealism", "data-ai-hint": "dreamscape painting" },
-  { id: "15", type: "image", src: "https://placehold.co/800x600.png", alt: "Minimalist photography", author: "Artist Five", fair: "Frieze", style: "Minimalism", "data-ai-hint": "minimalist architecture" },
-  { id: "16", type: "image", src: "https://placehold.co/600x900.png", alt: "Abstract textile", author: "Artist One", fair: "Art Basel", style: "Abstract", "data-ai-hint": "abstract textile" },
-  { id: "17", type: "image", src: "https://placehold.co/900x600.png", alt: "Figurative ceramics", author: "Artist Two", fair: "ArtRio", style: "Figurative", "data-ai-hint": "ceramic art" },
-  { id: "18", type: "image", src: "https://placehold.co/600x600.png", alt: "Street art installation", author: "Artist Three", fair: "SP-Arte", style: "Street Art", "data-ai-hint": "public installation" },
-  { id: "19", type: "image", src: "https://placehold.co/800x800.png", alt: "Surrealist sculpture", author: "Artist Four", fair: "Frieze", style: "Surrealism", "data-ai-hint": "surreal sculpture" },
-  { id: "20", type: "image", src: "https://placehold.co/700x800.png", alt: "Minimalist painting", author: "Artist Five", fair: "Art Basel", style: "Minimalism", "data-ai-hint": "monochrome painting" },
-  { id: "21", type: "image", src: "https://placehold.co/800x700.png", alt: "Abstract expressionism", author: "Artist One", fair: "ArtRio", style: "Abstract", "data-ai-hint": "expressionist art" },
-  { id: "22", type: "image", src: "https://placehold.co/700x900.png", alt: "Portrait photography", author: "Artist Two", fair: "SP-Arte", style: "Figurative", "data-ai-hint": "portrait photography" },
-  { id: "23", type: "image", src: "https://placehold.co/900x700.png", alt: "Graffiti art piece", author: "Artist Three", fair: "Frieze", style: "Street Art", "data-ai-hint": "colorful graffiti" },
-  { id: "24", type: "image", src: "https://placehold.co/700x700.png", alt: "Dream-like digital art", author: "Artist Four", fair: "Art Basel", style: "Surrealism", "data-ai-hint": "dreamy digital" },
-  { id: "25", type: "image", src: "https://placehold.co/800x900.png", alt: "Geometric abstraction", author: "Artist Five", fair: "ArtRio", style: "Minimalism", "data-ai-hint": "geometric art" },
-  { id: "26", type: "image", src: "https://placehold.co/900x800.png", alt: "Colorful abstract art", author: "Artist One", fair: "SP-Arte", style: "Abstract", "data-ai-hint": "vibrant abstract" },
-  { id: "27", type: "image", src: "https://placehold.co/800x800.png", alt: "Bronze sculpture", author: "Artist Two", fair: "Frieze", style: "Figurative", "data-ai-hint": "bronze sculpture" },
-  { id: "28", type: "image", src: "https://placehold.co/600x900.png", alt: "Urban photography", author: "Artist Three", fair: "Art Basel", style: "Street Art", "data-ai-hint": "urban landscape" },
-  { id: "29", type: "image", src: "https://placehold.co/900x600.png", alt: "Fantasy illustration", author: "Artist Four", fair: "ArtRio", style: "Surrealism", "data-ai-hint": "fantasy art" },
-  { id: "30", type: "image", src: "https://placehold.co/600x600.png", alt: "Clean line art", author: "Artist Five", fair: "SP-Arte", style: "Minimalism", "data-ai-hint": "line art" },
-  { id: "31", type: "image", src: "https://placehold.co/800x600.png", alt: "Ink wash painting", author: "Artist One", fair: "Frieze", style: "Abstract", "data-ai-hint": "ink wash" },
-  { id: "32", type: "image", src: "https://placehold.co/600x800.png", alt: "Life drawing", author: "Artist Two", fair: "Art Basel", style: "Figurative", "data-ai-hint": "life drawing" },
-  { id: "33", type: "image", src: "https://placehold.co/800x800.png", alt: "Paste-up art", author: "Artist Three", fair: "ArtRio", style: "Street Art", "data-ai-hint": "pasteup art" },
-  { id: "34", type: "image", src: "https://placehold.co/700x800.png", alt: "Psychedelic art", author: "Artist Four", fair: "SP-Arte", style: "Surrealism", "data-ai-hint": "psychedelic art" },
-  { id: "35", type: "image", src: "https://placehold.co/800x700.png", alt: "Conceptual art", author: "Artist Five", fair: "Frieze", style: "Minimalism", "data-ai-hint": "conceptual art" },
-  { id: "36", type: "image", src: "https://placehold.co/700x900.png", alt: "Fluid abstract", author: "Artist One", fair: "Art Basel", style: "Abstract", "data-ai-hint": "fluid art" },
+  { id: "1", type: "image", src: "https://placehold.co/600x800.png", alt: "Arte de Agricultor", author: "Artista Um", fair: "Tijuca", style: "Animações de Agricultores", "data-ai-hint": "farmer animation" },
+  { id: "2", type: "image", src: "https://placehold.co/800x600.png", alt: "Comida Animada", author: "Artista Dois", fair: "Grajaú", style: "Animações de Alimentos", "data-ai-hint": "food animation" },
+  { id: "3", type: "image", src: "https://placehold.co/600x600.png", alt: "Personagem da Feira", author: "Artista Três", fair: "Flamengo e Laranjeiras", style: "Animações de Personagens", "data-ai-hint": "character animation" },
+  { id: "4", type: "image", src: "https://placehold.co/700x800.png", alt: "Foto da Feira", author: "Fotógrafo Quatro", fair: "Botafogo", style: "Fotografia", "data-ai-hint": "market photo" },
+  { id: "5", type: "image", src: "https://placehold.co/800x800.png", alt: "Flyer do Evento", author: "Designer Cinco", fair: "Leme", style: "Flyer", "data-ai-hint": "event flyer" },
+  { id: "6", type: "image", src: "https://placehold.co/600x900.png", alt: "Cartoon de Vegetal", author: "Cartunista Seis", fair: "Tijuca", style: "Cartoon", "data-ai-hint": "vegetable cartoon" },
+  { id: "7", type: "image", src: "https://placehold.co/900x600.png", alt: "História em Quadrinhos", author: "Artista Sete", fair: "Grajaú", style: "Story", "data-ai-hint": "comic strip" },
+  { id: "8", type: "image", src: "https://placehold.co/600x750.png", alt: "Anúncio de Data", author: "Designer Oito", fair: "Flamengo e Laranjeiras", style: "Datas Especiais", "data-ai-hint": "special date" },
+  { id: "9", type: "image", src: "https://placehold.co/750x600.png", alt: "Arte de Dia Chuvoso", author: "Artista Nove", fair: "Botafogo", style: "Dias de Chuva", "data-ai-hint": "rainy day" },
+  { id: "10", type: "image", src: "https://placehold.co/850x650.png", alt: "Foto de Produto", author: "Fotógrafo Quatro", fair: "Leme", style: "Fotografia", "data-ai-hint": "product photography" },
+  { id: "11", type: "image", src: "https://placehold.co/650x850.png", alt: "Agricultor Sorrindo", author: "Artista Um", fair: "Tijuca", style: "Animações de Agricultores", "data-ai-hint": "smiling farmer" },
+  { id: "12", type: "image", src: "https://placehold.co/800x700.png", alt: "Cesta de Orgânicos", author: "Artista Dois", fair: "Grajaú", style: "Animações de Alimentos", "data-ai-hint": "organic basket" },
+  { id: "13", type: "image", src: "https://placehold.co/700x800.png", alt: "Mascote da Feira", author: "Artista Três", fair: "Flamengo e Laranjeiras", style: "Animações de Personagens", "data-ai-hint": "market mascot" },
+  { id: "14", type: "image", src: "https://placehold.co/600x800.png", alt: "Flyer de Desconto", author: "Designer Cinco", fair: "Botafogo", style: "Flyer", "data-ai-hint": "discount flyer" },
+  { id: "15", type: "image", src: "https://placehold.co/800x600.png", alt: "Charge Política", author: "Cartunista Seis", fair: "Leme", style: "Cartoon", "data-ai-hint": "political cartoon" },
+  { id: "16", type: "image", src: "https://placehold.co/600x900.png", alt: "Story sobre a Colheita", author: "Artista Sete", fair: "Tijuca", style: "Story", "data-ai-hint": "harvest story" },
+  { id: "17", type: "image", src: "https://placehold.co/900x600.png", alt: "Banner de Feriado", author: "Designer Oito", fair: "Grajaú", style: "Datas Especiais", "data-ai-hint": "holiday banner" },
+  { id: "18", type: "image", src: "https://placehold.co/600x600.png", alt: "Feira na Chuva", author: "Artista Nove", fair: "Flamengo e Laranjeiras", style: "Dias de Chuva", "data-ai-hint": "market rain" },
+  { id: "19", type: "image", src: "https://placehold.co/800x800.png", alt: "Retrato de Cliente", author: "Fotógrafo Quatro", fair: "Botafogo", style: "Fotografia", "data-ai-hint": "customer portrait" },
+  { id: "20", type: "image", src: "https://placehold.co/700x800.png", alt: "Mãos na Terra", author: "Artista Um", fair: "Leme", style: "Animações de Agricultores", "data-ai-hint": "hands on soil" },
+  { id: "21", type: "image", src: "https://placehold.co/800x700.png", alt: "Tomates Animados", author: "Artista Dois", fair: "Tijuca", style: "Animações de Alimentos", "data-ai-hint": "animated tomatoes" },
+  { id: "22", type: "image", src: "https://placehold.co/700x900.png", alt: "O Espantalho", author: "Artista Três", fair: "Grajaú", style: "Animações de Personagens", "data-ai-hint": "scarecrow character" },
+  { id: "23", type: "image", src: "https://placehold.co/900x700.png", alt: "Flyer de Conscientização", author: "Designer Cinco", fair: "Flamengo e Laranjeiras", style: "Flyer", "data-ai-hint": "awareness flyer" },
+  { id: "24", type: "image", src: "https://placehold.co/700x700.png", alt: "Tira Cômica", author: "Cartunista Seis", fair: "Botafogo", style: "Cartoon", "data-ai-hint": "comic panel" },
+  { id: "25", type: "image", src: "https://placehold.co/800x900.png", alt: "Story do Agricultor", author: "Artista Sete", fair: "Leme", style: "Story", "data-ai-hint": "farmer story" },
+  { id: "26", type: "image", src: "https://placehold.co/900x800.png", alt: "Banner Dia das Mães", author: "Designer Oito", fair: "Tijuca", style: "Datas Especiais", "data-ai-hint": "mothers day banner" },
+  { id: "27", type: "image", src: "https://placehold.co/800x800.png", alt: "Guarda-chuva Colorido", author: "Artista Nove", fair: "Grajaú", style: "Dias de Chuva", "data-ai-hint": "colorful umbrella" },
+  { id: "28", type: "image", src: "https://placehold.co/600x900.png", alt: "Banca de Frutas", author: "Fotógrafo Quatro", fair: "Flamengo e Laranjeiras", style: "Fotografia", "data-ai-hint": "fruit stand" },
+  { id: "29", type: "image", src: "https://placehold.co/900x600.png", alt: "Trator na Fazenda", author: "Artista Um", fair: "Botafogo", style: "Animações de Agricultores", "data-ai-hint": "farm tractor" },
+  { id: "30", type: "image", src: "https://placehold.co/600x600.png", alt: "Alface Dançante", author: "Artista Dois", fair: "Leme", style: "Animações de Alimentos", "data-ai-hint": "dancing lettuce" },
+  { id: "31", type: "image", src: "https://placehold.co/800x600.png", alt: "A Menina da Feira", author: "Artista Três", fair: "Tijuca", style: "Animações de Personagens", "data-ai-hint": "market girl" },
+  { id: "32", type: "image", src: "https://placehold.co/600x800.png", alt: "Flyer da Semana", author: "Designer Cinco", fair: "Grajaú", style: "Flyer", "data-ai-hint": "weekly flyer" },
+  { id: "33", type: "image", src: "https://placehold.co/800x800.png", alt: "Charge sobre Agrotóxicos", author: "Cartunista Seis", fair: "Flamengo e Laranjeiras", style: "Cartoon", "data-ai-hint": "pesticide cartoon" },
+  { id: "34", type: "image", src: "https://placehold.co/700x800.png", alt: "Story dos Bastidores", author: "Artista Sete", fair: "Botafogo", style: "Story", "data-ai-hint": "behind the scenes" },
+  { id: "35", type: "image", src: "https://placehold.co/800x700.png", alt: "Especial de Natal", author: "Designer Oito", fair: "Leme", style: "Datas Especiais", "data-ai-hint": "christmas special" },
+  { id: "36", type: "image", src: "https://placehold.co/700x900.png", alt: "Poça d'água", author: "Artista Nove", fair: "Tijuca", style: "Dias de Chuva", "data-ai-hint": "water puddle" },
 ]
 
 export const fairs = [...new Set(allMedia.map((item) => item.fair))]

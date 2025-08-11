@@ -3,16 +3,9 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import { fairs, styles } from "@/lib/media"
+import Image from "next/image"
+import { fairs, styles, allMedia } from "@/lib/media"
+import { Star } from "lucide-react"
 
 export type Filters = {
   fairs: Set<string>
@@ -26,15 +19,7 @@ type FilterMenuProps = {
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
 }
 
-function ColumnIcon({ columns, active }: { columns: number, active: boolean }) {
-  return (
-    <div className="flex h-8 w-8 items-center justify-center gap-0.5">
-      {Array.from({ length: columns }).map((_, i) => (
-        <div key={i} className={`h-5/6 w-1 rounded-sm ${active ? 'bg-primary-foreground' : 'bg-muted-foreground'}`} />
-      ))}
-    </div>
-  )
-}
+const columnPreviews = allMedia.slice(0, 9);
 
 export function FilterMenu({
   filters,
@@ -43,92 +28,137 @@ export function FilterMenu({
   onColumnsChange,
 }: FilterMenuProps) {
 
-  const handleFilterChange = (
-    category: "fairs" | "styles",
-    value: string,
-    checked: boolean
-  ) => {
+  const handleFairChange = (fair: string) => {
     onFiltersChange((prevFilters) => {
-      const newSet = new Set(prevFilters[category])
-      if (checked) {
-        newSet.add(value)
+      const newSet = new Set(prevFilters.fairs)
+      if (newSet.has(fair)) {
+        newSet.delete(fair)
       } else {
-        newSet.delete(value)
+        newSet.add(fair)
       }
-      return { ...prevFilters, [category]: newSet }
+      return { ...prevFilters, fairs: newSet }
     })
   }
 
+  const handleStyleChange = (style: string) => {
+    onFiltersChange((prevFilters) => {
+      const newSet = new Set(prevFilters.styles)
+      if (newSet.has(style)) {
+        newSet.delete(style)
+      } else {
+        newSet.add(style)
+      }
+      return { ...prevFilters, styles: newSet }
+    })
+  }
+
+  const clearFairs = () => onFiltersChange(prev => ({ ...prev, fairs: new Set() }))
+  const clearStyles = () => onFiltersChange(prev => ({ ...prev, styles: new Set() }))
+
+
   return (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="text-white pt-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+        {/* Col 1: Feiras */}
         <div className="md:col-span-2">
-            <Accordion type="multiple" defaultValue={["fairs", "styles"]} className="w-full">
-              <div className="grid md:grid-cols-2 gap-x-6">
-                <AccordionItem value="fairs" className="border-b-0">
-                  <AccordionTrigger className="text-base font-semibold">Fairs</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="grid gap-2">
-                      {fairs.map((fair) => (
-                        <div key={fair} className="flex items-center gap-2">
-                          <Checkbox
-                            id={`fair-${fair}`}
-                            checked={filters.fairs.has(fair)}
-                            onCheckedChange={(checked) =>
-                              handleFilterChange("fairs", fair, !!checked)
-                            }
-                          />
-                          <Label htmlFor={`fair-${fair}`} className="cursor-pointer font-normal">
-                            {fair}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="styles" className="border-b-0">
-                  <AccordionTrigger className="text-base font-semibold">Styles</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="grid gap-2">
-                      {styles.map((style) => (
-                        <div key={style} className="flex items-center gap-2">
-                          <Checkbox
-                            id={`style-${style}`}
-                            checked={filters.styles.has(style)}
-                            onCheckedChange={(checked) =>
-                              handleFilterChange("styles", style, !!checked)
-                            }
-                          />
-                          <Label htmlFor={`style-${style}`} className="cursor-pointer font-normal">
-                            {style}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </div>
-            </Accordion>
+          <h3 className="font-bold mb-4">ESCOLHA AS FEIRAS</h3>
+          <button 
+            onClick={clearFairs}
+            className={`w-full text-left p-2 mb-2 rounded ${filters.fairs.size === 0 ? 'bg-accent text-white' : 'hover:bg-accent/80'}`}>
+            Todas as Feiras
+          </button>
+          {fairs.map((fair) => (
+            <button
+              key={fair}
+              onClick={() => handleFairChange(fair)}
+              className={`w-full text-left p-2 rounded ${filters.fairs.has(fair) ? 'bg-accent text-white' : 'hover:bg-accent/80'}`}
+            >
+              {fair}
+            </button>
+          ))}
         </div>
-        <div>
-          <h3 className="text-base font-semibold mb-4">Layout</h3>
-          <p className="text-sm text-muted-foreground mb-4">Escolha o número de colunas.</p>
-          <div className="flex justify-start items-center bg-muted p-1 rounded-lg">
-              {[1, 2, 3, 4].map((num) => (
-                  <Button
-                      key={num}
-                      variant={columns === num ? 'primary' : 'ghost'}
-                      size="icon"
-                      className="w-14 h-14 flex flex-col items-center gap-1"
-                      onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
-                  >
-                      <ColumnIcon columns={num} active={columns === num} />
-                      <span className="text-xs">{num}</span>
-                  </Button>
-              ))}
+
+        {/* Col 2: Estilos */}
+        <div className="md:col-span-2">
+          <h3 className="font-bold mb-4">ESCOLHA OS ESTILOS</h3>
+           <button 
+            onClick={clearStyles}
+            className={`w-full text-left p-2 mb-2 rounded ${filters.styles.size === 0 ? 'bg-accent text-white' : 'hover:bg-accent/80'}`}>
+            Todos os Estilos
+          </button>
+          {styles.map((style) => (
+             <button
+              key={style}
+              onClick={() => handleStyleChange(style)}
+              className={`w-full text-left p-2 rounded ${filters.styles.has(style) ? 'bg-accent text-white' : 'hover:bg-accent/80'}`}
+            >
+              {style}
+            </button>
+          ))}
+        </div>
+
+        {/* Col 3: Colunas */}
+        <div className="md:col-span-3">
+          <h3 className="font-bold mb-4">ESCOLHA O N° DE COLUNAS</h3>
+          <div className="flex justify-start items-center mb-4">
+            {[1, 2, 3, 4].map((num) => (
+              <button
+                key={num}
+                className={`w-10 h-10 flex items-center justify-center rounded-md mr-2 ${columns === num ? 'bg-accent text-white' : 'bg-gray-700'}`}
+                onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-3 gap-1">
+            {columnPreviews.map(item => (
+                 <div key={item.id} className="relative aspect-square">
+                    <Image
+                        src={item.src}
+                        alt={item.alt}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-md"
+                        data-ai-hint={item['data-ai-hint']}
+                    />
+                 </div>
+            ))}
           </div>
         </div>
+
+        {/* Col 4: Dicas e Apoio */}
+        <div className="md:col-span-5">
+           <div className="bg-gray-800 bg-opacity-50 p-4 rounded-lg mb-6">
+              <h3 className="font-bold flex items-center mb-2"><Star className="w-5 h-5 mr-2 text-yellow-400" />FAVORITOS</h3>
+              <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
+           </div>
+           
+           <div className="mb-6">
+              <h3 className="font-bold mb-2">DICAS</h3>
+              <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
+                <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
+                <li>Arraste e solte as imagens e vídeos para organizar</li>
+                <li>Faça downloads</li>
+                <li>Escolha favoritos</li>
+                <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
+              </ul>
+           </div>
+
+           <div>
+              <h3 className="font-bold mb-2">APOIE ESSE PROJETO</h3>
+              <p className="text-sm text-gray-300 mb-2">
+                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
+              </p>
+              <div className="bg-gray-800 p-2 rounded-md text-center">
+                <p className="text-xs break-all">clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj</p>
+                <p className="text-sm font-bold mt-1">QR</p>
+              </div>
+              <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
+           </div>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
