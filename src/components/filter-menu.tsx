@@ -74,14 +74,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 text-lg ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
             <button
               key={fair}
               onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 text-lg ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
             >
               {fair}
             </button>
@@ -93,14 +93,14 @@ export function FilterMenu({
           <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 text-lg ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
              <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 text-lg ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent'}`}
             >
               {style}
             </button>
@@ -114,7 +114,7 @@ export function FilterMenu({
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
-                className={`w-10 h-10 flex items-center justify-center mr-2 ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700'}`}
+                className={`w-10 h-10 flex items-center justify-center mr-2 ${columns === num ? 'bg-accent text-accent-foreground' : 'bg-gray-700 hover:bg-gray-600'}`}
                 onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
               >
                 {num}
