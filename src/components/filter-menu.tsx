@@ -135,13 +135,24 @@ export function FilterMenu({
           <div className={cn("grid gap-1", columnGridClasses[columns])}>
             {columnPreviews.map(item => (
                  <div key={item.id} className="relative aspect-square">
-                    <Image
-                        src={item.src}
-                        alt={item.alt}
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint={item['data-ai-hint']}
-                    />
+                    {item.type === 'image' ? (
+                      <Image
+                          src={item.src}
+                          alt={item.alt}
+                          layout="fill"
+                          objectFit="cover"
+                          data-ai-hint={item['data-ai-hint']}
+                      />
+                    ) : (
+                      <video
+                          src={item.src}
+                          loop
+                          muted
+                          autoPlay
+                          playsInline
+                          className="object-cover w-full h-full"
+                      />
+                    )}
                  </div>
             ))}
           </div>
