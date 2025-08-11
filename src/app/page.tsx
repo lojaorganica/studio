@@ -66,6 +66,25 @@ export default function Home() {
     )
   }
 
+  const handleMediaUpload = (files: FileList) => {
+    const newItems: MediaItem[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const newItem: MediaItem = {
+        id: `${Date.now()}-${i}`,
+        type: file.type.startsWith('image/') ? 'image' : 'video',
+        src: URL.createObjectURL(file),
+        alt: file.name,
+        author: 'Local Upload',
+        fair: 'Art Basel', // Default values
+        style: 'Abstract', // Default values
+        'data-ai-hint': 'local upload',
+      };
+      newItems.push(newItem);
+    }
+    setItems((prevItems) => [...newItems, ...prevItems]);
+  };
+
   // Reset visibility when filters change
   React.useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE_ITEMS);
@@ -83,6 +102,7 @@ export default function Home() {
           onFiltersChange={setFilters}
           columns={columns}
           onColumnsChange={setColumns}
+          onMediaUpload={handleMediaUpload}
         />
       </Sidebar>
       <SidebarInset>

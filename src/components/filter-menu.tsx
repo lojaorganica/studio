@@ -1,6 +1,7 @@
 "use client"
 
 import type { Dispatch, SetStateAction } from "react"
+import * as React from "react"
 import {
   Accordion,
   AccordionContent,
@@ -19,7 +20,7 @@ import {
   SidebarFooter
 } from "@/components/ui/sidebar"
 import { fairs, styles } from "@/lib/media"
-import { Leaf } from "lucide-react"
+import { Leaf, Upload } from "lucide-react"
 
 export type Filters = {
   fairs: Set<string>
@@ -31,6 +32,7 @@ type FilterMenuProps = {
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
+  onMediaUpload: (files: FileList) => void
 }
 
 function ColumnIcon({ columns, active }: { columns: number, active: boolean }) {
@@ -48,7 +50,10 @@ export function FilterMenu({
   onFiltersChange,
   columns,
   onColumnsChange,
+  onMediaUpload,
 }: FilterMenuProps) {
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
+
   const handleFilterChange = (
     category: "fairs" | "styles",
     value: string,
@@ -65,6 +70,16 @@ export function FilterMenu({
     })
   }
 
+  const handleUploadClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      onMediaUpload(event.target.files)
+    }
+  }
+
   return (
     <>
       <SidebarHeader>
@@ -76,6 +91,20 @@ export function FilterMenu({
         </div>
       </SidebarHeader>
       <SidebarContent>
+        <div className="px-4 mb-4">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+            multiple
+            accept="image/*,video/*"
+          />
+          <Button onClick={handleUploadClick} className="w-full">
+            <Upload className="mr-2 h-4 w-4" />
+            Carregar Mídias
+          </Button>
+        </div>
         <Accordion type="multiple" defaultValue={["fairs", "styles", "layout"]} className="w-full">
           <AccordionItem value="fairs">
             <AccordionTrigger className="px-4 text-base font-semibold">Fairs</AccordionTrigger>
