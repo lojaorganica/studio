@@ -26,26 +26,27 @@ export function GalleryItem({
 }: GalleryItemProps) {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // Set the drag effect
+    // Set the drag effect to move
     e.dataTransfer.effectAllowed = 'move';
     
-    // Create a transparent drag image
+    // Create a transparent drag image to hide the default ghost
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
 
-    // Add class to body for global cursor styling
+    // Add a global class to the body for the grabbing cursor
     document.body.classList.add("dragging");
     
-    // Call the parent handler
+    // Trigger the parent's drag start logic
     onDragStart(item.id);
   };
   
   const handleDragEnd = () => {
-    // Remove global cursor styling class
+    // Remove the global cursor styling class
     document.body.classList.remove("dragging");
+    // Trigger the parent's drag end logic
     onDragEnd();
   }
 
@@ -64,7 +65,7 @@ export function GalleryItem({
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
-      onDragEnter={() => onDragEnter(item.id)} // Added for better hover detection
+      onDragEnter={() => onDragEnter(item.id)}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
