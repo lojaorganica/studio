@@ -117,7 +117,7 @@ export default function Home() {
         ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out",
+            "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out will-change-transform",
             isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
