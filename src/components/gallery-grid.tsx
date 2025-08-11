@@ -69,9 +69,11 @@ export function GalleryGrid({
           />
         ))}
       </div>
-       <div ref={ref} className="h-20 w-full mt-10 flex justify-center items-center">
+       <div className="h-20 w-full mt-10 flex justify-center items-center">
         {hasMore && (
-           <Button onClick={loadMore} variant="secondary" className="bg-accent hover:bg-accent/90">Carregar Mais</Button>
+          <div ref={ref}>
+             <Button onClick={loadMore} variant="secondary" className="bg-accent hover:bg-accent/90">Carregar Mais</Button>
+           </div>
         )}
       </div>
     </div>

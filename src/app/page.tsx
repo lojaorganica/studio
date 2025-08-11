@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
 const MOUSE_Y_THRESHOLD_TOP = 50
-const TABLET_BREAKPOINT = 768; // md breakpoint
+const TABLET_BREAKPOINT = 1024; // lg breakpoint
 
 // Function to shuffle an array
 const shuffleArray = (array: MediaItem[]) => {

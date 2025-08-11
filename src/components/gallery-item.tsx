@@ -27,7 +27,6 @@ export function GalleryItem({
 }: GalleryItemProps) {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // This is essential to let the browser know we're starting a drag
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', item.id);
     
