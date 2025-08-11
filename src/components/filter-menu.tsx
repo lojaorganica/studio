@@ -88,7 +88,7 @@ export function FilterMenu({
       alt: item.alt,
       type: item.type
     }));
-  }, [columns, mediaItems, columnPreviewsCount]);
+  }, [columns, mediaItems]);
 
 
   return (
@@ -162,9 +162,14 @@ export function FilterMenu({
                     {item.type === 'image' ? (
                         <Image src={item.src} alt={item.alt} fill className="object-cover rounded bg-muted/20" />
                     ) : (
-                        <div className="w-full h-full bg-muted/20 rounded flex items-center justify-center">
-                            <span className="text-xs text-muted-foreground">Video</span>
-                        </div>
+                        <video
+                            src={item.src}
+                            loop
+                            muted
+                            autoPlay
+                            playsInline
+                            className="w-full h-full object-cover rounded bg-muted/20"
+                        />
                     )}
                 </div>
             ))}
