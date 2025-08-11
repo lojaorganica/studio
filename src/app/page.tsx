@@ -5,7 +5,7 @@ import * as React from "react"
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
-import { allMedia, type MediaItem } from "@/lib/media"
+import { allMedia, type MediaItem, fairs, styles } from "@/lib/media"
 import { cn } from "@/lib/utils"
 
 const INITIAL_VISIBLE_ITEMS = 12
@@ -174,9 +174,8 @@ export default function Home() {
     <div className="min-h-screen w-full bg-background text-foreground">
       <div 
         onMouseLeave={handleMouseLeaveMenu}
-        className={cn(
-            "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-700 ease-in-out will-change-transform backdrop-blur-sm",
-            isMenuOpen ? "translate-y-0" : "-translate-y-full"
+        className={cn("fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-700 ease-in-out will-change-transform backdrop-blur-sm",
+          isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
         <div className="pt-6 pb-6">
@@ -186,7 +185,8 @@ export default function Home() {
             </div>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <FilterMenu
-                  mediaItems={items}
+                  fairs={fairs}
+                  styles={styles}
                   filters={filters}
                   onFiltersChange={setFilters}
                   columns={columns}

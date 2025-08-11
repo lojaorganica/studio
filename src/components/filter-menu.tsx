@@ -3,8 +3,7 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
-import Image from "next/image"
-import { fairs, styles, type MediaItem } from "@/lib/media"
+import { fairs as allFairs, styles as allStyles, type MediaItem } from "@/lib/media"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { UploadButton } from "./upload-button"
@@ -15,7 +14,8 @@ export type Filters = {
 }
 
 type FilterMenuProps = {
-  mediaItems: MediaItem[]
+  fairs: string[]
+  styles: string[]
   filters: Filters
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
@@ -26,7 +26,8 @@ type FilterMenuProps = {
 }
 
 export function FilterMenu({
-  mediaItems,
+  fairs,
+  styles,
   filters,
   onFiltersChange,
   columns,
@@ -70,14 +71,12 @@ export function FilterMenu({
     4: 'grid-cols-4',
   };
   
-  const columnPreviews = React.useMemo(() => {
-    let count = 9;
-    if (columns === 1) count = 2;
-    else if (columns === 2) count = 6;
-    else if (columns === 3) count = 15;
-    else if (columns === 4) count = 24;
-    return mediaItems.slice(0, count);
-  }, [columns, mediaItems]);
+  const columnPreviewsCount: Record<1 | 2 | 3 | 4, number> = {
+    1: 2,
+    2: 6,
+    3: 9,
+    4: 12
+  };
 
 
   return (
@@ -146,27 +145,8 @@ export function FilterMenu({
             ))}
           </div>
           <div className={cn("grid gap-1", columnGridClasses[columns])}>
-            {columnPreviews.map(item => (
-                 <div key={item.id} className="relative aspect-square">
-                    {item.type === 'image' ? (
-                      <Image
-                          src={item.src}
-                          alt={item.alt}
-                          layout="fill"
-                          objectFit="cover"
-                          data-ai-hint={item['data-ai-hint']}
-                      />
-                    ) : (
-                      <video
-                          src={item.src}
-                          loop
-                          muted
-                          autoPlay
-                          playsInline
-                          className="object-cover w-full h-full"
-                      />
-                    )}
-                 </div>
+            {Array.from({ length: columnPreviewsCount[columns] }).map((_, index) => (
+              <div key={index} className="relative aspect-square bg-muted/20 rounded" />
             ))}
           </div>
         </div>
