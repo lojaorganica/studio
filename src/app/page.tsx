@@ -42,7 +42,6 @@ export default function Home() {
   
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
   const [isMenuOpen, setMenuOpen] = React.useState(false)
-  const menuRef = React.useRef<HTMLDivElement>(null)
   
   const [draggingId, setDraggingId] = React.useState<string | null>(null);
   const dragOverItemId = React.useRef<string | null>(null);
@@ -50,23 +49,14 @@ export default function Home() {
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      const isDesktopOrTablet = window.innerWidth >= TABLET_BREAKPOINT;
-      if (!isDesktopOrTablet) {
-        if (isMenuOpen) setMenuOpen(false);
-        return;
-      }
-
+      if (window.innerWidth < TABLET_BREAKPOINT) return;
       if (event.clientY < MOUSE_Y_THRESHOLD_TOP) {
-        if (!isMenuOpen) setMenuOpen(true);
+        setMenuOpen(true);
       }
     };
-
     window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [isMenuOpen]);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const handleMouseLeaveMenu = () => {
      setMenuOpen(false);
@@ -160,7 +150,6 @@ export default function Home() {
   return (
     <div className="min-h-screen w-full bg-black">
       <div 
-        ref={menuRef}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
             "fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out",
