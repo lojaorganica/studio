@@ -76,13 +76,6 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
-
-        <DialogClose asChild>
-            <Button variant="ghost" size="icon" className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10">
-                <X className="h-6 w-6" />
-                <span className="sr-only">Close</span>
-            </Button>
-        </DialogClose>
       </DialogContent>
     </Dialog>
   )
