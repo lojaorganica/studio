@@ -187,8 +187,8 @@ export default function Home() {
         onMouseEnter={handleMouseEnterMenu}
         onMouseLeave={handleMouseLeaveMenu}
         className={cn(
-            "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
-            isMenuOpen ? "translate-y-0" : "-translate-y-full"
+          "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
+          isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
       >
         <div className="pt-6 pb-6">
@@ -213,7 +213,7 @@ export default function Home() {
         </div>
       </div>
       
-      <main className="flex-1 overflow-auto pt-8">
+      <main className="flex-1 overflow-auto">
         <GalleryGrid
           items={itemsToShow}
           columns={columns}
