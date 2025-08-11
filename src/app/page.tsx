@@ -169,6 +169,7 @@ export default function Home() {
                   onFiltersChange={setFilters}
                   columns={columns}
                   onColumnsChange={setColumns}
+                  onUpload={handleUploadMedia}
                 />
             </div>
         </div>

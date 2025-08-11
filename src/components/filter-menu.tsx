@@ -7,6 +7,7 @@ import Image from "next/image"
 import { fairs, styles, allMedia, type MediaItem } from "@/lib/media"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { UploadButton } from "./upload-button"
 
 export type Filters = {
   fairs: Set<string>
@@ -18,6 +19,7 @@ type FilterMenuProps = {
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
+  onUpload: (newMedia: MediaItem[]) => void
 }
 
 export function FilterMenu({
@@ -25,6 +27,7 @@ export function FilterMenu({
   onFiltersChange,
   columns,
   onColumnsChange,
+  onUpload,
 }: FilterMenuProps) {
 
   const handleFairChange = (fair: string) => {
@@ -146,7 +149,8 @@ export function FilterMenu({
         <div className="md:col-span-3">
            <div className="bg-gray-800 bg-opacity-50 p-4 mb-6">
               <h3 className="font-bold flex items-center mb-2 text-xl"><Star className="w-5 h-5 mr-2 text-accent" />FAVORITOS</h3>
-              <p className="text-sm text-gray-300">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
+              <p className="text-sm text-gray-300 mb-2">Para adicionar ou remover mídias, edite a pasta public/media e rode npm run generate-media no terminal.</p>
+               <UploadButton onUpload={onUpload} />
            </div>
            
            <div className="mb-6">
