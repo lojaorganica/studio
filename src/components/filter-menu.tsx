@@ -71,17 +71,17 @@ export function FilterMenu({
 
         {/* Col 1: Feiras */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
+          <h3 className="font-bold text-lg mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <button 
             onClick={clearFairs}
-            className={`w-full text-left p-2 mb-2 rounded ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 rounded text-base ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todas as Feiras
           </button>
           {fairs.map((fair) => (
             <button
               key={fair}
               onClick={() => handleFairChange(fair)}
-              className={`w-full text-left p-2 rounded ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 rounded text-base ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {fair}
             </button>
@@ -90,17 +90,17 @@ export function FilterMenu({
 
         {/* Col 2: Estilos */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
+          <h3 className="font-bold text-lg mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
            <button 
             onClick={clearStyles}
-            className={`w-full text-left p-2 mb-2 rounded ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
+            className={`w-full text-left p-2 mb-2 rounded text-base ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}>
             Todos os Estilos
           </button>
           {styles.map((style) => (
              <button
               key={style}
               onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 rounded ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
+              className={`w-full text-left p-2 rounded text-base ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/80'}`}
             >
               {style}
             </button>
@@ -109,7 +109,7 @@ export function FilterMenu({
 
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
-          <h3 className="font-bold mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
+          <h3 className="font-bold text-lg mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
           <div className="flex justify-start items-center mb-4">
             {[1, 2, 3, 4].map((num) => (
               <button
@@ -145,7 +145,7 @@ export function FilterMenu({
            </div>
            
            <div className="mb-6">
-              <h3 className="font-bold mb-2">DICAS</h3>
+              <h3 className="font-bold text-lg mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                 <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
                 <li>Arraste e solte as imagens e vídeos para organizar</li>
@@ -156,7 +156,7 @@ export function FilterMenu({
            </div>
 
            <div>
-              <h3 className="font-bold mb-2">APOIE ESSE PROJETO</h3>
+              <h3 className="font-bold text-lg mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
               <p className="text-sm text-gray-300 mb-2">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
