@@ -3,6 +3,7 @@
 
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
+import Image from "next/image"
 import { fairs as allFairs, styles as allStyles, type MediaItem } from "@/lib/media"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -23,6 +24,7 @@ type FilterMenuProps = {
   onUpload: (newMedia: MediaItem[]) => void
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
+  mediaItems: MediaItem[]
 }
 
 export function FilterMenu({
@@ -35,6 +37,7 @@ export function FilterMenu({
   onUpload,
   showOnlyFavorites,
   onToggleFavorites,
+  mediaItems,
 }: FilterMenuProps) {
 
   const handleFairChange = (fair: string) => {
@@ -77,6 +80,15 @@ export function FilterMenu({
     3: 9,
     4: 12
   };
+  
+  const columnPreviews = React.useMemo(() => {
+    return mediaItems.slice(0, columnPreviewsCount[columns]).map(item => ({
+      id: item.id,
+      src: item.src,
+      alt: item.alt,
+      type: item.type
+    }));
+  }, [columns, mediaItems, columnPreviewsCount]);
 
 
   return (
@@ -136,7 +148,7 @@ export function FilterMenu({
                 className={cn('w-full p-2 text-xl flex items-center justify-center border-0', 
                   columns === num 
                   ? 'bg-accent text-accent-foreground' 
-                  : 'bg-black hover:bg-gray-600'
+                  : 'bg-black hover:bg-accent'
                 )}
                 onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
               >
@@ -145,8 +157,16 @@ export function FilterMenu({
             ))}
           </div>
           <div className={cn("grid gap-1", columnGridClasses[columns])}>
-            {Array.from({ length: columnPreviewsCount[columns] }).map((_, index) => (
-              <div key={index} className="relative aspect-square bg-muted/20 rounded" />
+            {columnPreviews.map((item) => (
+                <div key={item.id} className="relative aspect-square">
+                    {item.type === 'image' ? (
+                        <Image src={item.src} alt={item.alt} fill className="object-cover rounded bg-muted/20" />
+                    ) : (
+                        <div className="w-full h-full bg-muted/20 rounded flex items-center justify-center">
+                            <span className="text-xs text-muted-foreground">Video</span>
+                        </div>
+                    )}
+                </div>
             ))}
           </div>
         </div>
