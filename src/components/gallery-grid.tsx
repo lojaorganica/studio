@@ -63,8 +63,8 @@ export function GalleryGrid({
             item={item}
             isDragging={draggingId === item.id}
             onClick={() => onItemClick(index)}
-            onDragStart={() => onItemDragStart(item.id)}
-            onDragEnter={() => onItemDragEnter(item.id)}
+            onDragStart={onItemDragStart}
+            onDragEnter={onItemDragEnter}
             onDragEnd={onItemDragEnd}
           />
         ))}

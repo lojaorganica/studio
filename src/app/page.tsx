@@ -44,7 +44,7 @@ export default function Home() {
   const [isMenuOpen, setMenuOpen] = React.useState(false)
   
   const [draggingId, setDraggingId] = React.useState<string | null>(null);
-  const dragOverItemId = React.useRef<string | null>(null);
+  const [dragOverItemId, setDragOverItemId] = React.useState<string | null>(null);
 
 
   React.useEffect(() => {
@@ -113,19 +113,19 @@ export default function Home() {
 
   const handleDragEnter = (id: string) => {
     if (draggingId === id) return;
-    dragOverItemId.current = id;
+    setDragOverItemId(id);
   };
   
   const handleDragEnd = () => {
-    if (!draggingId || !dragOverItemId.current || draggingId === dragOverItemId.current) {
+    if (!draggingId || !dragOverItemId || draggingId === dragOverItemId) {
         setDraggingId(null);
-        dragOverItemId.current = null;
+        setDragOverItemId(null);
         return;
     }
 
     setItems(oldItems => {
         const dragItemIndex = oldItems.findIndex(item => item.id === draggingId);
-        const dragOverItemIndex = oldItems.findIndex(item => item.id === dragOverItemId.current);
+        const dragOverItemIndex = oldItems.findIndex(item => item.id === dragOverItemId);
 
         if (dragItemIndex === -1 || dragOverItemIndex === -1) {
             return oldItems;
@@ -139,7 +139,7 @@ export default function Home() {
     });
 
     setDraggingId(null);
-    dragOverItemId.current = null;
+    setDragOverItemId(null);
   };
 
 
@@ -158,8 +158,8 @@ export default function Home() {
             "will-change-transform"
         )}
       >
-        <div className="bg-black/80 backdrop-blur-sm">
-           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 text-center">
+        <div className="bg-black/80 backdrop-blur-sm pt-6">
+           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
                 <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
                 <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
             </div>
@@ -175,7 +175,7 @@ export default function Home() {
         </div>
       </div>
       
-      <main className="flex-1 overflow-auto pt-48">
+      <main className="flex-1 overflow-auto pt-44">
         <GalleryGrid
           items={itemsToShow}
           columns={columns}

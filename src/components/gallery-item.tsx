@@ -12,8 +12,8 @@ type GalleryItemProps = {
   item: MediaItemType
   isDragging: boolean
   onClick: () => void
-  onDragStart: () => void
-  onDragEnter: () => void
+  onDragStart: (id: string) => void
+  onDragEnter: (id: string) => void
   onDragEnd: () => void
 }
 
@@ -28,20 +28,19 @@ export function GalleryItem({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = 'move';
-    // Set a transparent drag image. The visual feedback will be the semi-transparent
-    // original item, which is controlled by the `isDragging` state.
+    // This is a trick to hide the default drag preview
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
 
-    onDragStart();
+    onDragStart(item.id);
   };
   
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault(); // This is crucial to allow a drop.
-    onDragEnter();
+    onDragEnter(item.id);
   }
 
   return (
