@@ -175,7 +175,7 @@ export default function Home() {
         </div>
       </div>
       
-      <main className="flex-1 overflow-auto pt-44">
+      <main className="flex-1 overflow-auto pt-8">
         <GalleryGrid
           items={itemsToShow}
           columns={columns}

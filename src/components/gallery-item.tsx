@@ -28,7 +28,7 @@ export function GalleryItem({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.effectAllowed = 'move';
-    // This is a trick to hide the default drag preview
+    // This is a trick to hide the default browser drag preview
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 1;
     const ctx = canvas.getContext('2d');
