@@ -4,7 +4,7 @@
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
-import { fairs, styles, allMedia, type MediaItem } from "@/lib/media"
+import { fairs, styles, type MediaItem } from "@/lib/media"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { UploadButton } from "./upload-button"
@@ -15,6 +15,7 @@ export type Filters = {
 }
 
 type FilterMenuProps = {
+  mediaItems: MediaItem[]
   filters: Filters
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
@@ -23,6 +24,7 @@ type FilterMenuProps = {
 }
 
 export function FilterMenu({
+  mediaItems,
   filters,
   onFiltersChange,
   columns,
@@ -70,8 +72,8 @@ export function FilterMenu({
     else if (columns === 2) count = 6;
     else if (columns === 3) count = 15;
     else if (columns === 4) count = 24;
-    return allMedia.slice(0, count);
-  }, [columns]);
+    return mediaItems.slice(0, count);
+  }, [columns, mediaItems]);
 
 
   return (
