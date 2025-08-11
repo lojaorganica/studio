@@ -102,7 +102,7 @@ export function FilterMenu({
                 {fair}
               </button>
             ))}
-            <div className="mt-4">
+             <div className="mt-4">
                <UploadButton onUpload={onUpload} />
             </div>
           </div>
@@ -134,7 +134,7 @@ export function FilterMenu({
             {[1, 2, 3, 4].map((num) => (
               <button
                 key={num}
-                className={cn('w-full p-2 text-xl flex items-center justify-center', 
+                className={cn('w-full p-2 text-xl flex items-center justify-center border-0', 
                   columns === num 
                   ? 'bg-accent text-accent-foreground' 
                   : 'bg-black hover:bg-gray-600'
@@ -176,9 +176,9 @@ export function FilterMenu({
             <button
               onClick={onToggleFavorites}
               className={cn(
-                'w-full p-2 text-xl flex items-center justify-center mb-4',
-                showOnlyFavorites 
-                  ? 'bg-accent text-accent-foreground' 
+                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
+                showOnlyFavorites
+                  ? 'bg-accent text-accent-foreground'
                   : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
               )}
             >
