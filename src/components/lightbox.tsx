@@ -21,8 +21,8 @@ type LightboxProps = {
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-transparent border-0 flex items-center justify-center">
-        <div className="relative bg-background/80 backdrop-blur-md rounded-lg p-0">
+      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-transparent border-0 flex items-center justify-center shadow-none">
+        <div className="relative">
             <div className="w-full h-full flex justify-center items-center">
               {item.type === "image" ? (
                 <Image
@@ -43,7 +43,12 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               )}
             </div>
             
-            <Button
+            <div className="flex justify-center gap-2 mt-4">
+                <Badge variant="secondary">{item.fair}</Badge>
+                <Badge variant="secondary">{item.style}</Badge>
+            </div>
+        </div>
+         <Button
               variant="ghost"
               size="icon"
               onClick={onPrev}
@@ -61,12 +66,6 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             >
               <ChevronRight className="h-6 w-6" />
             </Button>
-
-            <div className="flex justify-center gap-2 p-2 rounded-lg">
-                <Badge variant="secondary">{item.fair}</Badge>
-                <Badge variant="secondary">{item.style}</Badge>
-            </div>
-        </div>
       </DialogContent>
     </Dialog>
   )
