@@ -109,8 +109,8 @@ export function MobileMenu({
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
 
           <AccordionItem value="fairs">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              <div className="flex-1 text-left">ESCOLHA AS <span className="text-accent">FEIRAS</span></div>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
+              ESCOLHA AS <span className="text-accent ml-2">FEIRAS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -131,8 +131,8 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="styles">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              <div className="flex-1 text-left">ESCOLHA OS <span className="text-accent">ESTILOS</span></div>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
+              ESCOLHA OS <span className="text-accent ml-2">ESTILOS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -153,8 +153,8 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="columns">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              <div className="flex-1 text-left">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></div>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
+               ESCOLHA O <span className="text-accent ml-2">N° DE COLUNAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
@@ -194,7 +194,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <div className="border-b">
-            <button
+             <button
               onClick={onToggleFavorites}
               className="flex w-full flex-1 items-center py-4 font-bold text-xl no-underline"
             >
@@ -210,17 +210,15 @@ export function MobileMenu({
                 strokeWidth={1}
                 className={cn(
                   'w-5 h-5 ml-2',
-                  showOnlyFavorites
-                    ? 'text-yellow-400 fill-yellow-400'
-                    : 'text-accent'
+                   showOnlyFavorites ? 'text-yellow-400 fill-yellow-400' : 'text-accent'
                 )}
               />
             </button>
           </div>
           
-          <AccordionItem value="info">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              <div className="flex-1 text-left"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></div>
+          <AccordionItem value="dicas">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
+              ALGUMAS <span className="text-accent ml-2">DICAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="mb-4">
@@ -232,7 +230,14 @@ export function MobileMenu({
                   <li>Compartilhe em suas redes para ajudar na divulgação</li>
                 </ul>
               </div>
+            </AccordionContent>
+          </AccordionItem>
 
+          <AccordionItem value="apoio">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
+              APOIE O <span className="text-accent ml-2">PROJETO</span>
+            </AccordionTrigger>
+            <AccordionContent>
                <div>
                   <h3 className="font-bold text-lg mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
                   <p className="text-sm text-gray-300 mb-2 space-y-1">
@@ -251,3 +256,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
