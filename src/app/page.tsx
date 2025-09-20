@@ -7,6 +7,8 @@ import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
 import { allMedia, type MediaItem, fairs, styles } from "@/lib/media"
 import { cn } from "@/lib/utils"
+import { MobileMenu } from "@/components/mobile-menu"
+import { Menu } from "lucide-react"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
@@ -49,6 +51,8 @@ export default function Home() {
   const [favoritedIds, setFavoritedIds] = React.useState<Set<string>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
+  const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
 
   const toggleFavorite = (id: string) => {
     setFavoritedIds(prev => {
@@ -80,6 +84,7 @@ export default function Home() {
   }, []);
 
   const handleMouseEnterMenu = () => {
+    if (window.innerWidth < TABLET_BREAKPOINT) return;
     if (menuLeaveTimer.current) {
       clearTimeout(menuLeaveTimer.current);
       menuLeaveTimer.current = null;
@@ -88,6 +93,7 @@ export default function Home() {
   };
 
   const handleMouseLeaveMenu = () => {
+    if (window.innerWidth < TABLET_BREAKPOINT) return;
     menuLeaveTimer.current = setTimeout(() => {
       setMenuOpen(false);
     }, 100);
@@ -115,9 +121,7 @@ export default function Home() {
     }
 
     return baseItems.filter((item) => {
-      const srcLower = item.src.toLowerCase();
-      // Use alt as a reliable source for filename, especially for data URIs
-      const filename = item.alt.toLowerCase();
+       const filename = item.alt.toLowerCase();
 
       // --- Fair Filter Logic ---
       let fairFilterPassed = true;
@@ -145,7 +149,7 @@ export default function Home() {
             case 'Animações de Alimentos':
               return filename.includes('aali');
             case 'Animações de Personagens':
-              return filename.startsWith('ap') || filename.includes('ap_story') || filename.includes('as_story');
+              return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
             case 'Fotografia':
               return filename.includes('fot');
             case 'Flyer':
@@ -241,9 +245,37 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
+      {/* Mobile Menu */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          onOpenChange={setMobileMenuOpen}
+          fairs={fairs}
+          styles={styles}
+          filters={filters}
+          onFiltersChange={setFilters}
+          columns={columns}
+          onColumnsChange={setColumns}
+          onUpload={handleUploadMedia}
+          showOnlyFavorites={showOnlyFavorites}
+          onToggleFavorites={toggleShowOnlyFavorites}
+          mediaItems={items}
+        >
+          <button
+            className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <Menu className="h-6 w-6 text-white" />
+          </button>
+        </MobileMenu>
+      </div>
+
+       {/* Desktop Menu */}
       <div
+        key="filter-menu-container"
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
+          "fixed top-0 left-0 right-0 z-40 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
+          "hidden md:block",
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
         )}
         onMouseEnter={handleMouseEnterMenu}
