@@ -197,24 +197,23 @@ export function MobileMenu({
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="actions">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">MAIS <span className="text-accent">OPÇÕES</span></AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-4">
-                <button
-                  onClick={onToggleFavorites}
-                  className={cn(
-                    'w-full p-2 text-xl flex items-center justify-center border-0',
-                    showOnlyFavorites
-                      ? 'bg-accent text-accent-foreground'
-                      : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
-                  )}
-                >
-                  <Star className="w-5 h-5 mr-2" />
-                  <span className="font-bold">FAVORITOS</span>
-                </button>
-                <UploadButton onUpload={onUpload} />
-            </AccordionContent>
-          </AccordionItem>
+          <div className="border-b">
+            <button
+              onClick={() => {
+                onToggleFavorites();
+              }}
+              className={cn(
+                'flex w-full flex-1 items-center py-4 font-bold text-xl text-white no-underline',
+                showOnlyFavorites ? 'text-accent-foreground' : ''
+              )}
+            >
+              <span>MEUS </span>
+              <span className={cn('text-yellow-400', showOnlyFavorites ? 'text-white' : '')}>
+                <Star className={cn('inline-block w-5 h-5 mr-2', showOnlyFavorites ? 'text-white fill-white' : 'text-yellow-400 fill-yellow-400')} />
+                FAVORITOS
+              </span>
+            </button>
+          </div>
           
           <AccordionItem value="info">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></AccordionTrigger>
@@ -247,3 +246,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
