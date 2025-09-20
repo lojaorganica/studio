@@ -72,3 +72,4 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
     </Dialog>
   )
 }
+
