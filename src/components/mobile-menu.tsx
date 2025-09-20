@@ -248,7 +248,6 @@ export function MobileMenu({
             </AccordionTrigger>
             <AccordionContent>
                <div>
-                  <h3 className="font-bold text-lg mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
                   <p className="text-sm text-gray-300 mb-2 space-y-1">
                     Sua doação espontânea é essencial. Contribua com alguns satoshis de BTC para o endereço abaixo.
                   </p>
