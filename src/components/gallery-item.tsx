@@ -211,7 +211,7 @@ export function GalleryItem({
               className="p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors pointer-events-auto focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label={isPlaying ? "Pausar" : "Reproduzir"}
             >
-              {isPlaying ? <PauseIcon className="w-10 h-10 md:w-12 md:h-12" /> : <PlayIcon className="w-10 h-10 md:w-12 md:h-12" />}
+              {isPlaying ? <PauseIcon className="w-8 h-8 md:w-12 md:h-12" /> : <PlayIcon className="w-8 h-8 md:w-12 md:h-12" />}
             </button>
           </div>
         )}
