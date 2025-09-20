@@ -21,56 +21,53 @@ type LightboxProps = {
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-transparent border-0 flex flex-col gap-2">
-        <div className="relative flex items-center justify-center bg-background/80 backdrop-blur-md rounded-lg">
-          <div className="w-full h-full flex justify-center items-center">
-            {item.type === "image" ? (
-              <Image
-                src={item.src}
-                alt={item.alt}
-                width={1200}
-                height={1200}
-                data-ai-hint={item['data-ai-hint']}
-                className="max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-              />
-            ) : (
-              <video
-                src={item.src}
-                controls
-                autoPlay
-                className="max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-              />
-            )}
-          </div>
-          
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 md:left-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10"
-            aria-label="Previous image"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10"
-            aria-label="Next image"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-        </div>
-        
-        <div className="flex justify-center gap-2 p-2 bg-background/80 backdrop-blur-md rounded-lg">
-            <Badge variant="secondary">{item.fair}</Badge>
-            <Badge variant="secondary">{item.style}</Badge>
-        </div>
+      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-transparent border-0 flex items-center justify-center">
+        <div className="relative bg-background/80 backdrop-blur-md rounded-lg p-0">
+            <div className="w-full h-full flex justify-center items-center">
+              {item.type === "image" ? (
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={1200}
+                  height={1200}
+                  data-ai-hint={item['data-ai-hint']}
+                  className="max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                />
+              ) : (
+                <video
+                  src={item.src}
+                  controls
+                  autoPlay
+                  className="max-h-[80vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                />
+              )}
+            </div>
+            
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onPrev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 md:left-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </Button>
 
+            <div className="flex justify-center gap-2 p-2 rounded-lg">
+                <Badge variant="secondary">{item.fair}</Badge>
+                <Badge variant="secondary">{item.style}</Badge>
+            </div>
+        </div>
       </DialogContent>
     </Dialog>
   )
 }
-
-
