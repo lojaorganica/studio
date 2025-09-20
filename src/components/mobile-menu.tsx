@@ -115,7 +115,7 @@ export function MobileMenu({
       <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/90 backdrop-blur-sm text-white p-4 overflow-y-auto">
         <div className="text-center mb-6">
           <h1 className="text-xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década.</p>
+          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas, ao longo de mais de uma década, para as feiras orgânicas do Circuito.</p>
         </div>
 
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
@@ -262,7 +262,7 @@ export function MobileMenu({
             <AccordionContent>
                <div>
                   <p className="text-sm text-gray-300 mb-2 space-y-1">
-                    Não aceitamos recursos públicos para nosso trabalho de apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
+                    Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
                   </p>
                   <div 
                     className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
@@ -283,3 +283,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
