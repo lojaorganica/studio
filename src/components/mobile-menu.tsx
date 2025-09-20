@@ -198,7 +198,7 @@ export function MobileMenu({
           <div className="border-b">
              <button
               onClick={onToggleFavorites}
-              className={cn('flex w-full flex-1 items-center py-4 font-bold text-xl')}
+              className='flex w-full flex-1 items-center py-4 font-bold text-xl'
             >
               <span className="mr-2">MEUS</span>
               <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
@@ -236,7 +236,7 @@ export function MobileMenu({
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
-                Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">Facebook</a>
+                Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Facebook</a>
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -265,5 +265,7 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
 
     
