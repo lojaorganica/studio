@@ -201,16 +201,23 @@ export function MobileMenu({
             <button
               onClick={onToggleFavorites}
               className={cn(
-                'flex w-full flex-1 items-center py-4 font-bold text-xl text-white no-underline',
-                showOnlyFavorites ? 'text-accent-foreground' : ''
+                'flex w-full flex-1 items-center py-4 font-bold text-xl no-underline',
+                showOnlyFavorites ? 'text-accent-foreground' : 'text-white'
               )}
             >
-              <span>MEUS</span>
-              {' '}
-              <span className={cn('text-yellow-400', showOnlyFavorites ? 'text-white' : '')}>
+              <span className="mr-2">MEUS</span>
+              <span className={cn(showOnlyFavorites ? 'text-white' : 'text-yellow-400')}>
                 FAVORITOS
-                <Star strokeWidth={1.5} className={cn('inline-block align-text-top w-5 h-5 ml-2', showOnlyFavorites ? 'text-white fill-white' : 'text-yellow-400 fill-yellow-400')} />
               </span>
+              <Star
+                strokeWidth={1}
+                className={cn(
+                  'w-5 h-5 ml-2',
+                  showOnlyFavorites
+                    ? 'text-white fill-white'
+                    : 'text-yellow-400 fill-yellow-400'
+                )}
+              />
             </button>
           </div>
           
@@ -245,3 +252,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
