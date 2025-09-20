@@ -205,10 +205,11 @@ export function MobileMenu({
                 showOnlyFavorites ? 'text-accent-foreground' : ''
               )}
             >
-              <span>MEUS </span>
+              <span>MEUS</span>
+              {' '}
               <span className={cn('text-yellow-400', showOnlyFavorites ? 'text-white' : '')}>
                 FAVORITOS
-                <Star className={cn('inline-block align-middle w-5 h-5 ml-2', showOnlyFavorites ? 'text-white fill-white' : 'text-yellow-400 fill-yellow-400')} />
+                <Star strokeWidth={1.5} className={cn('inline-block align-text-top w-5 h-5 ml-2', showOnlyFavorites ? 'text-white fill-white' : 'text-yellow-400 fill-yellow-400')} />
               </span>
             </button>
           </div>
