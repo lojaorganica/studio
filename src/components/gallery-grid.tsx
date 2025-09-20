@@ -47,10 +47,10 @@ export function GalleryGrid({
   }, [inView, loadMore])
 
   const columnClasses = {
-    1: "sm:columns-1",
-    2: "sm:columns-2",
-    3: "sm:columns-3",
-    4: "sm:columns-4",
+    1: "columns-1",
+    2: "columns-2",
+    3: "columns-3",
+    4: "columns-4",
   }
 
   const handleDragEnd = () => {
@@ -62,7 +62,7 @@ export function GalleryGrid({
     <div className="p-4 md:p-6">
       <div
         className={cn(
-          "columns-1 gap-4 md:gap-6",
+          "gap-4 md:gap-6",
           columnClasses[columns]
         )}
         onDragEnd={handleDragEnd}
