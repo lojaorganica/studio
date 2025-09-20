@@ -108,7 +108,7 @@ export function MobileMenu({
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
 
           <AccordionItem value="fairs">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
               <span className="mr-1">ESCOLHA AS</span>
               <span className="text-accent ml-1">FEIRAS</span>
             </AccordionTrigger>
@@ -131,7 +131,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="styles">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
               <span className="mr-1">ESCOLHA OS</span>
               <span className="text-accent ml-1">ESTILOS</span>
             </AccordionTrigger>
@@ -154,7 +154,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="columns">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
                <span className="mr-1">ESCOLHA O</span>
                <span className="text-accent ml-1">N° DE COLUNAS</span>
             </AccordionTrigger>
@@ -196,11 +196,9 @@ export function MobileMenu({
           </AccordionItem>
 
           <div className="border-b">
-            <button
+             <button
               onClick={onToggleFavorites}
-              className={cn(
-                'flex w-full flex-1 items-center py-4 font-bold text-xl no-underline'
-              )}
+              className={cn('flex w-full flex-1 items-center py-4 font-bold text-xl')}
             >
               <span className="mr-2">MEUS</span>
               <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
@@ -217,12 +215,13 @@ export function MobileMenu({
           </div>
           
           <AccordionItem value="dicas">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
               <span className="mr-1">ALGUMAS</span>
               <span className="text-accent ml-1">DICAS</span>
             </AccordionTrigger>
             <AccordionContent>
-              <p className="text-sm text-gray-300 leading-relaxed">
+               <p className="text-sm text-gray-300 leading-relaxed">
+                <span className="text-red-500 mr-1.5 font-bold">&bull;</span>
                 Pesquise artes por feiras e estilos com a combinação de botões
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Arraste e solte as imagens e vídeos para organizar
@@ -232,12 +231,18 @@ export function MobileMenu({
                 Escolha favoritos
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Faça uma doação para o projeto
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">Facebook</a>
               </p>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="apoio">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
               <span className="mr-1">APOIE O</span>
               <span className="text-accent ml-1">PROJETO</span>
             </AccordionTrigger>
@@ -260,3 +265,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
