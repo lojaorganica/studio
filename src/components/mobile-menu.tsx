@@ -15,7 +15,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { UploadButton } from "./upload-button"
 
 export type Filters = {
   fair: string
@@ -111,7 +110,7 @@ export function MobileMenu({
           <AccordionItem value="fairs">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
               <span className="mr-1">ESCOLHA AS</span>
-              <span className="text-accent">FEIRAS</span>
+              <span className="text-accent ml-1">FEIRAS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -134,7 +133,7 @@ export function MobileMenu({
           <AccordionItem value="styles">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
               <span className="mr-1">ESCOLHA OS</span>
-              <span className="text-accent">ESTILOS</span>
+              <span className="text-accent ml-1">ESTILOS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -157,7 +156,7 @@ export function MobileMenu({
           <AccordionItem value="columns">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
                <span className="mr-1">ESCOLHA O</span>
-               <span className="text-accent">N° DE COLUNAS</span>
+               <span className="text-accent ml-1">N° DE COLUNAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
@@ -197,14 +196,16 @@ export function MobileMenu({
           </AccordionItem>
 
           <div className="border-b">
-             <button
+            <button
               onClick={onToggleFavorites}
               className={cn(
                 'flex w-full flex-1 items-center py-4 font-bold text-xl no-underline'
               )}
             >
               <span className="mr-2">MEUS</span>
-              <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>FAVORITOS</span>
+              <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
+                FAVORITOS
+              </span>
               <Star
                 strokeWidth={1}
                 className={cn(
@@ -218,19 +219,19 @@ export function MobileMenu({
           <AccordionItem value="dicas">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
               <span className="mr-1">ALGUMAS</span>
-              <span className="text-accent">DICAS</span>
+              <span className="text-accent ml-1">DICAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Pesquise artes por feiras e estilos
+                Pesquise artes por feiras e estilos com a combinação de botões
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
-                Arraste e solte para organizar
+                Arraste e solte as imagens e vídeos para organizar
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Faça downloads
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Escolha favoritos
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
-                Compartilhe em suas redes
+                Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -238,7 +239,7 @@ export function MobileMenu({
           <AccordionItem value="apoio">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
               <span className="mr-1">APOIE O</span>
-              <span className="text-accent">PROJETO</span>
+              <span className="text-accent ml-1">PROJETO</span>
             </AccordionTrigger>
             <AccordionContent>
                <div>
