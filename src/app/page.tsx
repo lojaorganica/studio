@@ -35,8 +35,8 @@ export default function Home() {
 
   const [columns, setColumns] = React.useState<1 | 2 | 3 | 4>(3)
   const [filters, setFilters] = React.useState<Filters>({
-    fairs: new Set(),
-    styles: new Set(),
+    fair: '',
+    style: '',
   })
 
   const [lightboxOpen, setLightboxOpen] = React.useState(false)
@@ -125,47 +125,52 @@ export default function Home() {
 
       // --- Fair Filter Logic ---
       let fairFilterPassed = true;
-      if (filters.fairs.size > 0) {
-        const selectedFairs = [...filters.fairs];
-        const isStoryStyle = filters.styles.has('Story');
-
-        fairFilterPassed = selectedFairs.some(fair => {
-          if (isStoryStyle && fair !== 'Flamengo e Laranjeiras') {
-            return filename.includes('todas_feiras');
-          }
-          const keyword = fairKeywords[fair];
-          return keyword ? filename.includes(keyword) : false;
-        });
+      if (filters.fair) {
+        const isStoryStyle = filters.style === 'Story';
+        if (isStoryStyle && filters.fair !== 'Flamengo e Laranjeiras') {
+          fairFilterPassed = filename.includes('todas_feiras');
+        } else {
+          const keyword = fairKeywords[filters.fair];
+          fairFilterPassed = keyword ? filename.includes(keyword) : false;
+        }
       }
+
 
       // --- Style Filter Logic ---
       let styleFilterPassed = true;
-      if (filters.styles.size > 0) {
-        const selectedStyles = [...filters.styles];
-        styleFilterPassed = selectedStyles.some(style => {
-          switch (style) {
-            case 'Animações de Agricultores':
-              return filename.includes('aagr');
-            case 'Animações de Alimentos':
-              return filename.includes('aali');
-            case 'Animações de Personagens':
-              return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-            case 'Fotografia':
-              return filename.includes('fot');
-            case 'Flyer':
-              return filename.includes('flyer');
-            case 'Cartoon':
-              return filename.includes('cartoon');
-            case 'Story':
-              return filename.includes('story');
-            case 'Datas Especiais':
-              return filename.includes('especial');
-            case 'Dias de Chuva':
-              return filename.includes('chuva');
-            default:
-              return false;
-          }
-        });
+      if (filters.style) {
+        switch (filters.style) {
+          case 'Animações de Agricultores':
+            styleFilterPassed = filename.includes('aagr');
+            break;
+          case 'Animações de Alimentos':
+            styleFilterPassed = filename.includes('aali');
+            break;
+          case 'Animações de Personagens':
+            styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            break;
+          case 'Fotografia':
+            styleFilterPassed = filename.includes('fot');
+            break;
+          case 'Flyer':
+            styleFilterPassed = filename.includes('flyer');
+            break;
+          case 'Cartoon':
+            styleFilterPassed = filename.includes('cartoon');
+            break;
+          case 'Story':
+            styleFilterPassed = filename.includes('story');
+            break;
+          case 'Datas Especiais':
+            styleFilterPassed = filename.includes('especial');
+            break;
+          case 'Dias de Chuva':
+            styleFilterPassed = filename.includes('chuva');
+            break;
+          default:
+            styleFilterPassed = false;
+            break;
+        }
       }
 
       return fairFilterPassed && styleFilterPassed;

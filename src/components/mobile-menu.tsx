@@ -18,8 +18,8 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/s
 import { UploadButton } from "./upload-button"
 
 export type Filters = {
-  fairs: Set<string>
-  styles: Set<string>
+  fair: string
+  style: string
 }
 
 type MobileMenuProps = {
@@ -55,31 +55,21 @@ export function MobileMenu({
 }: MobileMenuProps) {
 
   const handleFairChange = (fair: string) => {
-    onFiltersChange((prevFilters) => {
-      const newSet = new Set(prevFilters.fairs)
-      if (newSet.has(fair)) {
-        newSet.delete(fair)
-      } else {
-        newSet.add(fair)
-      }
-      return { ...prevFilters, fairs: newSet }
-    })
+    onFiltersChange((prevFilters) => ({
+      ...prevFilters,
+      fair: prevFilters.fair === fair ? '' : fair,
+    }))
   }
 
   const handleStyleChange = (style: string) => {
-    onFiltersChange((prevFilters) => {
-      const newSet = new Set(prevFilters.styles)
-      if (newSet.has(style)) {
-        newSet.delete(style)
-      } else {
-        newSet.add(style)
-      }
-      return { ...prevFilters, styles: newSet }
-    })
+    onFiltersChange((prevFilters) => ({
+      ...prevFilters,
+      style: prevFilters.style === style ? '' : style,
+    }))
   }
 
-  const clearFairs = () => onFiltersChange(prev => ({ ...prev, fairs: new Set() }))
-  const clearStyles = () => onFiltersChange(prev => ({ ...prev, styles: new Set() }))
+  const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
+  const clearStyles = () => onFiltersChange(prev => ({ ...prev, style: '' }))
   
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
     1: 'grid-cols-1',
@@ -123,14 +113,14 @@ export function MobileMenu({
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearFairs}
-                className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.fairs.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
+                className={`w-full text-left p-2 text-lg hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
                 Todas as Feiras
               </button>
               {fairs.map((fair) => (
                 <button
                   key={fair}
                   onClick={() => handleFairChange(fair)}
-                  className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.fairs.has(fair) ? 'bg-accent text-accent-foreground' : ''}`}
+                  className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
                 >
                   {fair}
                 </button>
@@ -143,14 +133,14 @@ export function MobileMenu({
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearStyles}
-                className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.styles.size === 0 ? 'bg-accent text-accent-foreground' : ''}`}>
+                className={`w-full text-left p-2 text-lg hover:bg-accent ${!filters.style ? 'bg-accent text-accent-foreground' : ''}`}>
                 Todos os Estilos
               </button>
               {styles.map((style) => (
                  <button
                   key={style}
                   onClick={() => handleStyleChange(style)}
-                  className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.styles.has(style) ? 'bg-accent text-accent-foreground' : ''}`}
+                  className={`w-full text-left p-2 text-lg hover:bg-accent ${filters.style === style ? 'bg-accent text-accent-foreground' : ''}`}
                 >
                   {style}
                 </button>
@@ -252,5 +242,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
