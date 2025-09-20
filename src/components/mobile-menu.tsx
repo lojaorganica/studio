@@ -198,7 +198,7 @@ export function MobileMenu({
           <div className="border-b">
              <button
               onClick={onToggleFavorites}
-              className='flex w-full flex-1 items-center py-4 font-bold text-xl hover:bg-transparent'
+              className='flex w-full flex-1 items-center py-4 font-bold text-xl'
             >
               <span className="mr-2">MEUS</span>
               <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
@@ -236,7 +236,7 @@ export function MobileMenu({
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
                 Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira
                 <span className="text-accent mx-1.5 font-bold">&bull;</span>
-                Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="hover:text-accent text-blue-500 no-underline hover:no-underline">Facebook</a>
+                Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 no-underline hover:no-underline">Facebook</a>
               </p>
             </AccordionContent>
           </AccordionItem>
@@ -249,7 +249,7 @@ export function MobileMenu({
             <AccordionContent>
                <div>
                   <p className="text-sm text-gray-300 mb-2 space-y-1">
-                    Sua doação espontânea é essencial. Contribua com alguns satoshis de BTC para o endereço abaixo.
+                    Não aceitamos recursos públicos para nosso trabalho de apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
                   </p>
                   <div className="bg-gray-800 p-2 text-center">
                     <p className="text-xs break-all">clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj</p>
