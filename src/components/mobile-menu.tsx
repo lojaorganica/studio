@@ -110,7 +110,8 @@ export function MobileMenu({
 
           <AccordionItem value="fairs">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              ESCOLHA AS <span className="text-accent ml-1">FEIRAS</span>
+              <span className="mr-1">ESCOLHA AS</span>
+              <span className="text-accent">FEIRAS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -132,7 +133,8 @@ export function MobileMenu({
 
           <AccordionItem value="styles">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              ESCOLHA OS <span className="text-accent ml-1">ESTILOS</span>
+              <span className="mr-1">ESCOLHA OS</span>
+              <span className="text-accent">ESTILOS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -154,7 +156,8 @@ export function MobileMenu({
 
           <AccordionItem value="columns">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-               ESCOLHA O <span className="text-accent ml-1">N° DE COLUNAS</span>
+               <span className="mr-1">ESCOLHA O</span>
+               <span className="text-accent">N° DE COLUNAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
@@ -201,13 +204,7 @@ export function MobileMenu({
               )}
             >
               <span className="mr-2">MEUS</span>
-              <span
-                className={cn(
-                  showOnlyFavorites ? 'text-yellow-400' : 'text-accent'
-                )}
-              >
-                FAVORITOS
-              </span>
+              <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>FAVORITOS</span>
               <Star
                 strokeWidth={1}
                 className={cn(
@@ -220,24 +217,28 @@ export function MobileMenu({
           
           <AccordionItem value="dicas">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              ALGUMAS <span className="text-accent ml-1">DICAS</span>
+              <span className="mr-1">ALGUMAS</span>
+              <span className="text-accent">DICAS</span>
             </AccordionTrigger>
             <AccordionContent>
-              <div className="mb-4">
-                <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-                  <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
-                  <li>Arraste e solte as imagens e vídeos para organizar</li>
-                  <li>Faça downloads</li>
-                  <li>Escolha favoritos</li>
-                  <li>Compartilhe em suas redes para ajudar na divulgação</li>
-                </ul>
-              </div>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Pesquise artes por feiras e estilos
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Arraste e solte para organizar
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Faça downloads
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Escolha favoritos
+                <span className="text-accent mx-1.5 font-bold">&bull;</span>
+                Compartilhe em suas redes
+              </p>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="apoio">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-              APOIE O <span className="text-accent ml-1">PROJETO</span>
+              <span className="mr-1">APOIE O</span>
+              <span className="text-accent">PROJETO</span>
             </AccordionTrigger>
             <AccordionContent>
                <div>
