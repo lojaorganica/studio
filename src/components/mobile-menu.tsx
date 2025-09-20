@@ -109,8 +109,8 @@ export function MobileMenu({
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
 
           <AccordionItem value="fairs">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
-              ESCOLHA AS <span className="text-accent ml-2">FEIRAS</span>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              ESCOLHA AS <span className="text-accent ml-1">FEIRAS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -131,8 +131,8 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="styles">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
-              ESCOLHA OS <span className="text-accent ml-2">ESTILOS</span>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              ESCOLHA OS <span className="text-accent ml-1">ESTILOS</span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
@@ -153,8 +153,8 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="columns">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
-               ESCOLHA O <span className="text-accent ml-2">N° DE COLUNAS</span>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+               ESCOLHA O <span className="text-accent ml-1">N° DE COLUNAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
@@ -196,7 +196,9 @@ export function MobileMenu({
           <div className="border-b">
              <button
               onClick={onToggleFavorites}
-              className="flex w-full flex-1 items-center py-4 font-bold text-xl no-underline"
+              className={cn(
+                'flex w-full flex-1 items-center py-4 font-bold text-xl no-underline'
+              )}
             >
               <span className="mr-2">MEUS</span>
               <span
@@ -217,8 +219,8 @@ export function MobileMenu({
           </div>
           
           <AccordionItem value="dicas">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
-              ALGUMAS <span className="text-accent ml-2">DICAS</span>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              ALGUMAS <span className="text-accent ml-1">DICAS</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="mb-4">
@@ -234,8 +236,8 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="apoio">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline hover:no-underline">
-              APOIE O <span className="text-accent ml-2">PROJETO</span>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              APOIE O <span className="text-accent ml-1">PROJETO</span>
             </AccordionTrigger>
             <AccordionContent>
                <div>
@@ -256,5 +258,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
