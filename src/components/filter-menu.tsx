@@ -80,6 +80,19 @@ export function FilterMenu({
     }));
   }, [columns, mediaItems]);
 
+  const [copySuccess, setCopySuccess] = React.useState('');
+  const btcAddress = "clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(btcAddress).then(() => {
+      setCopySuccess('Copiado!');
+      setTimeout(() => setCopySuccess(''), 2000); // Reset after 2 seconds
+    }, (err) => {
+      setCopySuccess('Falhou');
+      setTimeout(() => setCopySuccess(''), 2000);
+    });
+  };
+
 
   return (
     <div className="text-white pt-8">
@@ -197,9 +210,15 @@ export function FilterMenu({
               <p className="text-sm text-gray-300 mb-2 space-y-1">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
-              <div className="bg-gray-800 p-2 text-center">
-                <p className="text-xs break-all">clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj</p>
-                <p className="text-sm font-bold mt-1">QR</p>
+               <div 
+                className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
+                onClick={handleCopy}
+              >
+                {copySuccess ? (
+                    <p className="text-sm font-bold text-accent">{copySuccess}</p>
+                ) : (
+                    <p className="text-xs break-all">{btcAddress}</p>
+                )}
               </div>
               <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
            </div>
