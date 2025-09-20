@@ -5,13 +5,9 @@ import Image from "next/image"
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogClose
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { MediaItem } from "@/lib/media"
 import { Badge } from "./ui/badge"
 
@@ -25,7 +21,7 @@ type LightboxProps = {
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-background/80 backdrop-blur-md border-0">
+      <DialogContent className="max-w-5xl w-full p-2 sm:p-4 bg-background/80 backdrop-blur-md border-0 flex flex-col gap-4">
         <div className="relative flex items-center justify-center">
           <div className="w-full h-full flex justify-center items-center">
             {item.type === "image" ? (
@@ -47,18 +43,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             )}
           </div>
           
-          <div className="absolute bottom-4 left-4 text-left bg-black/50 p-3 rounded-lg text-white">
-            <DialogTitle className="text-xl font-bold">{item.alt}</DialogTitle>
-            <DialogDescription className="text-base text-white/80">by {item.author}</DialogDescription>
-            <div className="flex gap-2 mt-2">
-                <Badge variant="secondary">{item.fair}</Badge>
-                <Badge variant="secondary">{item.style}</Badge>
-            </div>
-          </div>
-
-        </div>
-
-        <Button
+          <Button
             variant="ghost"
             size="icon"
             onClick={onPrev}
@@ -76,6 +61,13 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
+        </div>
+        
+        <div className="flex justify-center gap-2">
+            <Badge variant="secondary">{item.fair}</Badge>
+            <Badge variant="secondary">{item.style}</Badge>
+        </div>
+
       </DialogContent>
     </Dialog>
   )
