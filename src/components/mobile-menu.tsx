@@ -4,7 +4,7 @@
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
-import { Star } from "lucide-react"
+import { Star, X } from "lucide-react"
 
 import type { MediaItem } from "@/lib/media"
 import { cn } from "@/lib/utils"
@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { UploadButton } from "./upload-button"
 
 export type Filters = {
@@ -110,11 +110,16 @@ export function MobileMenu({
       <SheetTrigger asChild>
         {children}
       </SheetTrigger>
-      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/95 text-white p-4 overflow-y-auto">
+      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/90 backdrop-blur-sm text-white p-4 overflow-y-auto">
+        <div className="text-center mb-6">
+          <h1 className="text-xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década.</p>
+        </div>
+
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
 
           <AccordionItem value="fairs">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white">ESCOLHA AS <span className="text-accent">FEIRAS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA AS <span className="text-accent">FEIRAS</span></AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearFairs}
@@ -134,7 +139,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="styles">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white">ESCOLHA OS <span className="text-accent">ESTILOS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA OS <span className="text-accent">ESTILOS</span></AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearStyles}
@@ -154,7 +159,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="columns">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
                 {[1, 2, 3, 4].map((num) => (
@@ -193,7 +198,7 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="actions">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white">MAIS <span className="text-accent">OPÇÕES</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">MAIS <span className="text-accent">OPÇÕES</span></AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4">
                 <button
                   onClick={onToggleFavorites}
@@ -212,7 +217,7 @@ export function MobileMenu({
           </AccordionItem>
           
           <AccordionItem value="info">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></AccordionTrigger>
             <AccordionContent>
               <div className="mb-4">
                 <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
@@ -242,3 +247,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
