@@ -191,12 +191,9 @@ export function MobileMenu({
           </AccordionItem>
 
           <div className="border-b">
-             <button
+            <button
               onClick={onToggleFavorites}
-              className={cn(
-                'flex w-full flex-1 items-center py-4 font-bold text-xl no-underline',
-                showOnlyFavorites ? 'bg-accent' : ''
-              )}
+              className="flex w-full flex-1 items-center py-4 font-bold text-xl no-underline"
             >
               <span className="mr-2">MEUS</span>
               <span
@@ -212,7 +209,7 @@ export function MobileMenu({
                   'w-5 h-5 ml-2',
                   showOnlyFavorites
                     ? 'text-yellow-400 fill-yellow-400'
-                    : 'text-accent fill-accent'
+                    : 'text-accent'
                 )}
               />
             </button>
