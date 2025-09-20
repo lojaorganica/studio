@@ -109,7 +109,9 @@ export function MobileMenu({
         <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
 
           <AccordionItem value="fairs">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA AS <span className="text-accent">FEIRAS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              <div className="flex-1 text-left">ESCOLHA AS <span className="text-accent">FEIRAS</span></div>
+            </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearFairs}
@@ -125,14 +127,13 @@ export function MobileMenu({
                   {fair}
                 </button>
               ))}
-               <div className="mt-4">
-                 <UploadButton onUpload={onUpload} />
-              </div>
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="styles">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA OS <span className="text-accent">ESTILOS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              <div className="flex-1 text-left">ESCOLHA OS <span className="text-accent">ESTILOS</span></div>
+            </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
                 onClick={clearStyles}
@@ -152,7 +153,9 @@ export function MobileMenu({
           </AccordionItem>
 
           <AccordionItem value="columns">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              <div className="flex-1 text-left">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></div>
+            </AccordionTrigger>
             <AccordionContent>
               <div className="grid grid-cols-4 gap-0 mb-4">
                 {[1, 2, 3, 4].map((num) => (
@@ -216,7 +219,9 @@ export function MobileMenu({
           </div>
           
           <AccordionItem value="info">
-            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></AccordionTrigger>
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+              <div className="flex-1 text-left"><span className="text-accent">DICAS</span> & <span className="text-accent">APOIO</span></div>
+            </AccordionTrigger>
             <AccordionContent>
               <div className="mb-4">
                 <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
