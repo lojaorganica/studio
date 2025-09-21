@@ -114,8 +114,8 @@ export function MobileMenu({
       </SheetTrigger>
       <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/90 backdrop-blur-sm text-white p-4 overflow-y-auto">
         <div className="text-center mb-6">
-          <h1 className="text-xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas, ao longo de mais de uma década, para as feiras orgânicas do Circuito.</p>
+          <h1 className="text-xl font-bold tracking-wider text-white">GALERIA DE ARTES DIGITAIS - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
         </div>
 
         <Accordion type="multiple" className="w-full">
