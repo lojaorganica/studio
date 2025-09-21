@@ -203,7 +203,7 @@ export function GalleryItem({
               {/* Share Button */}
               <button
                 onClick={handleShare}
-                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
+                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active-ring-white/75"
                 aria-label="Compartilhar"
               >
                 <Share2 className="w-5 h-5 md:w-6 md:h-6" />
@@ -211,7 +211,7 @@ export function GalleryItem({
               {/* Download Button */}
               <button
                 onClick={handleDownload}
-                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
+                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active-ring-white/75"
                 aria-label="Download"
               >
                 <Download className="w-5 h-5 md:w-6 md:h-6" />
