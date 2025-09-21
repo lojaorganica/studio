@@ -133,25 +133,42 @@ export default function Home() {
     }
 
     return baseItems.filter((item) => {
-      const filename = item.alt.toLowerCase();
+        const filename = item.alt.toLowerCase();
 
-      let fairFilterPassed = true;
-      if (filters.fair) {
-        const keyword = fairKeywords[filters.fair];
-        fairFilterPassed = keyword ? filename.includes(keyword) : false;
-      }
-
-      let styleFilterPassed = true;
-      if (filters.style) {
-        const keyword = styleKeywords[filters.style];
-        if (keyword === 'ap_') {
-             styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-        } else {
-            styleFilterPassed = keyword ? filename.includes(keyword) : false;
+        // Se nenhum filtro estiver aplicado, mostra tudo
+        if (!filters.fair && !filters.style) {
+            return true;
         }
-      }
 
-      return fairFilterPassed && styleFilterPassed;
+        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
+        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
+
+        let fairFilterPassed = true;
+        let styleFilterPassed = true;
+
+        // Regra especial para Story
+        if (styleKeyword === 'story' && filters.fair) {
+            if (filters.fair !== 'Flamengo e Laranjeiras') {
+                // Para qualquer feira (exceto Fla/Laranjeiras) + Story, busca por "todas_feiras"
+                return filename.includes('story') && filename.includes('todas_feiras');
+            }
+            // Se for Fla/Laranjeiras, a regra geral abaixo já funciona (procurando por feiras_flamengo_laranjeiras e story)
+        }
+        
+        // Lógica de filtro geral
+        if (fairKeyword) {
+            fairFilterPassed = filename.includes(fairKeyword);
+        }
+
+        if (styleKeyword) {
+            if (styleKeyword === 'ap_') {
+                 styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            } else {
+                styleFilterPassed = filename.includes(styleKeyword);
+            }
+        }
+
+        return fairFilterPassed && styleFilterPassed;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
   
