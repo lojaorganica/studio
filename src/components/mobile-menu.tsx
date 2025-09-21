@@ -118,7 +118,7 @@ export function MobileMenu({
           <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas, ao longo de mais de uma década, para as feiras orgânicas do Circuito.</p>
         </div>
 
-        <Accordion type="multiple" defaultValue={['fairs', 'styles']} className="w-full">
+        <Accordion type="multiple" className="w-full">
 
           <AccordionItem value="fairs">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white">
@@ -260,22 +260,20 @@ export function MobileMenu({
               <span className="text-accent ml-1">PROJETO</span>
             </AccordionTrigger>
             <AccordionContent>
-               <div>
-                  <p className="text-sm text-gray-300 mb-2 space-y-1">
-                    Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
-                  </p>
-                  <div 
-                    className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
-                    onClick={handleCopy}
-                  >
-                    {copySuccess ? (
-                        <p className="text-sm font-bold text-accent">{copySuccess}</p>
-                    ) : (
-                        <p className="text-xs break-all">{btcAddress}</p>
-                    )}
-                  </div>
-                  <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
-               </div>
+               <div
+                className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
+                onClick={handleCopy}
+              >
+                {copySuccess ? (
+                    <p className="text-sm font-bold text-accent">{copySuccess}</p>
+                ) : (
+                    <p className="text-xs break-all">{btcAddress}</p>
+                )}
+              </div>
+              <p className="text-sm text-gray-300 my-2 space-y-1">
+                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço acima. Muito obrigado!
+              </p>
+              <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
@@ -283,5 +281,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
