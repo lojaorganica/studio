@@ -112,7 +112,7 @@ export function MobileMenu({
       <SheetTrigger asChild>
         {children}
       </SheetTrigger>
-      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/70 backdrop-blur-sm text-white p-4 overflow-y-auto">
+      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/60 backdrop-blur-sm text-white p-4 overflow-y-auto">
         <div className="mt-8 mb-6">
            <h1 className="text-lg font-bold tracking-wider text-white">
             GALERIA DE ARTES DIGITAIS
