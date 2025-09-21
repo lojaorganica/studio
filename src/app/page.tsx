@@ -115,61 +115,39 @@ export default function Home() {
       'Leme': 'feira_leme',
     };
 
+    const styleKeywords: { [key: string]: string } = {
+        'Animações de Agricultores': 'aagr',
+        'Animações de Alimentos': 'aali',
+        'Animações de Personagens': 'ap_',
+        'Fotografia': 'fot',
+        'Flyer': 'flyer',
+        'Cartoon': 'cartoon',
+        'Story': 'story',
+        'Datas Especiais': 'especial',
+        'Dias de Chuva': 'chuva',
+    };
+
     let baseItems = items;
     if (showOnlyFavorites) {
         baseItems = items.filter(item => favoritedIds.has(item.id));
     }
 
     return baseItems.filter((item) => {
-       const filename = item.alt.toLowerCase();
+      const filename = item.alt.toLowerCase();
 
-      // --- Fair Filter Logic ---
       let fairFilterPassed = true;
       if (filters.fair) {
-        const isStoryStyle = filters.style === 'Story';
-        if (isStoryStyle && filters.fair !== 'Flamengo e Laranjeiras') {
-          fairFilterPassed = filename.includes('todas_feiras');
-        } else {
-          const keyword = fairKeywords[filters.fair];
-          fairFilterPassed = keyword ? filename.includes(keyword) : false;
-        }
+        const keyword = fairKeywords[filters.fair];
+        fairFilterPassed = keyword ? filename.includes(keyword) : false;
       }
 
-
-      // --- Style Filter Logic ---
       let styleFilterPassed = true;
       if (filters.style) {
-        switch (filters.style) {
-          case 'Animações de Agricultores':
-            styleFilterPassed = filename.includes('aagr');
-            break;
-          case 'Animações de Alimentos':
-            styleFilterPassed = filename.includes('aali');
-            break;
-          case 'Animações de Personagens':
-            styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-            break;
-          case 'Fotografia':
-            styleFilterPassed = filename.includes('fot');
-            break;
-          case 'Flyer':
-            styleFilterPassed = filename.includes('flyer');
-            break;
-          case 'Cartoon':
-            styleFilterPassed = filename.includes('cartoon');
-            break;
-          case 'Story':
-            styleFilterPassed = filename.includes('story');
-            break;
-          case 'Datas Especiais':
-            styleFilterPassed = filename.includes('especial');
-            break;
-          case 'Dias de Chuva':
-            styleFilterPassed = filename.includes('chuva');
-            break;
-          default:
-            styleFilterPassed = false;
-            break;
+        const keyword = styleKeywords[filters.style];
+        if (keyword === 'ap_') {
+             styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+        } else {
+            styleFilterPassed = keyword ? filename.includes(keyword) : false;
         }
       }
 
