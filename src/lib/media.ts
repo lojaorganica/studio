@@ -2,6 +2,7 @@ import type { MediaItem } from './media-types';
 import { mediaFL } from './media-fl';
 import { mediaB } from './media-b';
 import { mediaL } from './media-l';
+import { mediaGeral } from './media-geral';
 
 export type { MediaItem };
 
@@ -13,6 +14,8 @@ export const allMedia: MediaItem[] = [
   ...mediaB,
   // Mídias do Leme agora são importadas
   ...mediaL,
+  // Mídias gerais para todas as feiras (exceto Fla/Laranjeiras)
+  ...mediaGeral,
   
   // Mídias existentes de outras feiras
   { id: "tijuca-1", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_84_feira_tijuca.png?alt=media&token=b917b926-b18e-47a0-8a7e-5b7f5f330ca9", alt: "fot_84_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" },
@@ -208,5 +211,6 @@ export const styles = [...new Set(allMedia.map((item) => item.style))]
 
 
     
+
 
 
