@@ -112,9 +112,9 @@ export function MobileMenu({
       <SheetTrigger asChild>
         {children}
       </SheetTrigger>
-      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/90 backdrop-blur-sm text-white p-4 overflow-y-auto">
+      <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/80 backdrop-blur-sm text-white p-4 overflow-y-auto">
         <div className="text-center mt-8 mb-6">
-          <h1 className="text-lg font-bold tracking-wider text-white">
+           <h1 className="text-lg font-bold tracking-wider text-white">
             GALERIA DE ARTES DIGITAIS
             <span className="block text-sm font-normal tracking-normal mt-1">- CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS -</span>
           </h1>
