@@ -170,17 +170,35 @@ export function GalleryItem({
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         </div>
         
+        {/* Always-visible favorite star */}
+        {isFavorited && (
+          <div className="absolute top-2 left-2">
+            <button
+                onClick={handleToggleFavorite}
+                className="p-1 bg-black/50 rounded-full text-white focus:outline-none"
+                aria-label="Desfavoritar"
+              >
+              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            </button>
+          </div>
+        )}
+        
         {/* Action Buttons Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex justify-between items-center">
-            {/* Favorite Button */}
-            <button
-              onClick={handleToggleFavorite}
-              className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
-              aria-label="Favoritar"
-            >
-              <Star className={cn("w-5 h-5 md:w-6 md:h-6", isFavorited ? "fill-yellow-400 text-yellow-400" : "fill-transparent")} />
-            </button>
+            {/* Favorite Button (only shows on hover if not favorited) */}
+            {!isFavorited && (
+              <button
+                onClick={handleToggleFavorite}
+                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
+                aria-label="Favoritar"
+              >
+                <Star className="w-5 h-5 md:w-6 md:h-6 fill-transparent" />
+              </button>
+            )}
+            
+            {/* Placeholder to keep other items to the right */}
+            {isFavorited && <div />} 
 
             <div className="flex items-center gap-1 md:gap-2">
               {/* Share Button */}
