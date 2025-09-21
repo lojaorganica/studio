@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -142,7 +141,7 @@ export function GalleryItem({
       >
         <div
           onClick={onClick}
-          className="w-full h-full cursor-pointer relative aspect-[3/4] bg-muted/20"
+          className="w-full h-full cursor-pointer relative"
         >
           {item.type === 'image' ? (
             <Image
