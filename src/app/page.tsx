@@ -143,23 +143,21 @@ export default function Home() {
         const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
-        let fairFilterPassed = true;
-        let styleFilterPassed = true;
-
         // Regra especial para Story
         if (styleKeyword === 'story' && filters.fair) {
             if (filters.fair !== 'Flamengo e Laranjeiras') {
                 // Para qualquer feira (exceto Fla/Laranjeiras) + Story, busca por "todas_feiras"
                 return filename.includes('story') && filename.includes('todas_feiras');
             }
-            // Se for Fla/Laranjeiras, a regra geral abaixo já funciona (procurando por feiras_flamengo_laranjeiras e story)
+             // Se for Fla/Laranjeiras, a regra geral abaixo já funciona (procurando por feiras_flamengo_laranjeiras e story)
         }
         
-        // Lógica de filtro geral
+        let fairFilterPassed = !filters.fair;
         if (fairKeyword) {
             fairFilterPassed = filename.includes(fairKeyword);
         }
 
+        let styleFilterPassed = !filters.style;
         if (styleKeyword) {
             if (styleKeyword === 'ap_') {
                  styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
@@ -330,5 +328,3 @@ export default function Home() {
     </div>
   )
 }
-
-    
