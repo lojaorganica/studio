@@ -93,7 +93,7 @@ export function GalleryItem({
       try {
         await navigator.share({
           title: item.alt,
-          text: `Confira esta arte do Circuito Carioca de Feiras Orgânicas: ${item.alt}`,
+          text: `Confira esta arte do Circuito Carioca de Feiras Orgânicas: ${'item.alt'}`,
           url: window.location.href,
         });
       } catch (error) {
@@ -237,3 +237,5 @@ export function GalleryItem({
     </div>
   )
 }
+
+    
