@@ -91,5 +91,3 @@ export function GalleryGrid({
     </div>
   )
 }
-
-    
