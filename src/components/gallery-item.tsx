@@ -237,5 +237,4 @@ export function GalleryItem({
     </div>
   )
 }
-
     
