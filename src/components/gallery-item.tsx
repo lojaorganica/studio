@@ -148,9 +148,10 @@ export function GalleryItem({
             <Image
               src={item.src}
               alt={item.alt}
-              fill
+              width={600}
+              height={800}
               data-ai-hint={item['data-ai-hint']}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-auto"
               draggable={false}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />

@@ -108,11 +108,11 @@ export default function Home() {
 
   const filteredItems = React.useMemo(() => {
     const fairKeywords: { [key: string]: string } = {
-      'Tijuca': 'feira_tijuca',
-      'Grajaú': 'feira_grajau',
+      'Tijuca': 'tijuca',
+      'Grajaú': 'grajau',
       'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
-      'Botafogo': 'feira_botafogo',
-      'Leme': 'feira_leme',
+      'Botafogo': 'botafogo',
+      'Leme': 'leme',
     };
 
     const styleKeywords: { [key: string]: string } = {
