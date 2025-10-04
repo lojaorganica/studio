@@ -96,7 +96,9 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_76_feira_leme.png?alt=media&token=a724d52d-cc6d-48d3-a78c-bf13bdca24c8",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_77_feira_leme.png?alt=media&token=439ac59a-6722-4572-a4d0-b0e1c4d820fb",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_03_feira_leme.png?alt=media&token=82275657-8da7-44a5-b537-c64b245b77b8",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_11_feira_leme.png?alt=media&token=967f6e39-8a8a-4c6c-9856-3f12ade1d6c1"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_11_feira_leme.png?alt=media&token=967f6e39-8a8a-4c6c-9856-3f12ade1d6c1",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_78_feira_leme.png?alt=media&token=e4edc342-9a1f-4ae1-8f4b-06f54be9333d",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_79_feira_leme.png?alt=media&token=d56b3fa3-6f29-467f-9b36-8fdc1dc69070",
 ];
 
 export const mediaL: MediaItem[] = mediaUrls.map((url, index) => {

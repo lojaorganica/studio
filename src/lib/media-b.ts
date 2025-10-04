@@ -102,6 +102,8 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_81_feira_botafogo.png?alt=media&token=e3180007-5a02-480a-918c-6cee9d1ddefb",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_06_feira_botafogo.png?alt=media&token=0ccb0f94-0abc-404c-9a99-b3d2befd4230",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_chuva_10_feira_botafogo.png?alt=media&token=53f72ddf-d829-4f77-9833-8660ef973d72",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_82_feira_botafogo.png?alt=media&token=22c0c612-50a5-4af2-938d-1556b89d3c5d",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_83_feira_botafogo.png?alt=media&token=452e855a-516e-4852-9790-894af1d07d4d",
 ];
 
 export const mediaB: MediaItem[] = mediaUrls.map((url, index) => {
@@ -117,4 +119,3 @@ export const mediaB: MediaItem[] = mediaUrls.map((url, index) => {
         'data-ai-hint': 'market photo' // Generic hint
     };
 });
-
