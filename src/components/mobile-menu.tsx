@@ -94,7 +94,7 @@ export function MobileMenu({
   }, [columns, mediaItems, columnPreviewsCount]);
   
   const [copySuccess, setCopySuccess] = React.useState('');
-  const btcAddress = "clqruelz138as900axknvhkjaug0mv9s7jhmxhfzj";
+  const btcAddress = "bc1qruelzl38as900axknvhkjaug0mv9s7jhmxhfzj";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(btcAddress).then(() => {
