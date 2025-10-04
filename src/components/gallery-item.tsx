@@ -7,7 +7,7 @@ import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
 import { Badge } from "./ui/badge"
-import { Star, Share2, Download } from "lucide-react"
+import { Star, Share2 } from "lucide-react"
 
 // Custom SVG Icons to match the reference image
 const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -104,27 +104,6 @@ export function GalleryItem({
     }
   }
 
-  const handleDownload = async (e: React.MouseEvent) => {
-      e.stopPropagation();
-      try {
-          const response = await fetch(item.src);
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          const filename = item.src.split('/').pop() || item.alt.replace(/ /g, '_');
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-      } catch (error) {
-          console.error("Erro ao fazer o download:", error);
-          alert("Não foi possível fazer o download do arquivo.");
-      }
-  };
-
   return (
     <div
       className={cn(
@@ -209,14 +188,6 @@ export function GalleryItem({
                 aria-label="Compartilhar"
               >
                 <Share2 className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
-              {/* Download Button */}
-              <button
-                onClick={handleDownload}
-                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active-ring-white/75"
-                aria-label="Download"
-              >
-                <Download className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </div>
           </div>
