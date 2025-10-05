@@ -42,7 +42,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             <div className={cn(
               "relative flex flex-col items-center justify-center",
               isStoryWithCharacter 
-                ? "h-[60vh] w-full md:h-full md:flex-1" // Mobile: 60% height. Desktop: flexible width
+                ? "h-[65vh] w-full md:h-full md:flex-1" // Mobile: 65% height. Desktop: flexible width
                 : "w-full h-full flex-1" // Standard layout
             )}>
               <div className="relative flex justify-center items-center w-full h-full">
@@ -78,8 +78,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   isStoryWithCharacter
-                    ? "w-full h-[25vh] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: 25% height. Desktop: fixed width
-                    : "w-full self-center h-auto max-h-[35vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
+                    ? "w-full h-[20vh] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: 20% height. Desktop: fixed width
+                    : "w-full self-center max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/80">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
