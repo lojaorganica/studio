@@ -29,10 +29,9 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         
         {/* Main Content Wrapper */}
         <div 
-          className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-4 md:p-8"
-          data-story={isStoryWithCharacter}
+          className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-8"
         >
-          <div className="relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4 md:flex-row md:items-center md:justify-center md:gap-8">
+          <div className="relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4 md:flex-row md:items-center md:justify-center md:gap-4">
 
             {/* Media container */}
             <div className={cn(
