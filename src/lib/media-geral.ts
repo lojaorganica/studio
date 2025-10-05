@@ -1,6 +1,18 @@
 
 import type { MediaItem } from './media-types';
 
+const INHAME_ARANHA_STORY = `INHAME-ARANHA, INHAME-ARANHA
+Na feira orgânica ele encanta
+Nutritivo e natural,
+Herói do campo, sensacional!
+
+Com grandes fibras, vêm grandes responsabilidades!
+Ele era só um tubérculo comum... até ser picado por uma aranha diferentona e cheia de energia, que vivia em um solo superadubado e rico em matéria orgânica de uma fazenda agroecológica! Agora, o Inhame-Aranha salta sobre hortas e prédios, lança teias nutritivas e enfrenta os maiores vilões do planeta: os agrotóxicos!
+
+Rico em vitaminas — principalmente as do complexo B —, fibras, propriedades anti-inflamatórias e desintoxicantes, o Inhame-Aranha não só derrota os inimigos da saúde, como ainda fortalece o sistema imunológico de quem acredita nele. Quando necessário, nosso herói de cara rugosa, mas coração cremoso, coloca sua máscara e luta bravamente contra as corporações que envenenam nossos pratos e adoecem nossa população. Defensor dos orgânicos, guardião das hortaliças e protetor dos pequenos agricultores, o Inhame-Aranha está aqui para te despertar para um mundo mais saudável, sustentável e saboroso.
+
+Prepare-se: a revolução vegetal chegou às alturas! Se você quer saúde de verdade, então vem pras feiras orgânicas nesse sábado e traga sua ecobag! O Inhame-Aranha estará te esperando com sabor, coragem e muitos vegetais do bem!`;
+
 function getStyleFromFilename(filename: string): MediaItem['style'] {
   if (filename.includes('aagr')) return 'Animações de Agricultores';
   if (filename.includes('aali')) return 'Animações de Alimentos';
@@ -175,7 +187,7 @@ const mediaUrls: string[] = [
 export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
     const alt = getAltFromUrl(url);
     const type = getTypeFromFilename(alt);
-    return {
+    const item: MediaItem = {
         id: `geral-${index + 1}`,
         type: type,
         src: url,
@@ -185,8 +197,11 @@ export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
         style: getStyleFromFilename(alt),
         'data-ai-hint': type === 'image' ? 'market photo' : undefined
     };
-});
 
+    if (alt.toLowerCase().includes('inhame_aranha')) {
+        item.characterName = 'Inhame-Aranha';
+        item.story = INHAME_ARANHA_STORY;
+    }
     
-
-
+    return item;
+});
