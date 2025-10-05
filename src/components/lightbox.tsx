@@ -41,9 +41,9 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             {/* Media container */}
             <div className={cn(
               "relative flex flex-col items-center justify-center",
-              isStoryWithCharacter 
-                ? "h-[65vh] w-full md:h-full md:flex-1" // Mobile: 65% height. Desktop: flexible width
-                : "w-full h-full flex-1" // Standard layout
+               isStoryWithCharacter 
+                ? "h-[65vh] w-full md:h-full md:flex-1"
+                : "w-full h-full flex-1"
             )}>
               <div className="relative flex justify-center items-center w-full h-full">
                 {item.type === "image" ? (
@@ -54,8 +54,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                     height={1200}
                     data-ai-hint={item['data-ai-hint']}
                     className={cn(
-                      "w-auto h-auto object-contain rounded-lg shadow-2xl",
-                      "max-h-full max-w-full" // Ensure image fits container
+                      "object-contain rounded-lg shadow-2xl",
+                      isStoryWithCharacter 
+                        ? "w-auto h-full max-w-full" // Force fit height for stories
+                        : "w-auto h-auto max-h-full max-w-full" // Standard behavior
                     )}
                   />
                 ) : (
@@ -78,8 +80,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   isStoryWithCharacter
-                    ? "w-full h-[20vh] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: 20% height. Desktop: fixed width
-                    : "w-full self-center max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
+                    ? "w-full h-[20vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: 20% height. Desktop: fixed width
+                    : "w-full self-center max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/80">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
