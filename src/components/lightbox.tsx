@@ -7,7 +7,7 @@ import {
   DialogContent,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { MediaItem } from "@/lib/media"
 import { Badge } from "./ui/badge"
 import { ScrollArea } from "./ui/scroll-area"
@@ -90,16 +90,6 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             <ChevronRight className="h-6 w-6" />
         </Button>
         
-        {/* Close Button */}
-         <Button
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="absolute top-2 right-2 md:top-4 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10 z-50"
-            aria-label="Close lightbox"
-            >
-            <X className="h-6 w-6" />
-        </Button>
       </DialogContent>
     </Dialog>
   )
