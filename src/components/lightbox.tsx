@@ -42,8 +42,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                  isStoryWithCharacter ? "flex-1 min-h-0" : "h-full"
             )}>
                 <div className={cn(
-                    "relative flex justify-center items-center w-full max-h-full",
-                    isStoryWithCharacter && "md:max-h-[80vh] max-h-[60vh]" 
+                    "relative flex justify-center items-center w-full",
+                    isStoryWithCharacter ? "max-h-[60vh] md:max-h-[80vh] h-full" : "max-h-full"
                 )}>
                     {item.type === "image" ? (
                         <Image
@@ -74,7 +74,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   "w-full self-center flex-shrink-0 md:ml-4",
-                  isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
+                   isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
