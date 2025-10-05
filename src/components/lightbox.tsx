@@ -33,20 +33,16 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         >
           {isStoryWithCharacter ? (
             <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
-              {/* Media container */}
-              <div className="relative flex flex-col items-center justify-center max-h-[60vh] md:max-h-[85vh] w-full md:w-auto">
-                <div className="relative flex justify-center items-center w-full h-full">
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      data-ai-hint={item['data-ai-hint']}
-                      className="object-contain rounded-lg shadow-2xl w-full h-full"
-                    />
-                </div>
-                <div className="flex-shrink-0 flex justify-center gap-2 py-2">
-                  <Badge variant="secondary">{item.fair}</Badge>
-                  <Badge variant="secondary">{item.style}</Badge>
+              {/* Media container for Story */}
+              <div className="relative flex items-center justify-center max-h-[60vh] md:max-h-[85vh] h-full w-full md:w-auto">
+                <div className="relative h-full w-auto aspect-[3/4]">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    data-ai-hint={item['data-ai-hint']}
+                    className="object-contain rounded-lg shadow-2xl"
+                  />
                 </div>
               </div>
 
