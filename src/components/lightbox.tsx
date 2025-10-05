@@ -29,7 +29,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         
         {/* Main Content Wrapper */}
         <div 
-          className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4 md:p-8"
+          className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4"
         >
            <div className={cn(
             "relative flex h-full w-full max-w-7xl items-center justify-center gap-4",
@@ -42,15 +42,16 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                  isStoryWithCharacter ? "flex-1 min-h-0" : "h-full"
             )}>
                 <div className={cn(
-                    "relative flex justify-center items-center w-full h-full",
-                    isStoryWithCharacter && "max-h-[60vh]"
+                    "relative flex justify-center items-center w-full",
+                    isStoryWithCharacter ? "max-h-[60vh]" : "h-full"
                 )}>
                     {item.type === "image" ? (
                         <Image
                             src={item.src}
                             alt={item.alt}
-                            width={1200}
-                            height={1200}
+                            fill={isStoryWithCharacter}
+                            width={isStoryWithCharacter ? undefined : 1200}
+                            height={isStoryWithCharacter ? undefined : 1200}
                             data-ai-hint={item['data-ai-hint']}
                             className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
                         />
