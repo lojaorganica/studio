@@ -32,8 +32,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             
             {/* Grouping container for media and story to keep them together */}
             <div className={cn(
-              "relative flex flex-col md:flex-row items-center justify-center gap-4 h-auto max-w-full w-auto",
-              isStoryWithCharacter && "md:justify-center md:items-center md:w-auto"
+              "relative flex flex-col md:flex-row items-center gap-4 h-auto w-auto max-w-full justify-center"
             )}>
                 
                 {/* Media container */}
@@ -45,7 +44,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                 )}>
                     <div className={cn(
                         "relative flex justify-center items-center w-full",
-                         isStoryWithCharacter ? "h-auto" : "h-full"
+                         isStoryWithCharacter ? (item.type === 'image' ? "h-auto" : "h-full") : "h-full"
                       )}>
                         {item.type === "image" ? (
                             <Image
@@ -79,9 +78,11 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                 {item.story && (
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
-                      "h-auto max-h-[20vh] md:max-h-[80vh]"
+                       isStoryWithCharacter
+                        ? "h-auto max-h-[25vh] md:max-h-[80vh]"
+                        : "h-auto max-h-[20vh] md:max-h-[80vh]"
                     )}>
-                    <ScrollArea className="h-full w-full">
+                    <ScrollArea className="h-full w-full [&>div>div[style]]:!bg-white">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                         <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                         {item.story.split('\n\n').map((paragraph, index) => (
