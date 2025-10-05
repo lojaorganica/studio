@@ -25,69 +25,73 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-w-7xl w-full h-full md:h-auto md:max-h-[90vh] p-0 bg-transparent border-0 flex items-center justify-center shadow-none gap-0">
+      <DialogContent className="max-w-none w-full h-full p-0 bg-transparent border-0 flex items-center justify-center shadow-none gap-0">
         
-        {/* Main Content Area */}
-        <div className={cn(
-          "relative w-full h-full flex flex-col md:flex-row items-center gap-4 p-4 md:p-8",
-           isStoryWithCharacter ? "justify-center" : "justify-center"
-        )}>
+        {/* Main Content Wrapper */}
+        <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
             
-            {/* Media container */}
+            {/* Centering container for media and story */}
             <div className={cn(
-              "relative flex flex-col items-center justify-center w-full",
-              isStoryWithCharacter ? "md:w-auto md:flex-shrink" : "h-full flex-1"
+              "relative flex flex-col md:flex-row items-center gap-4 w-auto h-auto max-h-full",
+              isStoryWithCharacter ? "justify-center" : ""
             )}>
+                
+                {/* Media container */}
                 <div className={cn(
-                    "relative flex justify-center items-center w-full",
-                    isStoryWithCharacter ? "h-full md:h-auto" : "h-full"
-                  )}>
-                    {item.type === "image" ? (
-                        <Image
-                        src={item.src}
-                        alt={item.alt}
-                        width={1200}
-                        height={1200}
-                        data-ai-hint={item['data-ai-hint']}
-                        className={cn(
-                          "w-auto h-auto object-contain rounded-lg shadow-2xl",
-                           isStoryWithCharacter 
-                            ? "max-h-[50vh] md:max-h-[80vh]"
-                            : "max-h-[70vh] md:max-h-[85vh]"
-                        )}
-                        />
-                    ) : (
-                        <video
-                        src={item.src}
-                        controls
-                        autoPlay
-                        className="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-                        />
-                    )}
-                </div>
-                <div className="flex justify-center gap-2 py-2">
-                    <Badge variant="secondary">{item.fair}</Badge>
-                    <Badge variant="secondary">{item.style}</Badge>
-                </div>
-            </div>
-
-            {/* Story Panel */}
-            {item.story && (
-              <div className={cn(
-                  "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
-                  isStoryWithCharacter ? "h-[45vh] md:h-auto md:max-h-[80vh]" : "h-[35vh] md:h-auto md:max-h-[80vh]"
+                  "relative flex flex-col items-center justify-center",
+                   isStoryWithCharacter 
+                    ? "w-full md:w-auto flex-shrink-0" // Allow shrinking for story
+                    : "w-full h-full flex-1"
                 )}>
-                <ScrollArea className="h-full w-full">
-                    {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
-                    <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
-                    {item.story.split('\n\n').map((paragraph, index) => (
-                        <p key={index}>{paragraph}</p>
-                    ))}
+                    <div className={cn(
+                        "relative flex justify-center items-center w-full",
+                         isStoryWithCharacter ? "h-auto" : "h-full"
+                      )}>
+                        {item.type === "image" ? (
+                            <Image
+                            src={item.src}
+                            alt={item.alt}
+                            width={1200}
+                            height={1200}
+                            data-ai-hint={item['data-ai-hint']}
+                            className={cn(
+                              "w-auto h-auto object-contain rounded-lg shadow-2xl",
+                              "max-h-[70vh] md:max-h-[85vh]",
+                               isStoryWithCharacter && "max-h-[50vh] md:max-h-[80vh]"
+                            )}
+                            />
+                        ) : (
+                            <video
+                            src={item.src}
+                            controls
+                            autoPlay
+                            className="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                            />
+                        )}
                     </div>
-                </ScrollArea>
-              </div>
-            )}
+                    <div className="flex justify-center gap-2 py-2">
+                        <Badge variant="secondary">{item.fair}</Badge>
+                        <Badge variant="secondary">{item.style}</Badge>
+                    </div>
+                </div>
 
+                {/* Story Panel */}
+                {item.story && (
+                  <div className={cn(
+                      "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
+                      "h-[40vh] md:h-auto md:max-h-[80vh]" // Adjusted height for mobile and desktop
+                    )}>
+                    <ScrollArea className="h-full w-full">
+                        {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
+                        <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
+                        {item.story.split('\n\n').map((paragraph, index) => (
+                            <p key={index}>{paragraph}</p>
+                        ))}
+                        </div>
+                    </ScrollArea>
+                  </div>
+                )}
+            </div>
         </div>
 
         {/* Navigation Buttons */}
