@@ -80,7 +80,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
                        isStoryWithCharacter
-                        ? "h-auto max-h-[20vh] md:max-h-[80vh]"
+                        ? "h-auto max-h-[15vh] md:max-h-[80vh]"
                         : "h-auto max-h-[40vh] md:max-h-[80vh]"
                     )}>
                     <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/80">
