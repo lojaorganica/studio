@@ -32,7 +32,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             
             {/* Grouping container for media and story to keep them together */}
             <div className={cn(
-              "relative flex flex-col md:flex-row items-center justify-center gap-4 h-auto max-w-full w-auto"
+              "relative flex flex-col md:flex-row items-center justify-center gap-4 h-auto max-w-full w-auto",
+              isStoryWithCharacter && "md:justify-center md:items-center md:w-auto"
             )}>
                 
                 {/* Media container */}
@@ -78,7 +79,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                 {item.story && (
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
-                      "h-auto max-h-[25vh] md:max-h-[80vh]"
+                      "h-auto max-h-[20vh] md:max-h-[80vh]"
                     )}>
                     <ScrollArea className="h-full w-full">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
