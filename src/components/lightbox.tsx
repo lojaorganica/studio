@@ -31,7 +31,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         <div 
           className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-8"
         >
-          <div className="relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4 md:flex-row md:items-center md:justify-center md:gap-4">
+           <div className={cn(
+            "relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4",
+            isStoryWithCharacter ? "md:flex-row md:items-center md:justify-center md:gap-2" : "md:flex-row md:items-center md:justify-center md:gap-4"
+          )}>
 
             {/* Media container */}
             <div className={cn(
@@ -77,10 +80,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
                        isStoryWithCharacter
-                        ? "h-auto max-h-[25vh] md:max-h-[80vh]"
+                        ? "h-auto max-h-[20vh] md:max-h-[80vh]"
                         : "h-auto max-h-[40vh] md:max-h-[80vh]"
                     )}>
-                    <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white">
+                    <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/80">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                         <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                         {item.story.split('\n\n').map((paragraph, index) => (
