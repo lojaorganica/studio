@@ -39,11 +39,11 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             {/* Media container */}
              <div className={cn(
                 "relative flex flex-col items-center justify-center w-full",
-                isStoryWithCharacter ? "flex-shrink-1 min-h-0" : "h-full"
+                 isStoryWithCharacter ? "flex-1 min-h-0" : "h-full"
             )}>
                 <div className={cn(
                     "relative flex justify-center items-center w-full h-full",
-                    isStoryWithCharacter && "max-h-[65vh]"
+                    isStoryWithCharacter && "max-h-[60vh]"
                 )}>
                     {item.type === "image" ? (
                         <Image
