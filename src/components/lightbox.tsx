@@ -36,13 +36,23 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               {/* Media container for Story */}
               <div className="relative flex items-center justify-center w-full md:w-auto h-full max-h-[60vh] md:max-h-[85vh]">
                 <div className="relative h-full w-auto aspect-[3/4]">
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    data-ai-hint={item['data-ai-hint']}
-                    className="object-contain rounded-lg shadow-2xl"
-                  />
+                  {item.type === 'video' ? (
+                    <video
+                      src={item.src}
+                      controls
+                      autoPlay
+                      loop
+                      className="object-contain w-full h-full rounded-lg shadow-2xl"
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      data-ai-hint={item['data-ai-hint']}
+                      className="object-contain rounded-lg shadow-2xl"
+                    />
+                  )}
                 </div>
               </div>
 
