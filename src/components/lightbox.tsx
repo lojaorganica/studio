@@ -29,7 +29,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         
         {/* Main Content Wrapper */}
         <div 
-          className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-8"
+          className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4 md:p-8"
         >
            <div className={cn(
             "relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4",
@@ -40,10 +40,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
             {/* Media container */}
             <div className={cn(
-              "relative flex flex-col items-center justify-center overflow-hidden",
+              "relative flex flex-col items-center justify-center overflow-hidden flex-1 w-full",
                isStoryWithCharacter 
-                ? "h-[65vh] w-full md:h-full md:flex-1"
-                : "w-full h-full flex-1"
+                ? "h-full md:h-full"
+                : "h-full w-full"
             )}>
               <div className="relative flex justify-center items-center w-full h-full">
                 {item.type === "image" ? (
@@ -85,7 +85,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   isStoryWithCharacter
-                    ? "w-full h-[20vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: height. Desktop: fixed width
+                    ? "w-full max-h-[30vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: height. Desktop: fixed width
                     : "w-full self-center max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
