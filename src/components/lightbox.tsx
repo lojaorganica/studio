@@ -33,17 +33,17 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         >
            <div className={cn(
             "relative flex h-full w-full max-w-7xl items-center justify-center",
-            isStoryWithCharacter ? "flex-col md:flex-row" : "flex-col"
+            isStoryWithCharacter ? "flex-col md:flex-row md:gap-4" : "flex-col"
           )}>
 
             {/* Media container */}
              <div className={cn(
-                "relative flex flex-col items-center justify-center w-full",
-                 isStoryWithCharacter ? "flex-1 min-h-0" : "h-full"
+                "relative flex flex-col items-center justify-center w-full h-full",
+                 isStoryWithCharacter ? "flex-1 min-h-0" : ""
             )}>
                 <div className={cn(
-                    "relative flex justify-center items-center w-full",
-                    isStoryWithCharacter ? "max-h-[60vh] md:max-h-[80vh] h-full" : "max-h-full"
+                    "relative flex justify-center items-center w-full h-full",
+                    isStoryWithCharacter ? "md:max-h-full" : ""
                 )}>
                     {item.type === "image" ? (
                         <Image
@@ -62,7 +62,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                         />
                     )}
                 </div>
-                <div className="flex justify-center gap-2 py-2 flex-shrink-0">
+                <div className="flex-shrink-0 flex justify-center gap-2 py-2">
                     <Badge variant="secondary">{item.fair}</Badge>
                     <Badge variant="secondary">{item.style}</Badge>
                 </div>
@@ -73,8 +73,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             {item.story && (
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
-                  "w-full self-center flex-shrink-0 md:ml-4",
-                   isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
+                  "w-full self-center flex-shrink-0",
+                  isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "hidden"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
