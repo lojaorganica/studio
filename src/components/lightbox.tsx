@@ -37,7 +37,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               {/* Media container for Story */}
               <div className={cn(
                 "relative flex items-center justify-center w-full max-h-[60vh] md:max-h-[85vh] transition-transform duration-300",
-                 !isActuallyStoryFormat ? "md:scale-105 md:w-[55%]" : "md:w-auto"
+                 !isActuallyStoryFormat ? "md:scale-105 md:w-[55%]" : "md:w-80 lg:w-96"
               )}>
                 <div className="relative h-full w-full aspect-[3/4]">
                    {item.type === 'video' ? (
