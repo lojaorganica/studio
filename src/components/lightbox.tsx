@@ -22,6 +22,7 @@ type LightboxProps = {
 
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
   const isStoryWithCharacter = !!item.story;
+  const isActuallyStoryFormat = item.alt.toLowerCase().includes('story');
 
   return (
     <Dialog open onOpenChange={onClose}>
@@ -34,7 +35,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           {isStoryWithCharacter ? (
             <div className="relative flex h-full w-auto max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
               {/* Media container for Story */}
-              <div className="relative flex items-center justify-center w-full md:w-auto h-full max-h-[60vh] md:max-h-[85vh]">
+              <div className={cn(
+                "relative flex items-center justify-center w-full md:w-auto h-full max-h-[60vh] md:max-h-[85vh] transition-transform duration-300",
+                !isActuallyStoryFormat && "md:scale-110"
+              )}>
                 <div className="relative h-full w-auto aspect-[3/4]">
                   {item.type === 'video' ? (
                     <video
