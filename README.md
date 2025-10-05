@@ -1,6 +1,6 @@
 # Galeria de Arte Orgânica - Circuito Carioca de Feiras Orgânicas
 
-Este projeto é uma galeria de arte digital que exibe mais de uma década de trabalho criativo para o "Circuito Carioca de Feiras Orgânicas", desenvolvido com o apoio da organização Essência Vital.
+Este projeto é uma galeria de arte digital que exibe mais de uma década de trabalho criativo para o "Circuito Carioca de Feiras Orgânicas", desenvolvido pelo deisgner e builder Marcos Melo e apoio da organização Essência Vital.
 
 A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores.
 
@@ -8,11 +8,10 @@ A aplicação funciona como um portfólio completo e interativo de animações, 
 
 *   **Galeria com Rolagem Infinita**: Navegue de forma fluida por uma vasta coleção de imagens e vídeos.
 *   **Filtragem Avançada**: Filtre as artes por feira (`Feira`) ou por estilo (`Estilo`).
-*   **Layout Customizável**: Ajuste o número de colunas (1, 2, 3 ou 4) para a grade da galeria.
+*   **Layout Customizável e Responsivo**: Ajuste o número de colunas (1, 2, 3 ou 4) para a grade da galeria.
 *   **Reordenação com Arrastar e Soltar**: Organize facilmente os itens de mídia arrastando e soltando-os como desejar.
 *   **Sistema de Favoritos**: Marque suas peças favoritas com uma estrela para acesso rápido e filtragem.
 *   **Lightbox Responsivo**: Visualize a mídia em um lightbox detalhado e em tela cheia que se adapta a diferentes formatos, incluindo layouts especiais para histórias de personagens.
-*   **Upload de Mídia**: Os usuários podem enviar suas próprias imagens e vídeos diretamente para a galeria.
 *   **Design Mobile-First**: Uma interface totalmente responsiva com um menu móvel dedicado para uma ótima experiência em qualquer dispositivo.
 
 ## Tecnologias Utilizadas
