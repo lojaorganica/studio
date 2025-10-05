@@ -28,24 +28,23 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
       <DialogContent className="max-w-none w-full h-full p-0 bg-transparent border-0 flex items-center justify-center shadow-none gap-0">
         
         {/* Main Content Wrapper */}
-        <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-4 md:p-8" data-story={isStoryWithCharacter}>
-            
+        <div 
+          className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-4 md:p-8"
+          data-story={isStoryWithCharacter}
+        >
+          <div className="relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4 md:flex-row md:items-center md:justify-center md:gap-8">
+
+            {/* Media container */}
             <div className={cn(
-              "relative flex flex-col md:flex-row items-center justify-center gap-4 h-auto w-auto max-w-full",
-              "group-data-[story=true]:gap-2"
+              "relative flex flex-col items-center justify-center",
+                isStoryWithCharacter 
+                ? "w-full md:w-auto flex-shrink-0"
+                : "w-full h-full flex-1"
             )}>
-                
-                {/* Media container */}
                 <div className={cn(
-                  "relative flex flex-col items-center justify-center",
-                   isStoryWithCharacter 
-                    ? "w-full md:w-auto flex-shrink-0"
-                    : "w-full h-full flex-1"
-                )}>
-                    <div className={cn(
-                        "relative flex justify-center items-center w-full",
-                         isStoryWithCharacter ? "h-auto" : "h-full"
-                      )}>
+                    "relative flex justify-center items-center w-full",
+                      isStoryWithCharacter ? "flex-1" : "h-full"
+                  )}>
                         {item.type === "image" ? (
                             <Image
                             src={item.src}
@@ -80,7 +79,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
                        isStoryWithCharacter
                         ? "h-auto max-h-[25vh] md:max-h-[80vh]"
-                        : "h-auto max-h-[20vh] md:max-h-[80vh]"
+                        : "h-auto max-h-[40vh] md:max-h-[80vh]"
                     )}>
                     <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
