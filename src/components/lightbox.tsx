@@ -40,31 +40,22 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
             {/* Media container */}
             <div className={cn(
-              "relative flex flex-col items-center justify-center overflow-hidden flex-1 w-full",
-               isStoryWithCharacter 
-                ? "h-full md:h-full"
-                : "h-full w-full"
+              "relative flex flex-col items-center justify-center overflow-hidden w-full",
+              isStoryWithCharacter ? "h-auto" : "h-full" // Allow auto height for story on mobile
             )}>
-              <div className="relative flex justify-center items-center w-full h-full">
+              <div className={cn(
+                "relative flex justify-center items-center w-full",
+                isStoryWithCharacter ? "max-h-[60vh] md:max-h-full" : "h-full" // Limit image height on mobile story
+              )}>
                 {item.type === "image" ? (
-                  isStoryWithCharacter ? (
-                     <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      data-ai-hint={item['data-ai-hint']}
-                      className="object-contain rounded-lg shadow-2xl"
-                    />
-                  ) : (
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      width={1200}
-                      height={1200}
-                      data-ai-hint={item['data-ai-hint']}
-                      className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
-                    />
-                  )
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    width={1200}
+                    height={1200}
+                    data-ai-hint={item['data-ai-hint']}
+                    className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                  />
                 ) : (
                   <video
                     src={item.src}
@@ -84,9 +75,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             {item.story && (
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
-                  isStoryWithCharacter
-                    ? "w-full max-h-[30vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: height. Desktop: fixed width
-                    : "w-full self-center max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
+                  "w-full self-center max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
