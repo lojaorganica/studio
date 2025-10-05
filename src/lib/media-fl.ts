@@ -7,6 +7,7 @@ Nutritivo e natural,
 Herói do campo, sensacional!
 
 Com grandes fibras, vêm grandes responsabilidades!
+
 Ele era só um tubérculo comum... até ser picado por uma aranha diferentona e cheia de energia, que vivia em um solo superadubado e rico em matéria orgânica de uma fazenda agroecológica! Agora, o Inhame-Aranha salta sobre hortas e prédios, lança teias nutritivas e enfrenta os maiores vilões do planeta: os agrotóxicos!
 
 Rico em vitaminas — principalmente as do complexo B —, fibras, propriedades anti-inflamatórias e desintoxicantes, o Inhame-Aranha não só derrota os inimigos da saúde, como ainda fortalece o sistema imunológico de quem acredita nele. Quando necessário, nosso herói de cara rugosa, mas coração cremoso, coloca sua máscara e luta bravamente contra as corporações que envenenam nossos pratos e adoecem nossa população. Defensor dos orgânicos, guardião das hortaliças e protetor dos pequenos agricultores, o Inhame-Aranha está aqui para te despertar para um mundo mais saudável, sustentável e saboroso.
@@ -84,7 +85,7 @@ const mediaUrls: string[] = [
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_75_sporock.mp4?alt=media&token=6f899a1f-5a6e-485b-b05c-9bfe3ae8ea40",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_76_inhame_aranha.mp4?alt=media&token=265991b4-78c0-432f-8b6b-ce8e51a17151",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_79_uva_negra.mp4?alt=media&token=c7a801e4-5bbf-400f-95ac-df6bf9cd6b6d",
-  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_81_limao_america.mp4?alt=media&token=b95ecd70-ce76-4784-b69e-2abae347d7a4",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_81_limao_america.mp4?alt=media&token=b95ecd70-ce76-4784-b69e-2abae347d7a1",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_90_brulk.mp4?alt=media&token=bcd78c9e-6e3c-4569-925a-5fa135f903b9",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_91_pepino_verde.mp4?alt=media&token=f5276a1d-ce00-4ee9-a202-b15f600fc591",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_92_abobrinha_maravilha.mp4?alt=media&token=593dfe46-61df-4ff9-8e78-569414f7ac92",

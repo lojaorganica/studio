@@ -7,6 +7,7 @@ Nutritivo e natural,
 Herói do campo, sensacional!
 
 Com grandes fibras, vêm grandes responsabilidades!
+
 Ele era só um tubérculo comum... até ser picado por uma aranha diferentona e cheia de energia, que vivia em um solo superadubado e rico em matéria orgânica de uma fazenda agroecológica! Agora, o Inhame-Aranha salta sobre hortas e prédios, lança teias nutritivas e enfrenta os maiores vilões do planeta: os agrotóxicos!
 
 Rico em vitaminas — principalmente as do complexo B —, fibras, propriedades anti-inflamatórias e desintoxicantes, o Inhame-Aranha não só derrota os inimigos da saúde, como ainda fortalece o sistema imunológico de quem acredita nele. Quando necessário, nosso herói de cara rugosa, mas coração cremoso, coloca sua máscara e luta bravamente contra as corporações que envenenam nossos pratos e adoecem nossa população. Defensor dos orgânicos, guardião das hortaliças e protetor dos pequenos agricultores, o Inhame-Aranha está aqui para te despertar para um mundo mais saudável, sustentável e saboroso.
@@ -81,7 +82,7 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_49_limao_america.png?alt=media&token=ad2d7296-19ca-4989-98ee-f5e720daadd6",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_51_uverine.png?alt=media&token=144bd897-9c7a-4c27-ba43-4340421ac398",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_54_berinjela_negra.png?alt=media&token=90ab807c-4067-4eac-ad53-014568fe6dab",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_55_brulk.png?alt=media&token=d15a716f-0348-4a2d-a51d-891ce48d2496",
+"https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_55_brulk.png?alt=media&token=d15a716f-0348-4a2d-a51d-891ce48d2496",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_57_mandiorpheus.png?alt=media&token=63a59b94-58ed-4090-90da-e960e42689b0",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_60_abobrinha_maravilha.png?alt=media&token=54b99ce7-fc90-4d44-82ca-38c3bd974dbe",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_64_pepino_verde.png?alt=media&token=ca90291c-d4b0-4e68-a56a-4b36e928b2ad",
