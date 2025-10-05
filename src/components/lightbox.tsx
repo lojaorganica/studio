@@ -32,11 +32,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4"
         >
           {isStoryWithCharacter ? (
-            <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row gap-4">
+            <div className="relative flex h-full max-w-7xl items-center justify-center flex-col md:flex-row md:items-start md:gap-4">
               {/* Media container */}
-              <div className="relative flex flex-col items-center justify-center w-full h-full flex-1 min-h-0 max-h-[60vh] md:max-h-full">
+              <div className="relative flex flex-col items-center justify-center flex-1 min-h-0 max-h-[60vh] md:max-h-full">
                 <div className="relative flex justify-center items-center w-full h-full">
-                  {item.type === "image" ? (
                     <Image
                       src={item.src}
                       alt={item.alt}
@@ -44,14 +43,6 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                       data-ai-hint={item['data-ai-hint']}
                       className="object-contain rounded-lg shadow-2xl"
                     />
-                  ) : (
-                    <video
-                      src={item.src}
-                      controls
-                      autoPlay
-                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-lg shadow-2xl"
-                    />
-                  )}
                 </div>
                 <div className="flex-shrink-0 flex justify-center gap-2 py-2">
                   <Badge variant="secondary">{item.fair}</Badge>
@@ -113,7 +104,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             variant="ghost"
             size="icon"
             onClick={onNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover-bg-background/80 rounded-full h-10 w-10 z-50"
+            className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10 z-50"
             aria-label="Next image"
             >
             <ChevronRight className="h-6 w-6" />
