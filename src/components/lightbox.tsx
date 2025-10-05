@@ -28,12 +28,11 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
       <DialogContent className="max-w-none w-full h-full p-0 bg-transparent border-0 flex items-center justify-center shadow-none gap-0">
         
         {/* Main Content Wrapper */}
-        <div className="relative w-full h-full flex items-center justify-center p-4 md:p-8">
+        <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-4 md:p-8">
             
-            {/* Centering container for media and story */}
+            {/* Grouping container for media and story to keep them together */}
             <div className={cn(
-              "relative flex flex-col md:flex-row items-center gap-4 w-auto h-auto max-h-full",
-              isStoryWithCharacter ? "justify-center" : ""
+              "relative flex flex-col md:flex-row items-center justify-center gap-4 w-auto h-auto max-h-full"
             )}>
                 
                 {/* Media container */}
@@ -79,7 +78,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                 {item.story && (
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
-                      "h-[40vh] md:h-auto md:max-h-[80vh]" // Adjusted height for mobile and desktop
+                      "max-h-[40vh] md:h-auto md:max-h-[80vh]"
                     )}>
                     <ScrollArea className="h-full w-full">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
