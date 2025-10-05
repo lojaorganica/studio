@@ -29,14 +29,14 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         
         {/* Main Content Area */}
         <div className={cn(
-          "relative w-full h-full flex flex-col md:flex-row items-center justify-center gap-4 p-4 md:p-8",
-          isStoryWithCharacter && "md:justify-center md:items-center"
+          "relative w-full h-full flex flex-col md:flex-row items-center gap-4 p-4 md:p-8",
+           isStoryWithCharacter ? "justify-center" : "justify-center"
         )}>
             
             {/* Media container */}
             <div className={cn(
-              "relative flex-1 flex flex-col items-center justify-center w-full h-full",
-               isStoryWithCharacter && "md:flex-grow-0"
+              "relative flex flex-col items-center justify-center w-full",
+              isStoryWithCharacter ? "md:w-auto md:flex-shrink" : "h-full flex-1"
             )}>
                 <div className={cn(
                     "relative flex justify-center items-center w-full",
@@ -51,7 +51,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                         data-ai-hint={item['data-ai-hint']}
                         className={cn(
                           "w-auto h-auto object-contain rounded-lg shadow-2xl",
-                          isStoryWithCharacter 
+                           isStoryWithCharacter 
                             ? "max-h-[50vh] md:max-h-[80vh]"
                             : "max-h-[70vh] md:max-h-[85vh]"
                         )}
@@ -73,7 +73,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
             {/* Story Panel */}
             {item.story && (
-              <div className="w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center h-[35vh] md:h-auto md:max-h-[80vh]">
+              <div className={cn(
+                  "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
+                  isStoryWithCharacter ? "h-[45vh] md:h-auto md:max-h-[80vh]" : "h-[35vh] md:h-auto md:max-h-[80vh]"
+                )}>
                 <ScrollArea className="h-full w-full">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                     <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
