@@ -32,50 +32,50 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4 md:p-8"
         >
            <div className={cn(
-            "relative flex h-full w-full max-w-7xl flex-col items-center justify-center gap-4",
-            // On desktop, use row layout
-            "md:flex-row md:items-center md:justify-center",
-            isStoryWithCharacter ? "md:gap-2" : "md:gap-4"
+            "relative flex h-full w-full max-w-7xl items-center justify-center gap-4",
+            isStoryWithCharacter ? "flex-col" : "flex-col md:flex-row"
           )}>
 
             {/* Media container */}
-            <div className={cn(
-              "relative flex flex-col items-center justify-center overflow-hidden w-full",
-              isStoryWithCharacter ? "h-auto" : "h-full" // Allow auto height for story on mobile
+             <div className={cn(
+                "relative flex flex-col items-center justify-center w-full",
+                isStoryWithCharacter ? "flex-shrink-1 min-h-0" : "h-full"
             )}>
-              <div className={cn(
-                "relative flex justify-center items-center w-full",
-                isStoryWithCharacter ? "max-h-[60vh] md:max-h-full" : "h-full" // Limit image height on mobile story
-              )}>
-                {item.type === "image" ? (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    width={1200}
-                    height={1200}
-                    data-ai-hint={item['data-ai-hint']}
-                    className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
-                  />
-                ) : (
-                  <video
-                    src={item.src}
-                    controls
-                    autoPlay
-                    className="max-h-full max-w-full w-auto h-auto object-contain rounded-lg shadow-2xl"
-                  />
-                )}
-              </div>
-              <div className="flex justify-center gap-2 py-2 flex-shrink-0">
-                  <Badge variant="secondary">{item.fair}</Badge>
-                  <Badge variant="secondary">{item.style}</Badge>
-              </div>
+                <div className={cn(
+                    "relative flex justify-center items-center w-full h-full",
+                    isStoryWithCharacter && "max-h-[65vh]"
+                )}>
+                    {item.type === "image" ? (
+                        <Image
+                            src={item.src}
+                            alt={item.alt}
+                            width={1200}
+                            height={1200}
+                            data-ai-hint={item['data-ai-hint']}
+                            className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                        />
+                    ) : (
+                        <video
+                            src={item.src}
+                            controls
+                            autoPlay
+                            className="max-h-full max-w-full w-auto h-auto object-contain rounded-lg shadow-2xl"
+                        />
+                    )}
+                </div>
+                <div className="flex justify-center gap-2 py-2 flex-shrink-0">
+                    <Badge variant="secondary">{item.fair}</Badge>
+                    <Badge variant="secondary">{item.style}</Badge>
+                </div>
             </div>
+
 
             {/* Story Panel */}
             {item.story && (
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
-                  "w-full self-center max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]"
+                   "w-full self-center flex-shrink-0",
+                   isStoryWithCharacter ? "max-h-[25vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
