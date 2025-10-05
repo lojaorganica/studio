@@ -29,12 +29,12 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         
         {/* Main Content Wrapper */}
         <div 
-          className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4"
+          className="relative w-full h-full flex flex-col items-center justify-center p-4"
         >
           {isStoryWithCharacter ? (
             <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
               {/* Media container for Story */}
-              <div className="relative flex items-center justify-center max-h-[60vh] md:max-h-[85vh] h-full w-full md:w-auto">
+              <div className="relative flex items-center justify-center w-full md:w-auto h-full max-h-[60vh] md:max-h-[85vh]">
                 <div className="relative h-full w-auto aspect-[3/4]">
                   <Image
                     src={item.src}
@@ -48,7 +48,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
               {/* Story Panel */}
               <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg w-full self-center flex-shrink-0 max-h-[30vh] md:w-80 lg:w-96 md:max-h-[85vh]">
-                <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
+                <ScrollArea className="h-full w-full [&_[data-radix-scroll-area-thumb]]:bg-white">
                   {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                   <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                     {item.story!.split('\n\n').map((paragraph, index) => (
