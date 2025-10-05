@@ -48,7 +48,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
               {/* Story Panel */}
               <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg w-full self-center flex-shrink-0 max-h-[30vh] md:w-80 lg:w-96 md:max-h-[85vh]">
-                <ScrollArea className="h-full w-full [&_[data-radix-scroll-area-thumb]]:!bg-white">
+                <ScrollArea className="h-full w-full [&_[data-radix-scroll-area-thumb]]:!bg-white/50">
                   {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                   <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                     {item.story!.split('\n\n').map((paragraph, index) => (
