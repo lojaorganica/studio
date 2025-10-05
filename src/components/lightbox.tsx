@@ -40,26 +40,31 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
             {/* Media container */}
             <div className={cn(
-              "relative flex flex-col items-center justify-center",
+              "relative flex flex-col items-center justify-center overflow-hidden",
                isStoryWithCharacter 
                 ? "h-[65vh] w-full md:h-full md:flex-1"
                 : "w-full h-full flex-1"
             )}>
               <div className="relative flex justify-center items-center w-full h-full">
                 {item.type === "image" ? (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    width={1200}
-                    height={1200}
-                    data-ai-hint={item['data-ai-hint']}
-                    className={cn(
-                      "object-contain rounded-lg shadow-2xl",
-                      isStoryWithCharacter 
-                        ? "w-auto h-full max-w-full" // Force fit height for stories
-                        : "w-auto h-auto max-h-full max-w-full" // Standard behavior
-                    )}
-                  />
+                  isStoryWithCharacter ? (
+                     <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      data-ai-hint={item['data-ai-hint']}
+                      className="object-contain rounded-lg shadow-2xl"
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      width={1200}
+                      height={1200}
+                      data-ai-hint={item['data-ai-hint']}
+                      className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                    />
+                  )
                 ) : (
                   <video
                     src={item.src}
@@ -80,10 +85,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   isStoryWithCharacter
-                    ? "w-full h-[20vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: 20% height. Desktop: fixed width
+                    ? "w-full h-[20vh] min-h-[100px] md:h-auto md:max-h-[80vh] md:w-80 lg:w-96" // Mobile: height. Desktop: fixed width
                     : "w-full self-center max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]" // Standard horizontal layout
               )}>
-                <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/80">
+                <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                     <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                     {item.story.split('\n\n').map((paragraph, index) => (
@@ -110,7 +115,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             variant="ghost"
             size="icon"
             onClick={onNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover:bg-background/80 rounded-full h-10 w-10 z-50"
+            className="absolute right-2 top-1/2 -translate-y-1/2 md:right-4 bg-background/50 hover-bg-background/80 rounded-full h-10 w-10 z-50"
             aria-label="Next image"
             >
             <ChevronRight className="h-6 w-6" />
