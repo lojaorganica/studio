@@ -21,7 +21,7 @@ type LightboxProps = {
 }
 
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
-  const isStoryWithCharacter = item.style === 'Story' && !!item.characterName;
+  const isStoryWithCharacter = !!item.story;
 
   return (
     <Dialog open onOpenChange={onClose}>
@@ -31,20 +31,49 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
         <div 
           className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4"
         >
-           <div className={cn(
-            "relative flex h-full w-full max-w-7xl items-center justify-center",
-            isStoryWithCharacter ? "flex-col md:flex-row md:gap-4" : "flex-col"
-          )}>
+          {isStoryWithCharacter ? (
+            <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row md:gap-4">
+              {/* Media container */}
+              <div className="relative flex flex-col items-center justify-center w-full h-full flex-1 min-h-0 max-h-[60vh] md:max-h-full">
+                <div className="relative flex justify-center items-center w-full h-full">
+                  {item.type === "image" ? (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      data-ai-hint={item['data-ai-hint']}
+                      className="object-contain rounded-lg shadow-2xl"
+                    />
+                  ) : (
+                    <video
+                      src={item.src}
+                      controls
+                      autoPlay
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-lg shadow-2xl"
+                    />
+                  )}
+                </div>
+                <div className="flex-shrink-0 flex justify-center gap-2 py-2">
+                  <Badge variant="secondary">{item.fair}</Badge>
+                  <Badge variant="secondary">{item.style}</Badge>
+                </div>
+              </div>
 
-            {/* Media container */}
-             <div className={cn(
-                "relative flex flex-col items-center justify-center w-full h-full",
-                 isStoryWithCharacter ? "flex-1 min-h-0" : ""
-            )}>
-                <div className={cn(
-                    "relative flex justify-center items-center w-full h-full",
-                    isStoryWithCharacter ? "md:max-h-full" : ""
-                )}>
+              {/* Story Panel */}
+              <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg w-full self-center flex-shrink-0 max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh] md:ml-4">
+                <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
+                  {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
+                  <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
+                    {item.story!.split('\n\n').map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            </div>
+          ) : (
+             <div className="relative flex flex-col h-full w-full max-w-7xl items-center justify-center">
+                <div className="relative flex justify-center items-center w-full h-full">
                     {item.type === "image" ? (
                         <Image
                             src={item.src}
@@ -67,26 +96,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                     <Badge variant="secondary">{item.style}</Badge>
                 </div>
             </div>
-
-
-            {/* Story Panel */}
-            {item.story && (
-              <div className={cn(
-                  "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
-                  "w-full self-center flex-shrink-0",
-                   isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "hidden"
-              )}>
-                <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
-                    {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
-                    <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
-                    {item.story.split('\n\n').map((paragraph, index) => (
-                        <p key={index}>{paragraph}</p>
-                    ))}
-                    </div>
-                </ScrollArea>
-              </div>
-            )}
-            </div>
+          )}
         </div>
 
         {/* Navigation Buttons */}
