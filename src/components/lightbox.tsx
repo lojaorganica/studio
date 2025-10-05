@@ -32,14 +32,15 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             
             {/* Grouping container for media and story to keep them together */}
             <div className={cn(
-              "relative flex flex-col md:flex-row items-center justify-center gap-4 w-auto h-auto max-h-full"
+              "relative flex flex-col md:flex-row items-center justify-center gap-4 h-auto max-w-full",
+              isStoryWithCharacter ? "w-auto" : "w-full h-full"
             )}>
                 
                 {/* Media container */}
                 <div className={cn(
                   "relative flex flex-col items-center justify-center",
                    isStoryWithCharacter 
-                    ? "w-full md:w-auto flex-shrink-0" // Allow shrinking for story
+                    ? "w-full md:w-auto flex-shrink-0"
                     : "w-full h-full flex-1"
                 )}>
                     <div className={cn(
@@ -78,7 +79,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                 {item.story && (
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
-                      "max-h-[40vh] md:h-auto md:max-h-[80vh]"
+                      "h-auto max-h-[30vh] md:max-h-[80vh]"
                     )}>
                     <ScrollArea className="h-full w-full">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
