@@ -13,6 +13,12 @@ Rico em vitaminas — principalmente as do complexo B —, fibras, propriedades 
 
 Prepare-se: a revolução vegetal chegou às alturas! Se você quer saúde de verdade, então vem pras feiras orgânicas nesse sábado e traga sua ecobag! O Inhame-Aranha estará te esperando com sabor, coragem e muitos vegetais do bem!`;
 
+const UVERINE_STORY = `VENHA ENCONTRAR O UVERINE E MUITOS OUTROS HERÓIS DA NATUREZA EM NOSSAS FEIRAS ORGÂNICAS DO CIRCUITIO CARIOCA! 
+
+Com garras de resveramantium, compostas por um alto teor de antioxidantes vindos de seu próprio sangue (ou melhor, do suco), Uverine não é um herói derivado de qualquer uva. Ele é o resultado de uma mutação natural envolvendo as lendárias uvas amarelas Niágara, Itália e Chardonnay — uma fusão poderosa que deu origem ao mais casca-grossa dos heróis orgânicos. Imortal, indestrutível e com um leve aroma frutado, Uverine corta, com suas afiadas garras de resveramantium, as toxinas, os radicais livres e os vilões agrotóxicos que ameaçam sua saúde e a do planeta. Quando Uverine não está em trabalho de podas regenerativas em plantações de videiras, ele está ao lado dos X-Veggies na defesa de uma alimentação limpa, sustentável e deliciosa, protegendo hortas, lavouras e a dignidade das famílias agricultoras. Uverine não envelhece — e luta todos os dias para que você também se torne longevo, viva melhor e mais protegido. Ele pode até guardar alguma doçura interior, mas, quando abre os braços e aciona suas garras… já era!
+
+A batalha pela saúde começa no seu prato e Uverine já escolheu o lado certo da luta. E você? Venha fortalecer-se nas feiras Orgânicas do Circuito Carioca!`;
+
 function getStyleFromFilename(filename: string): MediaItem['style'] {
   if (filename.includes('aagr')) return 'Animações de Agricultores';
   if (filename.includes('aali')) return 'Animações de Alimentos';
@@ -201,6 +207,11 @@ export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
     if (alt.toLowerCase().includes('inhame_aranha')) {
         item.characterName = 'Inhame-Aranha';
         item.story = INHAME_ARANHA_STORY;
+    }
+
+    if (alt.toLowerCase().includes('uverine')) {
+        item.characterName = 'Uverine';
+        item.story = UVERINE_STORY;
     }
     
     return item;
