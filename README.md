@@ -12,6 +12,7 @@ A aplicação funciona como um portfólio completo e interativo de animações, 
 *   **Reordenação com Arrastar e Soltar**: Organize facilmente os itens de mídia arrastando e soltando-os como desejar.
 *   **Sistema de Favoritos**: Marque suas peças favoritas com uma estrela para acesso rápido e filtragem.
 *   **Lightbox Responsivo**: Visualize a mídia em um lightbox detalhado e em tela cheia que se adapta a diferentes formatos, incluindo layouts especiais para histórias de personagens.
+*   **Assistente com IA (Sofia)**: Utilize a assistente Sofia para obter orientação, editar áreas do aplicativo e receber apoio contextual tanto para agricultores quanto para clientes.
 *   **Design Mobile-First**: Uma interface totalmente responsiva com um menu móvel dedicado para uma ótima experiência em qualquer dispositivo.
 
 ## Tecnologias Utilizadas
