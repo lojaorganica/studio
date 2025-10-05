@@ -1,37 +1,37 @@
-# Organic Art Gallery - Circuito Carioca de Feiras Orgânicas
+# Galeria de Arte Orgânica - Circuito Carioca de Feiras Orgânicas
 
-This project is a digital art gallery showcasing over a decade of creative work for the "Circuito Carioca de Feiras Orgânicas" (Rio de Janeiro's Organic Fairs Circuit), developed with the support of the Essência Vital organization.
+Este projeto é uma galeria de arte digital que exibe mais de uma década de trabalho criativo para o "Circuito Carioca de Feiras Orgânicas", desenvolvido com o apoio da organização Essência Vital.
 
-The application serves as a complete and interactive portfolio of animations, photos, cartoons, and other artwork used for communication, advertising, and marketing to support the organic fairs and their family farmers.
+A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores.
 
-## Features
+## Funcionalidades
 
-*   **Infinite Scroll Gallery**: Seamlessly browse a vast collection of images and videos.
-*   **Advanced Filtering**: Filter artwork by fair (`Feira`) or style (`Estilo`).
-*   **Customizable Layout**: Adjust the number of columns (1, 2, 3, or 4) for the gallery grid.
-*   **Drag & Drop Reordering**: Easily drag and drop media items to organize them as you wish.
-*   **Favorites System**: Mark your favorite pieces with a star for quick access and filtering.
-*   **Responsive Lightbox**: View media in a full-screen, detailed lightbox that adapts to different formats, including special layouts for character stories.
-*   **Media Upload**: Users can upload their own images and videos directly to the gallery.
-*   **Mobile-First Design**: A fully responsive interface with a dedicated mobile menu for a great experience on any device.
+*   **Galeria com Rolagem Infinita**: Navegue de forma fluida por uma vasta coleção de imagens e vídeos.
+*   **Filtragem Avançada**: Filtre as artes por feira (`Feira`) ou por estilo (`Estilo`).
+*   **Layout Customizável**: Ajuste o número de colunas (1, 2, 3 ou 4) para a grade da galeria.
+*   **Reordenação com Arrastar e Soltar**: Organize facilmente os itens de mídia arrastando e soltando-os como desejar.
+*   **Sistema de Favoritos**: Marque suas peças favoritas com uma estrela para acesso rápido e filtragem.
+*   **Lightbox Responsivo**: Visualize a mídia em um lightbox detalhado e em tela cheia que se adapta a diferentes formatos, incluindo layouts especiais para histórias de personagens.
+*   **Upload de Mídia**: Os usuários podem enviar suas próprias imagens e vídeos diretamente para a galeria.
+*   **Design Mobile-First**: Uma interface totalmente responsiva com um menu móvel dedicado para uma ótima experiência em qualquer dispositivo.
 
-## Tech Stack
+## Tecnologias Utilizadas
 
-*   **Framework**: [Next.js](https://nextjs.org/) (with App Router)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/)
-*   **UI Components**: [ShadCN/UI](https://ui.shadcn.com/)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **Generative AI**: [Genkit (Firebase)](https://firebase.google.com/docs/genkit)
-*   **Deployment**: Firebase App Hosting
+*   **Framework**: [Next.js](https://nextjs.org/) (com App Router)
+*   **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
+*   **Componentes de UI**: [ShadCN/UI](https://ui.shadcn.com/)
+*   **Estilização**: [Tailwind CSS](https://tailwindcss.com/)
+*   **IA Generativa**: [Genkit (Firebase)](https://firebase.google.com/docs/genkit)
+*   **Hospedagem**: Firebase App Hosting
 
-## Connecting to GitHub
+## Conectando ao GitHub
 
-To manage version control and collaborate on this project, you can connect it to a GitHub repository directly within Firebase Studio.
+Para gerenciar o controle de versão e colaborar neste projeto, você pode conectá-lo a um repositório do GitHub diretamente no Firebase Studio.
 
-1.  **Find the Version Control Tab**: In the left-side panel of the Studio interface, look for the "Version Control" icon (it typically looks like a tree branch diagram).
-2.  **Connect to GitHub**: Click the icon and select the option to "Connect to GitHub".
-3.  **Authenticate**: A GitHub authentication window will open. Authorize Firebase Studio to access your GitHub account.
-4.  **Choose or Create a Repository**: After authenticating, you can either create a new repository directly from Studio or connect to an existing empty repository in your account.
-5.  **Push the Code**: Once connected, Studio will perform the initial commit and push all the project files to your selected GitHub repository.
+1.  **Encontre a Aba de Controle de Versão**: No painel esquerdo da interface do Studio, procure pelo ícone de "Controle de Versão" (geralmente parece um diagrama de galhos de árvore).
+2.  **Conectar ao GitHub**: Clique no ícone e selecione a opção para "Conectar ao GitHub".
+3.  **Autentique-se**: Uma janela de autenticação do GitHub será aberta. Autorize o Firebase Studio a acessar sua conta do GitHub.
+4.  **Escolha ou Crie um Repositório**: Após a autenticação, você pode criar um novo repositório diretamente do Studio ou conectar-se a um repositório existente e vazio em sua conta.
+5.  **Envie o Código**: Uma vez conectado, o Studio realizará o "commit" inicial e enviará (push) todos os arquivos do projeto para o seu repositório selecionado no GitHub.
 
-After these steps, your project will be linked, and you can commit and push all future changes directly from the Firebase Studio interface.
+Após esses passos, seu projeto estará vinculado, e você poderá fazer "commits" e "pushes" de todas as futuras alterações diretamente da interface do Firebase Studio.
