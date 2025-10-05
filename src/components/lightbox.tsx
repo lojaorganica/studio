@@ -74,7 +74,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
                   "w-full self-center flex-shrink-0",
-                  isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "hidden"
+                   isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "hidden"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
