@@ -79,10 +79,10 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                   <div className={cn(
                       "w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center",
                        isStoryWithCharacter
-                        ? "h-auto max-h-[25vh] md:max-h-[80vh]"
+                        ? "h-auto max-h-[20vh] md:max-h-[80vh]"
                         : "h-auto max-h-[20vh] md:max-h-[80vh]"
                     )}>
-                    <ScrollArea className="h-full w-full [&>div>div[style]]:!bg-white">
+                    <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white">
                         {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                         <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
                         {item.story.split('\n\n').map((paragraph, index) => (
