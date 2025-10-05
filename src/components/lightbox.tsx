@@ -33,7 +33,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           className="relative w-full h-full flex flex-col items-center justify-center p-4"
         >
           {isStoryWithCharacter ? (
-            <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
+            <div className="relative flex h-full w-full max-w-7xl items-center justify-between flex-col md:flex-row gap-8">
               {/* Media container for Story */}
               <div className={cn(
                 "relative flex items-center justify-center w-full max-h-[60vh] md:max-h-[85vh] transition-transform duration-300",
