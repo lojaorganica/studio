@@ -33,14 +33,14 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           className="relative w-full h-full flex flex-col items-center justify-center p-4"
         >
           {isStoryWithCharacter ? (
-            <div className="relative flex h-full w-auto max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
+            <div className="relative flex h-full w-full max-w-7xl items-center justify-center flex-col md:flex-row gap-8">
               {/* Media container for Story */}
               <div className={cn(
-                "relative flex items-center justify-center w-full md:w-auto h-full max-h-[60vh] md:max-h-[85vh] transition-transform duration-300",
-                !isActuallyStoryFormat && "md:h-full"
+                "relative flex items-center justify-center w-full max-h-[60vh] md:max-h-[85vh] transition-transform duration-300",
+                 !isActuallyStoryFormat ? "md:scale-125 md:w-[55%]" : "md:w-auto"
               )}>
-                <div className="relative h-full w-auto aspect-[3/4]">
-                  {item.type === 'video' ? (
+                <div className="relative h-full w-full aspect-[3/4]">
+                   {item.type === 'video' ? (
                     <video
                       src={item.src}
                       controls
@@ -61,7 +61,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
               </div>
 
               {/* Story Panel */}
-              <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg w-full self-center flex-shrink-0 max-h-[30vh] md:w-80 lg:w-96 md:max-h-[85vh]">
+              <div className={cn("bg-background/80 backdrop-blur-sm p-4 rounded-lg w-full self-center flex-shrink-0 max-h-[30vh] md:w-80 lg:w-96 md:max-h-[85vh]", !isActuallyStoryFormat && "md:w-[45%]")}>
                 <ScrollArea className="h-full w-full">
                   {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                   <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
