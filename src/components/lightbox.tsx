@@ -11,6 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import type { MediaItem } from "@/lib/media"
 import { Badge } from "./ui/badge"
 import { ScrollArea } from "./ui/scroll-area"
+import { cn } from "@/lib/utils"
 
 type LightboxProps = {
   item: MediaItem
@@ -20,16 +21,27 @@ type LightboxProps = {
 }
 
 export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
+  const isStoryWithCharacter = item.style === 'Story' && !!item.characterName;
+
   return (
     <Dialog open onOpenChange={onClose}>
       <DialogContent className="max-w-7xl w-full h-full md:h-auto md:max-h-[90vh] p-0 bg-transparent border-0 flex items-center justify-center shadow-none gap-0">
         
         {/* Main Content Area */}
-        <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center gap-4 p-4 md:p-8">
+        <div className={cn(
+          "relative w-full h-full flex flex-col md:flex-row items-center justify-center gap-4 p-4 md:p-8",
+          isStoryWithCharacter && "md:justify-center md:items-center"
+        )}>
             
             {/* Media container */}
-            <div className="relative flex-1 flex flex-col items-center justify-center w-full h-full">
-                <div className="relative flex justify-center items-center w-full h-full">
+            <div className={cn(
+              "relative flex-1 flex flex-col items-center justify-center w-full h-full",
+               isStoryWithCharacter && "md:flex-grow-0"
+            )}>
+                <div className={cn(
+                    "relative flex justify-center items-center w-full",
+                    isStoryWithCharacter ? "h-full md:h-auto" : "h-full"
+                  )}>
                     {item.type === "image" ? (
                         <Image
                         src={item.src}
@@ -37,7 +49,12 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                         width={1200}
                         height={1200}
                         data-ai-hint={item['data-ai-hint']}
-                        className="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                        className={cn(
+                          "w-auto h-auto object-contain rounded-lg shadow-2xl",
+                          isStoryWithCharacter 
+                            ? "max-h-[50vh] md:max-h-[80vh]"
+                            : "max-h-[70vh] md:max-h-[85vh]"
+                        )}
                         />
                     ) : (
                         <video
@@ -56,7 +73,7 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
 
             {/* Story Panel */}
             {item.story && (
-              <div className="w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center h-auto max-h-[40vh] md:max-h-[80vh]">
+              <div className="w-full md:w-80 lg:w-96 flex-shrink-0 bg-background/80 backdrop-blur-sm p-4 rounded-lg self-center h-[35vh] md:h-auto md:max-h-[80vh]">
                 <ScrollArea className="h-full w-full">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
                     <div className="text-sm text-foreground/90 whitespace-pre-wrap space-y-3 pr-4">
