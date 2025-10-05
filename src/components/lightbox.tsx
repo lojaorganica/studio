@@ -32,8 +32,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
           className="relative w-full h-full flex flex-col items-center justify-center pt-8 p-4"
         >
            <div className={cn(
-            "relative flex h-full w-full max-w-7xl items-center justify-center gap-4",
-            isStoryWithCharacter ? "flex-col" : "flex-col md:flex-row"
+            "relative flex h-full w-full max-w-7xl items-center justify-center",
+            isStoryWithCharacter ? "flex-col md:flex-row" : "flex-col"
           )}>
 
             {/* Media container */}
@@ -42,18 +42,16 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
                  isStoryWithCharacter ? "flex-1 min-h-0" : "h-full"
             )}>
                 <div className={cn(
-                    "relative flex justify-center items-center w-full",
-                    isStoryWithCharacter ? "max-h-[60vh]" : "h-full"
+                    "relative flex justify-center items-center w-full max-h-full",
+                    isStoryWithCharacter && "md:max-h-[80vh] max-h-[60vh]" 
                 )}>
                     {item.type === "image" ? (
                         <Image
                             src={item.src}
                             alt={item.alt}
-                            fill={isStoryWithCharacter}
-                            width={isStoryWithCharacter ? undefined : 1200}
-                            height={isStoryWithCharacter ? undefined : 1200}
+                            fill
                             data-ai-hint={item['data-ai-hint']}
-                            className="w-auto h-auto max-h-full max-w-full object-contain rounded-lg shadow-2xl"
+                            className="object-contain rounded-lg shadow-2xl"
                         />
                     ) : (
                         <video
@@ -75,8 +73,8 @@ export function Lightbox({ item, onClose, onNext, onPrev }: LightboxProps) {
             {item.story && (
               <div className={cn(
                   "bg-background/80 backdrop-blur-sm p-4 rounded-lg",
-                   "w-full self-center flex-shrink-0",
-                   isStoryWithCharacter ? "max-h-[25vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
+                  "w-full self-center flex-shrink-0 md:ml-4",
+                  isStoryWithCharacter ? "max-h-[30vh] md:w-80 lg:w-96 md:max-h-[80vh]" : "max-h-[40vh] md:w-80 lg:w-96 md:max-h-[80vh]"
               )}>
                 <ScrollArea className="h-full w-full [&>div>div[class*='bg-border']]:bg-white/20">
                     {item.characterName && <h2 className="text-xl font-bold mb-2 text-accent">{item.characterName}</h2>}
