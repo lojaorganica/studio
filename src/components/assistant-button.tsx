@@ -184,14 +184,14 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const getButtonIcon = () => {
     switch (state) {
       case 'listening':
-        return <Mic className="w-8 h-8 text-accent-foreground" />;
+        return <Mic className="w-10 h-10 text-accent-foreground" />;
       case 'processing':
-        return <Loader2 className="w-8 h-8 text-accent-foreground animate-spin" />;
+        return <Loader2 className="w-10 h-10 text-accent-foreground animate-spin" />;
       case 'speaking':
-        return <Volume2 className="w-8 h-8 text-accent-foreground" />;
+        return <Volume2 className="w-10 h-10 text-accent-foreground" />;
       case 'idle':
       default:
-        return <Mic className="w-8 h-8 text-accent-foreground" />;
+        return <Mic className="w-10 h-10 text-accent-foreground" />;
     }
   };
   
