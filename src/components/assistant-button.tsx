@@ -4,11 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mic, Loader2, Volume2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Send } from 'lucide-react';
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChatBubble } from "@/components/chat-bubble";
 
 type Message = {
   role: 'user' | 'model';
@@ -30,7 +25,6 @@ declare const window: CustomWindow;
 
 export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
-  const [history, setHistory] = useState<Message[]>([]);
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
@@ -142,15 +136,12 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     
     setState('processing');
 
-    const userMessage: Message = { role: 'user', parts: [{ text: messageToSend }] };
-    const newHistory = [...history, userMessage];
-
     try {
       const response = await fetch('/api/assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          history: newHistory,
+          history: [], // Enviar sempre um histórico vazio
           message: messageToSend,
         }),
       });
@@ -158,12 +149,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       if (!response.ok) throw new Error('A resposta da rede não foi OK');
 
       const data = await response.json();
-      
-      const assistantMessage: Message = {
-        role: 'model',
-        parts: [{ text: data.text }],
-      };
-      setHistory([...newHistory, assistantMessage]);
 
       speak(data.text);
 
