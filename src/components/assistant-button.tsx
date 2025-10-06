@@ -159,7 +159,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
 
   const getButtonIcon = () => {
-    const iconSize = "w-10 h-10";
+    const iconSize = "w-8 h-8";
     switch (state) {
       case 'listening':
         return <Mic className={cn(iconSize, "text-accent-foreground")} />;
@@ -195,7 +195,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         onTouchEnd={stopListening}
         disabled={!recognitionRef.current && state === 'idle'}
         className={cn(
-          "fixed bottom-6 right-6 w-20 h-20 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
+          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
         )}
       >
