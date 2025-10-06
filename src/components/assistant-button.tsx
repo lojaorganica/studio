@@ -4,6 +4,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mic, Loader2, Volume2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Send } from 'lucide-react';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChatBubble } from "@/components/chat-bubble";
 
 type Message = {
   role: 'user' | 'model';
@@ -175,7 +180,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
 
   const getButtonIcon = () => {
-    const iconSize = "w-10 h-10";
+    const iconSize = "w-14 h-14";
     switch (state) {
       case 'listening':
         return <Mic className={cn(iconSize, "text-accent-foreground")} />;
