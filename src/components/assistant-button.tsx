@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {Microphone} from 'lucide-react';
+import {Mic} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {
   interpretCommand,
@@ -161,7 +161,7 @@ export function AssistantButton({
             )}
             disabled={state !== 'idle' && state !== 'listening'}
         >
-            <Microphone className="w-8 h-8" />
+            <Mic className="w-8 h-8" />
         </button>
     </div>
   );
