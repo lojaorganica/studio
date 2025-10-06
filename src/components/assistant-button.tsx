@@ -43,6 +43,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       };
 
       recognition.onend = () => {
+        // Redefine para idle se não estivermos já a processar ou a falar
         if (state === 'listening') {
           setState('idle');
         }
@@ -63,17 +64,21 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       window.speechSynthesis?.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // A dependência 'state' foi removida para evitar recriação
 
   const startListening = () => {
     if (recognitionRef.current && (state === 'idle' || state === 'speaking')) {
-       window.speechSynthesis?.cancel();
+       window.speechSynthesis?.cancel(); // Para a fala se estiver a falar
        setState('listening');
       try {
         recognitionRef.current.start();
       } catch(e) {
+        // Erro comum se a escuta já estiver ativa
         console.error("Não foi possível iniciar a escuta:", e);
-        setState('idle');
+        // Se falhar, volta ao estado idle para permitir nova tentativa
+        if (state === 'listening') {
+          setState('idle');
+        }
       }
     }
   };
@@ -81,15 +86,12 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const stopListening = () => {
     if (recognitionRef.current && state === 'listening') {
        try {
+        // Pára a gravação. O resultado será tratado pelo `onresult` e o fim pelo `onend`.
         recognitionRef.current.stop();
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
-        setState('idle');
+        setState('idle'); // Força o estado idle se houver erro
       }
-    } else {
-        if (state !== 'processing') {
-            setState('idle');
-        }
     }
   };
   
@@ -135,9 +137,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       const response = await fetch('/api/assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: messageToSend,
-        }),
+        body: JSON.stringify({ message: messageToSend }),
       });
 
       if (!response.ok) throw new Error('A resposta da rede não foi OK');
