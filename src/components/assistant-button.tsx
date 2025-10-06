@@ -1,20 +1,16 @@
-
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Bot, Send, User, X, Mic, MicOff } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ChatBubble } from './chat-bubble';
+import { Bot, Mic, Loader2, Volume2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 type Message = {
   role: 'user' | 'model';
   parts: { text: string }[];
 };
+
+type AssistantState = 'idle' | 'listening' | 'processing' | 'speaking';
 
 type AssistantButtonProps = {
   onApplyFilters: (filters: any) => void;
@@ -27,28 +23,14 @@ interface CustomWindow extends Window {
 }
 declare const window: CustomWindow;
 
-
 export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, setState] = useState<AssistantState>('idle');
+  const [history, setHistory] = useState<Message[]>([]);
   
-  const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-  const autoSendTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
-    }
-  }, [messages]);
-  
+  // Efeito para configurar o reconhecimento de voz
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -57,37 +39,29 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition();
       recognition.lang = 'pt-BR';
-      recognition.interimResults = true;
+      recognition.interimResults = false;
       recognition.continuous = false;
 
       recognition.onresult = (event) => {
-        const transcript = Array.from(event.results)
-          .map(result => result[0])
-          .map(result => result.transcript)
-          .join('');
-        setInput(transcript);
-
-        // Reinicia o timer de envio automático sempre que um novo resultado chega
-        if (autoSendTimerRef.current) {
-          clearTimeout(autoSendTimerRef.current);
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+          handleSendMessage(transcript);
         }
-        autoSendTimerRef.current = setTimeout(() => {
-          if (event.results[0].isFinal) {
-             handleSendMessage(null, transcript);
-             stopListening();
-          }
-        }, 1000); // Envia 1 segundo após o usuário parar de falar
+        stopListening();
       };
 
       recognition.onend = () => {
-        if (isListening) {
-           stopListening();
+        // Garante que o estado seja atualizado se a escuta parar inesperadamente
+        if (state === 'listening') {
+          setState('idle');
         }
       };
 
       recognition.onerror = (event) => {
         console.error("Erro no reconhecimento de voz:", event.error);
-        stopListening();
+        if (state === 'listening') {
+          setState('idle');
+        }
       };
       
       recognitionRef.current = recognition;
@@ -95,69 +69,89 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
     return () => {
       recognitionRef.current?.abort();
-      if (autoSendTimerRef.current) {
-        clearTimeout(autoSendTimerRef.current);
-      }
+      window.speechSynthesis?.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startListening = () => {
-    if (recognitionRef.current && !isListening) {
+    if (recognitionRef.current && state === 'idle') {
       try {
         recognitionRef.current.start();
-        setIsListening(true);
+        setState('listening');
       } catch(e) {
         console.error("Não foi possível iniciar a escuta:", e);
+        setState('idle');
       }
     }
   };
 
   const stopListening = () => {
-    if (recognitionRef.current && isListening) {
+    if (recognitionRef.current && state === 'listening') {
        try {
         recognitionRef.current.stop();
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
       }
-      setIsListening(false);
+      // O estado mudará no onresult ou onend
     }
   };
 
-  const handleToggleListening = () => {
-    if (isListening) {
-      stopListening();
-    } else {
-      startListening();
+  const speak = (text: string) => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) {
+        console.error('Síntese de voz não é suportada neste navegador.');
+        setState('idle');
+        return;
     }
-  };
+    
+    // Cancela qualquer fala anterior
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.1; // Um pouco mais rápido que o normal
 
-  const handleSendMessage = async (e: React.FormEvent | null, text?: string) => {
-    if (e) e.preventDefault();
-    const messageToSend = text || input;
+    // Tenta encontrar uma voz brasileira
+    const voices = window.speechSynthesis.getVoices();
+    const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+    if (brVoice) {
+        utterance.voice = brVoice;
+    }
 
-    if (!messageToSend.trim() || isLoading) return;
+    utterance.onstart = () => setState('speaking');
+    utterance.onend = () => setState('idle');
+    utterance.onerror = (e) => {
+        console.error("Erro na síntese de voz:", e);
+        setState('idle');
+    };
+    
+    utteranceRef.current = utterance;
+    window.speechSynthesis.speak(utterance);
+};
 
-    if (isListening) stopListening();
+
+  const handleSendMessage = async (messageToSend: string) => {
+    if (!messageToSend.trim()) {
+      setState('idle');
+      return;
+    }
+    
+    setState('processing');
 
     const userMessage: Message = { role: 'user', parts: [{ text: messageToSend }] };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
+    const newHistory = [...history, userMessage];
 
     try {
       const response = await fetch('/api/assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          history: messages,
+          history: newHistory,
           message: messageToSend,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('A resposta da rede não foi OK');
-      }
+      if (!response.ok) throw new Error('A resposta da rede não foi OK');
 
       const data = await response.json();
       
@@ -165,92 +159,80 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         role: 'model',
         parts: [{ text: data.text }],
       };
-      setMessages((prev) => [...prev, assistantMessage]);
+      setHistory([...newHistory, assistantMessage]);
+
+      speak(data.text);
 
       if (data.filters) {
         onApplyFilters(data.filters);
-        setIsOpen(false); // Fecha o chat ao aplicar o filtro
       }
 
     } catch (error) {
       console.error("Erro ao enviar mensagem:", error);
-      const errorMessage: Message = {
-        role: 'model',
-        parts: [{ text: 'Desculpe, não consegui me conectar. Verifique se a chave de API está configurada corretamente e tente novamente. 🤖' }],
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
+      const errorMessage = 'Desculpe, não consegui me conectar. Tente novamente.';
+      speak(errorMessage);
     }
   };
 
+  const handleButtonClick = () => {
+    switch (state) {
+      case 'idle':
+        startListening();
+        break;
+      case 'listening':
+        // O usuário pode clicar para parar de ouvir, mas a ação principal é o onresult
+        stopListening();
+        setState('idle');
+        break;
+      case 'processing':
+        // Não faz nada, está esperando a resposta
+        break;
+      case 'speaking':
+        // Clicar enquanto fala cancela a fala
+        window.speechSynthesis?.cancel();
+        setState('idle');
+        break;
+    }
+  };
+
+  const getButtonIcon = () => {
+    switch (state) {
+      case 'listening':
+        return <Mic className="w-8 h-8 text-accent-foreground" />;
+      case 'processing':
+        return <Loader2 className="w-8 h-8 text-accent-foreground animate-spin" />;
+      case 'speaking':
+        return <Volume2 className="w-8 h-8 text-accent-foreground" />;
+      case 'idle':
+      default:
+        return <Bot className="w-8 h-8 text-accent-foreground" />;
+    }
+  };
+  
+  const getButtonClass = () => {
+    switch (state) {
+      case 'listening':
+        return "bg-red-600 hover:bg-red-700 scale-110"; // Fica vermelho e maior ao escutar
+      case 'processing':
+        return "bg-accent/80 cursor-not-allowed";
+      case 'speaking':
+         return "bg-blue-600 hover:bg-blue-700"; // Azul enquanto fala
+      case 'idle':
+      default:
+        return "bg-accent hover:bg-accent/90";
+    }
+  }
+
   return (
-    <>
       <Button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-accent hover:bg-accent/90 shadow-lg flex items-center justify-center"
+        onClick={handleButtonClick}
+        disabled={!recognitionRef.current && state === 'idle'}
+        className={cn(
+          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out",
+          getButtonClass()
+        )}
       >
-        <Bot className="w-8 h-8 text-accent-foreground" />
+        {getButtonIcon()}
       </Button>
-
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-[480px] w-[90vw] h-[80vh] bg-background/90 backdrop-blur-sm flex flex-col p-0">
-           <DialogHeader className="p-4 border-b border-border flex-row items-center justify-between">
-              <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-accent-foreground" />
-                 </div>
-                 <div>
-                    <DialogTitle className="text-lg font-bold text-foreground">Sofia, sua assistente</DialogTitle>
-                    <p className="text-xs text-muted-foreground">Online</p>
-                 </div>
-              </div>
-              <DialogClose asChild>
-                 <Button variant="ghost" size="icon" className="rounded-full">
-                    <X className="w-4 h-4" />
-                 </Button>
-              </DialogClose>
-           </DialogHeader>
-
-          <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-            <div className="space-y-4">
-              <ChatBubble role="model">
-                Olá! Eu sou a Sofia. 🌿 Como posso te ajudar a explorar a galeria do Circuito Carioca de Feiras Orgânicas hoje?
-              </ChatBubble>
-              {messages.map((msg, index) => (
-                <ChatBubble key={index} role={msg.role}>
-                  {msg.parts[0].text}
-                </ChatBubble>
-              ))}
-              {isLoading && (
-                <ChatBubble role="model" isLoading />
-              )}
-            </div>
-          </ScrollArea>
-
-          <DialogFooter className="p-4 border-t border-border">
-            <form onSubmit={handleSendMessage} className="w-full flex items-center gap-2">
-              <Button type="button" variant="ghost" size="icon" onClick={handleToggleListening} disabled={!recognitionRef.current}>
-                {isListening ? (
-                    <MicOff className="w-5 h-5 text-red-500" />
-                  ) : (
-                    <Mic className="w-5 h-5" />
-                  )}
-              </Button>
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder={isListening ? "Ouvindo..." : "Pergunte sobre as feiras, a arte..."}
-                className="flex-1 bg-input"
-                disabled={isLoading}
-              />
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
   );
 }
