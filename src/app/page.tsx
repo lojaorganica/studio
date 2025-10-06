@@ -54,6 +54,16 @@ export default function Home() {
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
+  const handleApplyFilters = (newFilters: Partial<Filters> & { showOnlyFavorites?: boolean }) => {
+    if (typeof newFilters.showOnlyFavorites === 'boolean') {
+      setShowOnlyFavorites(newFilters.showOnlyFavorites);
+    }
+    setFilters(prev => ({
+      fair: typeof newFilters.fair === 'string' ? newFilters.fair : prev.fair,
+      style: typeof newFilters.style === 'string' ? newFilters.style : prev.style,
+    }));
+  };
+
 
   const toggleFavorite = (id: string) => {
     setFavoritedIds(prev => {
@@ -326,7 +336,7 @@ export default function Home() {
           onPrev={handlePrev}
         />
       )}
-      <AssistantButton />
+      <AssistantButton onApplyFilters={handleApplyFilters} />
     </div>
   )
 }

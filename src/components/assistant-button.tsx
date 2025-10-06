@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -15,7 +16,11 @@ type Message = {
   parts: { text: string }[];
 };
 
-export function AssistantButton() {
+type AssistantButtonProps = {
+  onApplyFilters: (filters: any) => void;
+};
+
+export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -62,6 +67,11 @@ export function AssistantButton() {
         parts: [{ text: data.text }],
       };
       setMessages((prev) => [...prev, assistantMessage]);
+
+      if (data.filters) {
+        onApplyFilters(data.filters);
+        setIsOpen(false); // Fecha o chat ao aplicar o filtro
+      }
 
     } catch (error) {
       console.error("Erro ao enviar mensagem:", error);
