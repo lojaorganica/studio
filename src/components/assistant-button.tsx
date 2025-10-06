@@ -182,16 +182,17 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
 
   const getButtonIcon = () => {
+    const iconSize = "w-12 h-12";
     switch (state) {
       case 'listening':
-        return <Mic className="w-10 h-10 text-accent-foreground" />;
+        return <Mic className={cn(iconSize, "text-accent-foreground")} />;
       case 'processing':
-        return <Loader2 className="w-10 h-10 text-accent-foreground animate-spin" />;
+        return <Loader2 className={cn(iconSize, "text-accent-foreground animate-spin")} />;
       case 'speaking':
-        return <Volume2 className="w-10 h-10 text-accent-foreground" />;
+        return <Volume2 className={cn(iconSize, "text-accent-foreground")} />;
       case 'idle':
       default:
-        return <Mic className="w-10 h-10 text-accent-foreground" />;
+        return <Mic className={cn(iconSize, "text-accent-foreground")} />;
     }
   };
   
@@ -217,7 +218,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         onTouchEnd={stopListening}
         disabled={!recognitionRef.current && state === 'idle'}
         className={cn(
-          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
+          "fixed bottom-6 right-6 w-20 h-20 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
         )}
       >
