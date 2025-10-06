@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Bot, Mic, Loader2, Volume2, X } from 'lucide-react';
+import { Mic, Loader2, Volume2, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Message = {
@@ -28,7 +28,9 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [history, setHistory] = useState<Message[]>([]);
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const stopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
 
   // Efeito para configurar o reconhecimento de voz
   useEffect(() => {
@@ -47,7 +49,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         if (transcript) {
           handleSendMessage(transcript);
         }
-        stopListening();
+        // A lógica de parar agora é tratada no onMouseUp/onTouchEnd
       };
 
       recognition.onend = () => {
@@ -75,10 +77,11 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   }, []);
 
   const startListening = () => {
-    if (recognitionRef.current && state === 'idle') {
+    if (recognitionRef.current && (state === 'idle' || state === 'speaking')) {
+       window.speechSynthesis?.cancel(); // Cancela a fala se estiver a falar
+       setState('listening');
       try {
         recognitionRef.current.start();
-        setState('listening');
       } catch(e) {
         console.error("Não foi possível iniciar a escuta:", e);
         setState('idle');
@@ -90,13 +93,19 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     if (recognitionRef.current && state === 'listening') {
        try {
         recognitionRef.current.stop();
+        // O onresult ou onend tratará a mudança de estado para 'processing' ou 'idle'
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
+        setState('idle');
       }
-      // O estado mudará no onresult ou onend
+    } else {
+        // Se soltar o botão e não estava ouvindo (pressionou e soltou rápido), volta para idle.
+        if (state !== 'processing') {
+            setState('idle');
+        }
     }
   };
-
+  
   const speak = (text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
         console.error('Síntese de voz não é suportada neste navegador.');
@@ -104,14 +113,12 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         return;
     }
     
-    // Cancela qualquer fala anterior
     window.speechSynthesis.cancel();
     
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pt-BR';
-    utterance.rate = 1.1; // Um pouco mais rápido que o normal
+    utterance.rate = 1.1;
 
-    // Tenta encontrar uma voz brasileira
     const voices = window.speechSynthesis.getVoices();
     const brVoice = voices.find(voice => voice.lang === 'pt-BR');
     if (brVoice) {
@@ -125,9 +132,8 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         setState('idle');
     };
     
-    utteranceRef.current = utterance;
     window.speechSynthesis.speak(utterance);
-};
+  };
 
 
   const handleSendMessage = async (messageToSend: string) => {
@@ -174,26 +180,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     }
   };
 
-  const handleButtonClick = () => {
-    switch (state) {
-      case 'idle':
-        startListening();
-        break;
-      case 'listening':
-        // O usuário pode clicar para parar de ouvir, mas a ação principal é o onresult
-        stopListening();
-        setState('idle');
-        break;
-      case 'processing':
-        // Não faz nada, está esperando a resposta
-        break;
-      case 'speaking':
-        // Clicar enquanto fala cancela a fala
-        window.speechSynthesis?.cancel();
-        setState('idle');
-        break;
-    }
-  };
 
   const getButtonIcon = () => {
     switch (state) {
@@ -205,18 +191,18 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         return <Volume2 className="w-8 h-8 text-accent-foreground" />;
       case 'idle':
       default:
-        return <Bot className="w-8 h-8 text-accent-foreground" />;
+        return <Mic className="w-8 h-8 text-accent-foreground" />;
     }
   };
   
   const getButtonClass = () => {
     switch (state) {
       case 'listening':
-        return "bg-red-600 hover:bg-red-700 scale-110"; // Fica vermelho e maior ao escutar
+        return "bg-red-600 hover:bg-red-700 scale-110";
       case 'processing':
         return "bg-accent/80 cursor-not-allowed";
       case 'speaking':
-         return "bg-blue-600 hover:bg-blue-700"; // Azul enquanto fala
+         return "bg-blue-600 hover:bg-blue-700";
       case 'idle':
       default:
         return "bg-accent hover:bg-accent/90";
@@ -225,10 +211,13 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
   return (
       <Button
-        onClick={handleButtonClick}
+        onMouseDown={startListening}
+        onMouseUp={stopListening}
+        onTouchStart={startListening}
+        onTouchEnd={stopListening}
         disabled={!recognitionRef.current && state === 'idle'}
         className={cn(
-          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out",
+          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
         )}
       >
