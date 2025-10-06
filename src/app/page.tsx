@@ -9,6 +9,7 @@ import { allMedia, type MediaItem, fairs, styles } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { MobileMenu } from "@/components/mobile-menu"
 import { Menu } from "lucide-react"
+import { AssistantButton } from "@/components/assistant-button"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
@@ -325,6 +326,7 @@ export default function Home() {
           onPrev={handlePrev}
         />
       )}
+      <AssistantButton currentFilters={filters} onFiltersChange={setFilters} />
     </div>
   )
 }
