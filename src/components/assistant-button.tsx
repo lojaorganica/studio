@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Mic, Loader2, Volume2, Bot } from 'lucide-react';
+import { Mic, Loader2, Volume2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Message = {
@@ -28,9 +28,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [history, setHistory] = useState<Message[]>([]);
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const stopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
 
   // Efeito para configurar o reconhecimento de voz
   useEffect(() => {
@@ -49,11 +46,9 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         if (transcript) {
           handleSendMessage(transcript);
         }
-        // A lógica de parar agora é tratada no onMouseUp/onTouchEnd
       };
 
       recognition.onend = () => {
-        // Garante que o estado seja atualizado se a escuta parar inesperadamente
         if (state === 'listening') {
           setState('idle');
         }
@@ -78,7 +73,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
   const startListening = () => {
     if (recognitionRef.current && (state === 'idle' || state === 'speaking')) {
-       window.speechSynthesis?.cancel(); // Cancela a fala se estiver a falar
+       window.speechSynthesis?.cancel();
        setState('listening');
       try {
         recognitionRef.current.start();
@@ -93,13 +88,11 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     if (recognitionRef.current && state === 'listening') {
        try {
         recognitionRef.current.stop();
-        // O onresult ou onend tratará a mudança de estado para 'processing' ou 'idle'
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
         setState('idle');
       }
     } else {
-        // Se soltar o botão e não estava ouvindo (pressionou e soltou rápido), volta para idle.
         if (state !== 'processing') {
             setState('idle');
         }
@@ -182,7 +175,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
 
   const getButtonIcon = () => {
-    const iconSize = "w-12 h-12";
+    const iconSize = "w-10 h-10";
     switch (state) {
       case 'listening':
         return <Mic className={cn(iconSize, "text-accent-foreground")} />;
