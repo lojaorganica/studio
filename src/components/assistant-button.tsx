@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -20,11 +21,9 @@ declare const window: CustomWindow;
 
 export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
-  
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Efeito para configurar o reconhecimento de voz
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -44,7 +43,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       };
 
       recognition.onend = () => {
-        // Apenas redefine para 'idle' se não estivermos já a processar ou a falar
         if (state === 'listening') {
           setState('idle');
         }
@@ -58,9 +56,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       recognitionRef.current = recognition;
     }
 
-    // Configura o elemento de áudio
     audioRef.current = new Audio();
-
 
     return () => {
       recognitionRef.current?.abort();
@@ -71,7 +67,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       window.speechSynthesis?.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // A dependência foi removida para evitar recriação
+  }, []);
 
   const startListening = () => {
     if (recognitionRef.current && state === 'idle') {
@@ -129,7 +125,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     window.speechSynthesis.speak(utterance);
   };
 
-
   const handleSendMessage = async (messageToSend: string) => {
     if (!messageToSend.trim()) {
       setState('idle');
@@ -164,7 +159,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       speak(errorMessage);
     }
   };
-
 
   const getButtonIcon = () => {
     const iconSize = "w-8 h-8";
