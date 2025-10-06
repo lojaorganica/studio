@@ -44,17 +44,15 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       };
 
       recognition.onend = () => {
-        // Redefine para idle se não estivermos já a processar ou a falar
+        // Apenas redefine para 'idle' se não estivermos já a processar ou a falar
         if (state === 'listening') {
           setState('idle');
         }
       };
-
+      
       recognition.onerror = (event) => {
         console.error("Erro no reconhecimento de voz:", event.error);
-        if (state === 'listening') {
-          setState('idle');
-        }
+        setState('idle');
       };
       
       recognitionRef.current = recognition;
@@ -73,11 +71,11 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       window.speechSynthesis?.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // A dependência 'state' foi removida para evitar recriação
+  }, []); // A dependência foi removida para evitar recriação
 
   const startListening = () => {
-    if (recognitionRef.current && (state === 'idle' || state === 'speaking')) {
-       window.speechSynthesis?.cancel(); // Para a fala se estiver a falar
+    if (recognitionRef.current && state === 'idle') {
+       window.speechSynthesis?.cancel(); 
        if (audioRef.current) {
          audioRef.current.pause();
        }
@@ -85,12 +83,8 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       try {
         recognitionRef.current.start();
       } catch(e) {
-        // Erro comum se a escuta já estiver ativa
         console.error("Não foi possível iniciar a escuta:", e);
-        // Se falhar, volta ao estado idle para permitir nova tentativa
-        if (state === 'listening') {
-          setState('idle');
-        }
+        setState('idle');
       }
     }
   };
@@ -98,11 +92,10 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const stopListening = () => {
     if (recognitionRef.current && state === 'listening') {
        try {
-        // Pára a gravação. O resultado será tratado pelo `onresult` e o fim pelo `onend`.
         recognitionRef.current.stop();
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
-        setState('idle'); // Força o estado idle se houver erro
+        setState('idle');
       }
     }
   };
@@ -208,7 +201,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         onMouseUp={stopListening}
         onTouchStart={startListening}
         onTouchEnd={stopListening}
-        disabled={!recognitionRef.current && state === 'idle'}
+        disabled={state === 'processing' || !recognitionRef.current}
         className={cn(
           "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
