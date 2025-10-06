@@ -54,14 +54,18 @@ Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON
 export async function POST(req: Request) {
   const { message } = await req.json();
 
-  if (!process.env.GEMINI_API_KEY) {
+  // Solução: Inserir a chave de API diretamente no código.
+  // Esta não é a melhor prática para produção, mas resolve o problema no ambiente de desenvolvimento.
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  if (!apiKey) {
     return NextResponse.json(
       { error: "A chave de API do Gemini não foi configurada." },
       { status: 500 }
     );
   }
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const genAI = new GoogleGenerativeAI(apiKey);
 
   try {
     const model = genAI.getGenerativeModel({

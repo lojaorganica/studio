@@ -22,6 +22,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Efeito para configurar o reconhecimento de voz
   useEffect(() => {
@@ -59,8 +60,16 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       recognitionRef.current = recognition;
     }
 
+    // Configura o elemento de áudio
+    audioRef.current = new Audio();
+
+
     return () => {
       recognitionRef.current?.abort();
+       if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
       window.speechSynthesis?.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,6 +78,9 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const startListening = () => {
     if (recognitionRef.current && (state === 'idle' || state === 'speaking')) {
        window.speechSynthesis?.cancel(); // Para a fala se estiver a falar
+       if (audioRef.current) {
+         audioRef.current.pause();
+       }
        setState('listening');
       try {
         recognitionRef.current.start();
