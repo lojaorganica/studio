@@ -5,11 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Mic, Loader2, Volume2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Message = {
-  role: 'user' | 'model';
-  parts: { text: string }[];
-};
-
 type AssistantState = 'idle' | 'listening' | 'processing' | 'speaking';
 
 type AssistantButtonProps = {
@@ -141,7 +136,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          history: [], // Enviar sempre um histórico vazio
           message: messageToSend,
         }),
       });
@@ -201,7 +195,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         onTouchEnd={stopListening}
         disabled={!recognitionRef.current && state === 'idle'}
         className={cn(
-          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
+          "fixed bottom-6 right-6 w-20 h-20 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
         )}
       >

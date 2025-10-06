@@ -52,7 +52,7 @@ Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON
 `;
 
 export async function POST(req: Request) {
-  const { history, message } = await req.json();
+  const { message } = await req.json();
 
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
     });
 
     const chat = model.startChat({
-      history: history,
+      history: [], // Histórico vazio para cada nova solicitação
     });
 
     const result = await chat.sendMessage(message);
