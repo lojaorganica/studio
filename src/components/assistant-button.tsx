@@ -152,7 +152,10 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         body: JSON.stringify({ message: messageToSend }),
       });
 
-      if (!response.ok) throw new Error('A resposta da rede não foi OK');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'A resposta da rede não foi OK');
+      }
 
       const data = await response.json();
 
@@ -164,7 +167,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
     } catch (error) {
       console.error("Erro ao enviar mensagem:", error);
-      const errorMessage = 'Desculpe, não consegui me conectar. Tente novamente.';
+      const errorMessage = 'Desculpe, não consegui me conectar. Por favor, verifique a sua chave de API.';
       speak(errorMessage);
     }
   };

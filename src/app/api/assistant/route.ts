@@ -54,13 +54,11 @@ Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON
 export async function POST(req: Request) {
   const { message } = await req.json();
 
-  // Solução: Inserir a chave de API diretamente no código.
-  // Esta não é a melhor prática para produção, mas resolve o problema no ambiente de desenvolvimento.
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: "A chave de API do Gemini não foi configurada." },
+      { error: "A chave de API do Gemini não foi configurada no ambiente do servidor. Por favor, verifique o ficheiro .env." },
       { status: 500 }
     );
   }
