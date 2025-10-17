@@ -1,12 +1,10 @@
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+
+import { NextRequest, NextResponse } from 'next/server';
 
 const API_KEY = "AIzaSyCP3Zo42Av31znaIQ90RgeLNiuGarJk6JY";
+const MODEL_NAME = "gemini-1.5-flash-latest";
 
-const genAI = new GoogleGenerativeAI(API_KEY);
-
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  systemInstruction: `Você é Sofia, uma assistente de IA amigável e prestativa para a galeria de arte do Circuito Carioca de Feiras Orgânicas.
+const SYSTEM_INSTRUCTION = `Você é Sofia, uma assistente de IA amigável e prestativa para a galeria de arte do Circuito Carioca de Feiras Orgânicas.
 
 Seu objetivo é ajudar os usuários a navegar pela galeria, encontrar informações sobre as feiras, os artistas, as obras e o projeto Essência Vital.
 
@@ -52,49 +50,69 @@ Usuário: "Quais artes são da feira de Botafogo?"
 Sofia: "Exibindo agora todas as artes da feira de Botafogo para você! ✨<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"Botafogo\\"}}"
 
 Usuário: "Limpar todos os filtros"
-Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"`
-});
+Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"`;
 
-const generationConfig = {
-  temperature: 0.9,
-  topK: 1,
-  topP: 1,
-  maxOutputTokens: 2048,
-};
-
-const safetySettings = [
-  { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
-  { category: HarmCategory.HARM_CATEGORY_HATE_SPEECH, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
-  { category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
-  { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE },
-];
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const { message } = await req.json();
 
     if (!API_KEY) {
-      throw new Error("Chave de API do Gemini não encontrada.");
+      throw new Error("Chave de API do Gemini não foi configurada no servidor.");
+    }
+    
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+    
+    const requestBody = {
+      "systemInstruction": {
+        "parts": { "text": SYSTEM_INSTRUCTION }
+      },
+      "contents": [
+        {
+          "role": "user",
+          "parts": [ { "text": message } ]
+        }
+      ],
+      "generationConfig": {
+        "temperature": 0.9,
+        "topK": 1,
+        "topP": 1,
+        "maxOutputTokens": 2048,
+      },
+       "safetySettings": [
+        { "category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE" },
+        { "category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE" },
+        { "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE" },
+        { "category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE" },
+      ]
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.json();
+      console.error("Erro da API Google:", JSON.stringify(errorBody, null, 2));
+      const errorMessage = errorBody.error?.message || "Ocorreu um erro desconhecido na API da Google.";
+      throw new Error(`Erro na API do Google: ${response.status} ${response.statusText}. Detalhes: ${errorMessage}`);
     }
 
-    const chat = model.startChat({
-      generationConfig,
-      safetySettings,
-      history: [],
-    });
+    const data = await response.json();
+    
+    if (!data.candidates || data.candidates.length === 0 || !data.candidates[0].content) {
+        throw new Error("A resposta da API da IA está vazia ou mal formatada.");
+    }
 
-    const result = await chat.sendMessage(message);
-    const response = await result.response;
-    const text = response.text();
+    const text = data.candidates[0].content.parts[0].text;
 
-    return new Response(JSON.stringify({ text }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json({ text });
+
   } catch (error: any) {
-    console.error("Erro na API do assistente:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error("Erro geral na API do assistente:", error);
+    // Para depuração, vamos enviar a mensagem de erro real para o cliente
+    const clientErrorMessage = error.message || "Um erro inesperado ocorreu.";
+    return NextResponse.json({ error: clientErrorMessage }, { status: 500 });
   }
 }
