@@ -46,11 +46,6 @@ export function GalleryItem({
   const [isPlaying, setIsPlaying] = React.useState(true)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = 1;
-    const ctx = canvas.getContext('2d');
-    if (ctx) ctx.clearRect(0, 0, 1, 1);
-    e.dataTransfer.setDragImage(canvas, 0, 0);
     e.dataTransfer.effectAllowed = 'move';
     onDragStart(item.id);
   };

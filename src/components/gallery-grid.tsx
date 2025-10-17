@@ -77,6 +77,7 @@ export function GalleryGrid({
         )}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
+        onDragStart={() => document.body.classList.add('dragging')}
       >
         {items.map((item, index) => (
           <GalleryItem
@@ -84,7 +85,7 @@ export function GalleryGrid({
             item={item}
             isDragging={draggingId === item.id}
             onClick={() => onItemClick(index)}
-            onDragStart={handleDragStart}
+            onDragStart={onItemDragStart}
             onDragEnter={onItemDragEnter}
             isFavorited={favoritedIds.has(item.id)}
             onToggleFavorite={onToggleFavorite}
