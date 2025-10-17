@@ -53,6 +53,11 @@ export function GalleryGrid({
     4: "columns-4",
   }
 
+  const handleDragStart = (id: string) => {
+    document.body.classList.add("dragging");
+    onItemDragStart(id);
+  }
+
   const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     document.body.classList.remove("dragging");
@@ -79,9 +84,8 @@ export function GalleryGrid({
             item={item}
             isDragging={draggingId === item.id}
             onClick={() => onItemClick(index)}
-            onDragStart={onItemDragStart}
+            onDragStart={handleDragStart}
             onDragEnter={onItemDragEnter}
-            onDragEnd={onItemDragEnd}
             isFavorited={favoritedIds.has(item.id)}
             onToggleFavorite={onToggleFavorite}
           />

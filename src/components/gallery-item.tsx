@@ -29,7 +29,6 @@ type GalleryItemProps = {
   onClick: () => void
   onDragStart: (id: string) => void
   onDragEnter: (id: string) => void
-  onDragEnd: () => void
   isFavorited: boolean
   onToggleFavorite: (id: string) => void
 }
@@ -40,7 +39,6 @@ export function GalleryItem({
   onClick,
   onDragStart,
   onDragEnter,
-  onDragEnd,
   isFavorited,
   onToggleFavorite,
 }: GalleryItemProps) {
@@ -54,14 +52,8 @@ export function GalleryItem({
     if (ctx) ctx.clearRect(0, 0, 1, 1);
     e.dataTransfer.setDragImage(canvas, 0, 0);
     e.dataTransfer.effectAllowed = 'move';
-    document.body.classList.add("dragging");
     onDragStart(item.id);
   };
-  
-  const handleDragEnd = () => {
-    document.body.classList.remove("dragging");
-    onDragEnd();
-  }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -113,7 +105,6 @@ export function GalleryItem({
       draggable
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
       onDragEnter={() => onDragEnter(item.id)}
     >
       <Card
