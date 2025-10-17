@@ -60,7 +60,7 @@ Usuário: "Quero ver apenas as fotografias"
 Sofia: "Claro! Filtrando para mostrar apenas as fotografias. 🖼️<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"style\\": \\"Fotografia\\"}}"
 
 Usuário: "Mostre os vídeos do Inhame-Aranha"
-Sofia: "Boa escolha! Preparando a galeria para mostrar as animações de personagens, incluindo nosso herói Inhame-Aranha. 🕸️<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"style\\": \\"Animações de Personagens\\"}}"
+Sofia: "Boa escolha! Preparando a galeria para mostrar as animações de personagens, incluindo nosso herói Inhame-Aranha. 🕸️<|JSON|>{\\"action\\_": \\"filter\\", \\"filters\\": {\\"style\\": \\"Animações de Personagens\\"}}"
 
 Usuário: "Quais artes são da feira de Botafogo?"
 Sofia: "Exibindo agora todas as artes da feira de Botafogo para você! ✨<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"Botafogo\\"}}"
@@ -266,7 +266,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       case 'listening':
         return <Mic className={cn(iconSize, "text-accent-foreground")} />;
       case 'processing':
-        return <Loader2 className={cn(iconSize, "text-accent-foreground animate-spin")} />;
+        return <Loader2 className={cn(icon_size, "text-accent-foreground animate-spin")} />;
       case 'speaking':
         return <Volume2 className={cn(iconSize, "text-accent-foreground")} />;
       case 'idle':
@@ -305,3 +305,5 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       </Button>
   );
 }
+
+    
