@@ -146,7 +146,9 @@ export function GalleryItem({
         </button>
         
         {/* Action Buttons Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className={cn("absolute bottom-0 left-0 right-0 p-2 md:p-4 transition-opacity duration-300",
+           isFavorited ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        )}>
           <div className="flex justify-between items-center">
             {/* Unified Favorite Button */}
             <button
@@ -154,7 +156,7 @@ export function GalleryItem({
               className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
               aria-label={isFavorited ? "Desfavoritar" : "Favoritar"}
             >
-              <Star className={cn("w-5 h-5 md:w-6 md:h-6", isFavorited ? "text-yellow-400 fill-yellow-400" : "fill-transparent")} />
+              <Star className={cn("w-5 h-5 md:w-6 md:h-6 transition-colors", isFavorited ? "text-yellow-400 fill-yellow-400" : "text-white fill-transparent")} />
             </button>
 
             <div className="flex items-center gap-1 md:gap-2">
