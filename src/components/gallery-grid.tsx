@@ -53,9 +53,14 @@ export function GalleryGrid({
     4: "columns-4",
   }
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
     document.body.classList.remove("dragging");
     onItemDragEnd();
+  }
+  
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
   }
 
   return (
@@ -65,6 +70,7 @@ export function GalleryGrid({
           "gap-4 md:gap-6",
           columnClasses[columns]
         )}
+        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
         {items.map((item, index) => (
