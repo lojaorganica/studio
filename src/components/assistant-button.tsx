@@ -56,9 +56,9 @@ Usuário: "Limpar todos os filtros"
 Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"
 `;
 
-// IMPORTANT: This is not a good practice for production apps.
-// The API key should be stored in an environment variable.
-const API_KEY = "AIzaSyCP3Zo42Av31znaIQ90RgeLNiuGarJk6JY";
+// IMPORTANTE: Esta não é uma boa prática para aplicações em produção.
+// A chave de API deve ser armazenada numa variável de ambiente.
+const API_KEY = "AIzaSyDaA76diGNYghIXd2ASpLLRFw3QN6LyeUo";
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({
