@@ -198,6 +198,7 @@ export default function Home() {
   }
   
   function handleDragEnd(event: DragEndEvent) {
+    document.body.classList.remove('dragging');
     const {active, over} = event;
 
     if (over && active.id !== over.id) {
@@ -209,6 +210,10 @@ export default function Home() {
     }
   }
 
+  function handleDragStart() {
+    document.body.classList.add('dragging');
+  }
+
 
   // Reset visibility when filters change
   React.useEffect(() => {
@@ -218,8 +223,8 @@ export default function Home() {
   return (
     <DndContext
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onDragStart={() => document.body.classList.add('dragging')}
       onDragCancel={() => document.body.classList.remove('dragging')}
     >
       <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
