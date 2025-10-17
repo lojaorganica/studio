@@ -4,6 +4,12 @@ Este projeto é uma galeria de arte digital que exibe mais de uma década de tra
 
 A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores.
 
+## Sobre as Obras
+
+A coleção apresentada nesta galeria é um mosaico de criatividade e realidade, abrangendo mais de uma década de história. Muitas das imagens são fotografias documentais que retratam a essência do Circuito Carioca de Feiras Orgânicas: os alimentos frescos, os rostos dos agricultores dedicados e a vibração dos clientes nas feiras.
+
+Além dos registos fotográficos, a galeria inclui centenas de animações, cartoons e outras peças de comunicação visual. Estas obras foram desenvolvidas sob direção de arte profissional, combinando técnicas tradicionais com ferramentas de Inteligência Artificial de ponta, como Kiling Ai, Hailuo AI, Veo 2 e 3, Vertex AI, Meta AI, Polo AI, CapCut, entre outras, para criar um universo visual único e cativante.
+
 ## Funcionalidades
 
 *   **Galeria com Rolagem Infinita**: Navegue de forma fluida por uma vasta coleção de imagens e vídeos.
