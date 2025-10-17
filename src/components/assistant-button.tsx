@@ -68,12 +68,10 @@ Sofia: "Exibindo agora todas as artes da feira de Botafogo para você! ✨<|JSON
 Usuário: "Limpar todos os filtros"
 Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"`;
 
-const SILENT_MP3 = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjMyLjEwNAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAA";
 
 export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
   
   useEffect(() => {
@@ -113,6 +111,9 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         console.error("Speech Recognition API não é suportada neste navegador.");
     }
 
+    // Pre-warm voices
+    window.speechSynthesis?.getVoices();
+
     return () => {
       recognitionRef.current?.abort();
       window.speechSynthesis?.cancel();
@@ -137,16 +138,10 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
   const handleMouseUp = () => {
     if (state !== 'listening') return;
-
-    // --- AUDIO UNLOCK HACK ---
-    // Play a tiny silent audio file on the first user interaction.
-    // This "unlocks" the audio context on mobile browsers, allowing speech synthesis to work later.
-    audioRef.current?.play().catch(() => {});
-    // --- END AUDIO UNLOCK HACK ---
-
     if (recognitionRef.current) {
       try {
-        recognitionRef.current.stop();
+        // Use a small timeout to let the mic capture the end of the speech
+        setTimeout(() => recognitionRef.current?.stop(), 100);
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
         setState('idle');
@@ -156,37 +151,20 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   
   const getBrazilianVoice = (): Promise<SpeechSynthesisVoice | null> => {
     return new Promise((resolve) => {
-        let voices = window.speechSynthesis.getVoices();
-        if (voices.length > 0) {
-            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-            return resolve(brVoice || null);
-        }
-        
-        window.speechSynthesis.onvoiceschanged = () => {
-            voices = window.speechSynthesis.getVoices();
-            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-            resolve(brVoice || null);
+        const getVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+                resolve(brVoice || voices.find(voice => voice.lang.startsWith('pt-')) || null);
+            }
         };
 
-         // Fallback for browsers that don't fire onvoiceschanged reliably
-        const interval = setInterval(() => {
-            voices = window.speechSynthesis.getVoices();
-            if (voices.length > 0) {
-                clearInterval(interval);
-                const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-                resolve(brVoice || null);
-            }
-        }, 100);
-
-        setTimeout(() => {
-            clearInterval(interval);
-            if (!voices.length){
-                 const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-                 resolve(brVoice || null);
-            }
-        }, 2000);
+        getVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = getVoices;
+        }
     });
-  };
+};
 
   const speak = async (text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
@@ -216,6 +194,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         setState('idle');
     };
     
+    // This is the most crucial part.
     window.speechSynthesis.speak(utterance);
   };
 
@@ -268,14 +247,15 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       
       const result = await response.json();
       
-      if (!result.candidates || result.candidates.length === 0 || !result.candidates[0].content) {
+      const content = result.candidates?.[0]?.content?.parts?.[0];
+      if (!content || !content.text) {
           const errorMessage = "A IA respondeu, mas a resposta estava vazia ou mal formatada.";
           console.error(errorMessage, result);
           speak(errorMessage);
           return;
       }
       
-      let text = result.candidates[0].content.parts[0].text;
+      let text = content.text;
       
       let filters = null;
       if (text.includes('<|JSON|>')) {
@@ -337,7 +317,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
   return (
     <>
-      <audio ref={audioRef} src={SILENT_MP3} className="hidden" />
       <Button
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
