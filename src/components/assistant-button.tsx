@@ -142,7 +142,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     if (state !== 'listening') return;
     if (recognitionRef.current) {
       try {
-        // Use a small timeout to let the mic capture the end of the speech
         setTimeout(() => recognitionRef.current?.stop(), 100);
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
@@ -170,7 +169,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = getVoices;
         } else {
-          resolve(null); // Fallback if onvoiceschanged is not supported
+          resolve(null);
         }
     });
 };
@@ -203,7 +202,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         setState('idle');
     };
     
-    // This is the most crucial part.
     window.speechSynthesis.speak(utterance);
   };
 
@@ -219,8 +217,13 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
     
     const requestBody = {
-      "systemInstruction": { "parts": { "text": SYSTEM_INSTRUCTION } },
-      "contents": [ { "role": "user", "parts": [ { "text": messageToSend } ] } ],
+      "contents": [
+        // This is the correct format for system instructions
+        { "role": "user", "parts": [ { "text": SYSTEM_INSTRUCTION } ] },
+        { "role": "model", "parts": [ { "text": "Ok, entendi. Estou pronta para ajudar os usuários da galeria." } ] },
+        // This is the actual user message
+        { "role": "user", "parts": [ { "text": messageToSend } ] }
+      ],
       "generationConfig": { "temperature": 0.9, "topK": 1, "topP": 1, "maxOutputTokens": 2048 },
       "safetySettings": [
         { "category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE" },
@@ -256,11 +259,18 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       
       const result = await response.json();
       
+      // Check for content and text properties carefully
       const content = result.candidates?.[0]?.content?.parts?.[0];
-      if (!content || !content.text) {
-          const errorMessage = "A IA respondeu, mas a resposta estava vazia ou mal formatada.";
-          console.error(errorMessage, result);
-          speak(errorMessage);
+      if (!content || typeof content.text !== 'string') {
+          const blockReason = result.candidates?.[0]?.finishReason;
+          if (blockReason === 'SAFETY') {
+              console.error("Resposta da IA bloqueada por segurança:", result.promptFeedback);
+              speak("Desculpe, não posso responder a isso. O conteúdo foi bloqueado por motivos de segurança.");
+          } else {
+            const errorMessage = "A IA respondeu, mas a resposta estava vazia ou mal formatada.";
+            console.error(errorMessage, result);
+            speak(errorMessage);
+          }
           return;
       }
       
