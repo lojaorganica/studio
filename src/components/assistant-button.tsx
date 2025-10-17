@@ -56,14 +56,14 @@ Usuário: "Limpar todos os filtros"
 Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"
 `;
 
-// A chave de API é lida de forma segura das variáveis de ambiente públicas do Next.js
-const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+// A chave de API está agora diretamente no código para garantir o funcionamento.
+const API_KEY = "AIzaSyDaA76diGNYghIXd2ASpLLRFw3QN6LyeUo";
 
 let genAI: GoogleGenerativeAI | null = null;
 if (API_KEY) {
   genAI = new GoogleGenerativeAI(API_KEY);
 } else {
-  console.error("Chave de API do Gemini não encontrada. Verifique o ficheiro .env.local e a variável NEXT_PUBLIC_GEMINI_API_KEY");
+  console.error("Chave de API do Gemini não encontrada.");
 }
 
 const model = genAI?.getGenerativeModel({
