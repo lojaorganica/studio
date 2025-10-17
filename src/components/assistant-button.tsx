@@ -57,7 +57,7 @@ Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON
 `;
 
 // A chave de API está agora diretamente no código para garantir o funcionamento.
-const API_KEY = "AIzaSyDaA76diGNYghIXd2ASpLLRFw3QN6LyeUo";
+const API_KEY = "AIzaSyCP3Zo42Av31znaIQ90RgeLNiuGarJk6JY";
 
 let genAI: GoogleGenerativeAI | null = null;
 if (API_KEY) {
