@@ -56,12 +56,17 @@ Usuário: "Limpar todos os filtros"
 Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"
 `;
 
-// IMPORTANTE: Esta não é uma boa prática para aplicações em produção.
-// A chave de API deve ser armazenada numa variável de ambiente.
-const API_KEY = "AIzaSyDaA76diGNYghIXd2ASpLLRFw3QN6LyeUo";
+// A chave de API é lida de forma segura das variáveis de ambiente públicas do Next.js
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
-const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({
+let genAI: GoogleGenerativeAI | null = null;
+if (API_KEY) {
+  genAI = new GoogleGenerativeAI(API_KEY);
+} else {
+  console.error("Chave de API do Gemini não encontrada. Verifique o ficheiro .env.local e a variável NEXT_PUBLIC_GEMINI_API_KEY");
+}
+
+const model = genAI?.getGenerativeModel({
   model: "gemini-1.5-flash",
   systemInstruction: SYSTEM_INSTRUCTION,
 });
@@ -202,7 +207,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     };
 
     // Se as vozes ainda não foram carregadas, esperamos.
-    if (voices.length === 0) {
+    if (voices.length === 0 && window.speechSynthesis.getVoices().length === 0) {
       // Define um timeout caso o evento onvoiceschanged não dispare
       const voiceTimeout = setTimeout(() => {
         console.warn("Timeout ao esperar pelas vozes. Tentando falar com a voz padrão.");
@@ -215,6 +220,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         startSpeaking();
       };
     } else {
+      if (voices.length === 0) setVoices(window.speechSynthesis.getVoices());
       startSpeaking();
     }
   };
@@ -225,10 +231,18 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       return;
     }
     
+    if (!API_KEY || !model) {
+      const errorMessage = "Desculpe, a minha configuração de IA não está completa. Por favor, verifique a chave de API no ambiente.";
+      console.error(errorMessage);
+      speak(errorMessage);
+      setState('idle');
+      return;
+    }
+
     setState('processing');
 
     try {
-      const chat = model.startChat({ history: [] }); // Start a new chat for each request
+      const chat = model.startChat({ history: [] });
       const result = await chat.sendMessage(messageToSend);
       const response = await result.response;
       let text = response.text();
@@ -256,8 +270,9 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
     } catch (error: any) {
       console.error("Erro ao chamar a API do Gemini:", error);
-      const errorMessage = `Desculpe, não consegui me conectar. Por favor, verifique a sua chave de API.`;
+      const errorMessage = "Desculpe, não consegui me conectar. Por favor, verifique se a sua chave de API é válida e tente novamente.";
       speak(errorMessage);
+      setState('idle');
     }
   };
 
@@ -297,7 +312,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         onMouseUp={handleMouseUp}
         onTouchStart={handleMouseDown}
         onTouchEnd={handleMouseUp}
-        disabled={state === 'processing' || !recognitionRef.current}
+        disabled={state === 'processing' || !recognitionRef.current || !API_KEY}
         className={cn(
           "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-in-out touch-manipulation",
           getButtonClass()
