@@ -9,7 +9,6 @@ import { allMedia, type MediaItem, fairs, styles } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { MobileMenu } from "@/components/mobile-menu"
 import { Menu } from "lucide-react"
-import { AssistantButton } from "@/components/assistant-button"
 
 const INITIAL_VISIBLE_ITEMS = 12
 const ITEMS_TO_LOAD = 6
@@ -53,17 +52,6 @@ export default function Home() {
   const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
-  const handleApplyFilters = (newFilters: Partial<Filters> & { showOnlyFavorites?: boolean }) => {
-    if (typeof newFilters.showOnlyFavorites === 'boolean') {
-      setShowOnlyFavorites(newFilters.showOnlyFavorites);
-    }
-    setFilters(prev => ({
-      fair: typeof newFilters.fair === 'string' ? newFilters.fair : prev.fair,
-      style: typeof newFilters.style === 'string' ? newFilters.style : prev.style,
-    }));
-  };
-
 
   const toggleFavorite = (id: string) => {
     setFavoritedIds(prev => {
@@ -336,7 +324,6 @@ export default function Home() {
           onPrev={handlePrev}
         />
       )}
-      <AssistantButton onApplyFilters={handleApplyFilters} />
     </div>
   )
 }
