@@ -1,6 +1,5 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-require('dotenv').config({ path: '.env' });
 
 const SYSTEM_INSTRUCTION = `Você é Sofia, uma assistente de IA amigável e prestativa para a galeria de arte do Circuito Carioca de Feiras Orgânicas.
 
@@ -54,7 +53,7 @@ Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON
 const API_KEY = process.env.GEMINI_API_KEY;
 
 if (!API_KEY) {
-  throw new Error("A chave de API do Gemini não foi configurada. Verifique o seu ficheiro .env");
+  throw new Error("A chave de API do Gemini não foi configurada. Verifique as variáveis de ambiente do seu projeto.");
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
