@@ -46,6 +46,13 @@ export function GalleryItem({
   const [isPlaying, setIsPlaying] = React.useState(true)
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    // This is the magic part. We create a transparent image and use it
+    // as the drag image. This hides the default drag preview and cursor,
+    // allowing our CSS cursor to be visible.
+    const img = new window.Image();
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+    e.dataTransfer.setDragImage(img, 0, 0);
+
     e.dataTransfer.effectAllowed = 'move';
     onDragStart(item.id);
   };
@@ -94,8 +101,8 @@ export function GalleryItem({
   return (
     <div
       className={cn(
-        "group relative mb-4 break-inside-avoid cursor-grab",
-        isDragging && "opacity-50"
+        "group relative mb-4 break-inside-avoid",
+        isDragging ? "opacity-50" : "cursor-grab"
       )}
       draggable
       onDragStart={handleDragStart}
@@ -195,3 +202,5 @@ export function GalleryItem({
     </div>
   )
 }
+
+    
