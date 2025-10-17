@@ -19,7 +19,7 @@ interface CustomWindow extends Window {
 declare const window: CustomWindow;
 
 const API_KEY = "AIzaSyCP3Zo42Av31znaIQ90RgeLNiuGarJk6JY";
-const MODEL_NAME = "gemini-1.5-flash-latest";
+const MODEL_NAME = "gemini-1.5-flash-001";
 const SYSTEM_INSTRUCTION = `Você é Sofia, uma assistente de IA amigável e prestativa para a galeria de arte do Circuito Carioca de Feiras Orgânicas.
 
 Seu objetivo é ajudar os usuários a navegar pela galeria, encontrar informações sobre as feiras, os artistas, as obras e o projeto Essência Vital.
