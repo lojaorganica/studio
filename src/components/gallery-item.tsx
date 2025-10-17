@@ -138,11 +138,11 @@ export function GalleryItem({
         <button 
           {...attributes} 
           {...listeners} 
-          className="absolute top-2 right-2 p-1 bg-black/50 rounded-full text-white cursor-grab focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-2 right-2 p-1 md:p-2 bg-black/50 rounded-full text-white cursor-grab focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity"
           aria-label="Arrastar item"
           onClick={(e) => e.stopPropagation()} // Prevent click from opening lightbox
         >
-          <GripVertical className="w-5 h-5" />
+          <GripVertical className="w-5 h-5 md:w-6 md:h-6" />
         </button>
         
         {/* Action Buttons Overlay */}
@@ -163,7 +163,7 @@ export function GalleryItem({
               {/* Share Button */}
               <button
                 onClick={handleShare}
-                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active-ring-white/75"
+                className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 active:ring-0"
                 aria-label="Compartilhar"
               >
                 <Share2 className="w-5 h-5 md:w-6 md:h-6" />
