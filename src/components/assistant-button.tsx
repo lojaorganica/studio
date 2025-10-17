@@ -100,6 +100,8 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         console.error("Erro no reconhecimento de voz:", event.error);
         if (event.error === 'no-speech') {
             toast({ title: "Assistente", description: "Não ouvi nada. Tente novamente." });
+        } else if (event.error === 'network') {
+            speak("Desculpe, tive um problema de rede e não consegui ouvir. Por favor, tente novamente.");
         } else {
             toast({ title: "Erro de Voz", description: `Não consegui captar sua voz: ${event.error}`, variant: 'destructive' });
         }
@@ -156,12 +158,19 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
             if (voices.length > 0) {
                 const brVoice = voices.find(voice => voice.lang === 'pt-BR');
                 resolve(brVoice || voices.find(voice => voice.lang.startsWith('pt-')) || null);
+                return true;
             }
+            return false;
         };
 
-        getVoices();
+        if (getVoices()) {
+            return;
+        }
+
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = getVoices;
+        } else {
+          resolve(null); // Fallback if onvoiceschanged is not supported
         }
     });
 };
