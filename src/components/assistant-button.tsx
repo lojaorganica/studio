@@ -22,9 +22,22 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const { toast } = useToast();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      if (availableVoices.length > 0) {
+        setVoices(availableVoices);
+      }
+    };
+
+    // As vozes são carregadas de forma assíncrona
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices(); // Tenta carregar imediatamente também
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -42,7 +55,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       };
 
       recognition.onend = () => {
-        // Ensure state is reset to idle only if it was listening
         setState(prevState => (prevState === 'listening' ? 'idle' : prevState));
       };
       
@@ -87,7 +99,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     if (state !== 'listening') return;
     if (recognitionRef.current) {
       try {
-        // The onresult and onend events will handle the state transitions
         recognitionRef.current.stop();
       } catch(e) {
         console.error("Não foi possível parar a escuta:", e);
@@ -96,34 +107,55 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     }
   };
   
-  const speak = (text: string) => {
+  const speak = async (text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
         console.error('Síntese de voz não é suportada neste navegador.');
         setState('idle');
         return;
     }
-    
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'pt-BR';
-    utterance.rate = 1.1;
 
-    const voices = window.speechSynthesis.getVoices();
-    const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-    if (brVoice) {
-        utterance.voice = brVoice;
-    }
+    const startSpeaking = () => {
+      window.speechSynthesis.cancel();
+    
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1.1;
 
-    utterance.onstart = () => setState('speaking');
-    utterance.onend = () => setState('idle');
-    utterance.onerror = (e) => {
-        console.error("Erro na síntese de voz:", e);
-        toast({ title: "Erro de Áudio", description: "Não consegui reproduzir a resposta.", variant: 'destructive' });
-        setState('idle');
+      // Agora usamos as vozes do estado, que sabemos que estão carregadas
+      const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+      if (brVoice) {
+          utterance.voice = brVoice;
+      } else {
+        console.warn("Nenhuma voz em 'pt-BR' encontrada. Usando a voz padrão do navegador.");
+      }
+
+      utterance.onstart = () => setState('speaking');
+      utterance.onend = () => setState('idle');
+      utterance.onerror = (e) => {
+          console.error("Erro na síntese de voz:", e);
+          toast({ title: "Erro de Áudio", description: "Não consegui reproduzir a resposta.", variant: 'destructive' });
+          setState('idle');
+      };
+      
+      window.speechSynthesis.speak(utterance);
     };
-    
-    window.speechSynthesis.speak(utterance);
+
+    // Se as vozes ainda não foram carregadas, esperamos.
+    if (voices.length === 0) {
+      // Define um timeout caso o evento onvoiceschanged não dispare
+      const voiceTimeout = setTimeout(() => {
+        console.warn("Timeout ao esperar pelas vozes. Tentando falar com a voz padrão.");
+        startSpeaking();
+      }, 1000); // Espera 1 segundo
+
+      window.speechSynthesis.onvoiceschanged = () => {
+        clearTimeout(voiceTimeout);
+        setVoices(window.speechSynthesis.getVoices()); // Atualiza o estado
+        startSpeaking();
+      };
+    } else {
+      startSpeaking();
+    }
   };
 
   const handleSendMessage = async (messageToSend: string) => {
