@@ -216,7 +216,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     
     setState('processing');
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
     
     const requestBody = {
       "systemInstruction": { "parts": { "text": SYSTEM_INSTRUCTION } },
