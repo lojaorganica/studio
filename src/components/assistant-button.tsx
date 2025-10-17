@@ -169,7 +169,10 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = getVoices;
         } else {
-          resolve(null);
+          setTimeout(() => {
+             const voice = getVoices();
+             if (!voice) resolve(null);
+          }, 1000); // Fallback timeout
         }
     });
 };
@@ -214,11 +217,11 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     
     setState('processing');
 
-    const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generate-content?key=${API_KEY}`;
     
     const requestBody = {
       "contents": [
-        // This is the correct format for system instructions
+        // This is the correct format for system instructions and history
         { "role": "user", "parts": [ { "text": SYSTEM_INSTRUCTION } ] },
         { "role": "model", "parts": [ { "text": "Ok, entendi. Estou pronta para ajudar os usuários da galeria." } ] },
         // This is the actual user message
@@ -259,7 +262,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       
       const result = await response.json();
       
-      // Check for content and text properties carefully
       const content = result.candidates?.[0]?.content?.parts?.[0];
       if (!content || typeof content.text !== 'string') {
           const blockReason = result.candidates?.[0]?.finishReason;
