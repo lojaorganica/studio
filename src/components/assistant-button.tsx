@@ -162,18 +162,18 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
             return false;
         };
 
-        if (getVoices()) {
-            return;
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = () => getVoices() && resolve(getVoices());
         }
 
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = getVoices;
-        } else {
-          setTimeout(() => {
-             const voice = getVoices();
-             if (!voice) resolve(null);
-          }, 1000); // Fallback timeout
-        }
+        if (getVoices()) return;
+
+        // Fallback for browsers that don't fire onvoiceschanged
+        const fallbackInterval = setInterval(() => {
+            if (getVoices()) {
+                clearInterval(fallbackInterval);
+            }
+        }, 100);
     });
 };
 
@@ -269,7 +269,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
               console.error("Resposta da IA bloqueada por segurança:", result.promptFeedback);
               speak("Desculpe, não posso responder a isso. O conteúdo foi bloqueado por motivos de segurança.");
           } else {
-            const errorMessage = "A IA respondeu, mas a resposta estava vazia ou mal formatada.";
+            const errorMessage = `A IA respondeu, mas a resposta estava vazia ou mal formatada. Razão: ${blockReason || 'desconhecida'}.`;
             console.error(errorMessage, result);
             speak(errorMessage);
           }
