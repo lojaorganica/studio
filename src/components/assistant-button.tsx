@@ -144,49 +144,72 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
     }
   };
   
-  const speak = (text: string) => {
+  const getBrazilianVoice = (): Promise<SpeechSynthesisVoice | null> => {
+    return new Promise((resolve) => {
+        const getVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+                resolve(brVoice || null);
+            }
+        };
+
+        getVoices(); // Try immediately
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = getVoices;
+        }
+
+        // Fallback for browsers that don't fire onvoiceschanged
+        const interval = setInterval(() => {
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                clearInterval(interval);
+                const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+                resolve(brVoice || null);
+            }
+        }, 100);
+
+        // Safety timeout
+        setTimeout(() => {
+            clearInterval(interval);
+            const voices = window.speechSynthesis.getVoices();
+            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+            resolve(brVoice || null);
+        }, 2000); // 2 seconds
+    });
+  };
+
+  const speak = async (text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
         console.error('Síntese de voz não é suportada neste navegador.');
         setState('idle');
         return;
     }
-
-    const startSpeaking = (voice: SpeechSynthesisVoice | undefined) => {
-      window.speechSynthesis.cancel();
     
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'pt-BR';
-      utterance.rate = 1.1;
+    window.speechSynthesis.cancel();
+    const voice = await getBrazilianVoice();
 
-      if (voice) {
-          utterance.voice = voice;
-      } else {
-        console.warn("Nenhuma voz em 'pt-BR' encontrada. Usando a voz padrão do navegador.");
-      }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1.1;
 
-      utterance.onstart = () => setState('speaking');
-      utterance.onend = () => setState('idle');
-      utterance.onerror = (e) => {
-          console.error("Erro na síntese de voz:", e);
-          toast({ title: "Erro de Áudio", description: "Não consegui reproduzir a resposta.", variant: 'destructive' });
-          setState('idle');
-      };
-      
-      window.speechSynthesis.speak(utterance);
-    };
-
-    const allVoices = window.speechSynthesis.getVoices();
-    if (allVoices.length > 0) {
-      const brVoice = allVoices.find(voice => voice.lang === 'pt-BR');
-      startSpeaking(brVoice);
+    if (voice) {
+        utterance.voice = voice;
     } else {
-      window.speechSynthesis.onvoiceschanged = () => {
-        const updatedVoices = window.speechSynthesis.getVoices();
-        const updatedBrVoice = updatedVoices.find(voice => voice.lang === 'pt-BR');
-        startSpeaking(updatedBrVoice);
-      };
+      console.warn("Nenhuma voz em 'pt-BR' encontrada. Usando a voz padrão do navegador.");
     }
+
+    utterance.onstart = () => setState('speaking');
+    utterance.onend = () => setState('idle');
+    utterance.onerror = (e) => {
+        console.error("Erro na síntese de voz:", e);
+        toast({ title: "Erro de Áudio", description: "Não consegui reproduzir a resposta.", variant: 'destructive' });
+        setState('idle');
+    };
+    
+    window.speechSynthesis.speak(utterance);
   };
+
 
   const handleSendMessage = async (messageToSend: string) => {
     if (!messageToSend.trim()) {
@@ -220,7 +243,18 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Erro da API Google:", JSON.stringify(errorData, null, 2));
-        throw new Error(errorData.error?.message || `Erro ${response.status} da API.`);
+        
+        let errorMessage = `Desculpe, não consegui me conectar.`;
+        if (errorData.error) {
+             if (errorData.error.message.includes('API key not valid')) {
+                errorMessage = "Desculpe, não consegui me conectar. Por favor, verifique se a sua chave de API é válida.";
+             } else {
+                errorMessage = `Desculpe, ocorreu um erro com a IA: ${errorData.error.message}`;
+             }
+        }
+        
+        speak(errorMessage);
+        return;
       }
       
       const result = await response.json();
@@ -254,7 +288,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
     } catch (error: any) {
       console.error("Erro ao chamar a API do assistente:", error);
-      const errorMessage = `Desculpe, não consegui me conectar. Por favor, verifique se a sua chave de API é válida. Detalhe: ${error.message}`;
+      const errorMessage = `Desculpe, não consegui processar o seu pedido. Verifique sua conexão. Detalhe: ${error.message}`;
       speak(errorMessage);
     }
   };
@@ -266,7 +300,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       case 'listening':
         return <Mic className={cn(iconSize, "text-accent-foreground")} />;
       case 'processing':
-        return <Loader2 className={cn(icon_size, "text-accent-foreground animate-spin")} />;
+        return <Loader2 className={cn(iconSize, "text-accent-foreground animate-spin")} />;
       case 'speaking':
         return <Volume2 className={cn(iconSize, "text-accent-foreground")} />;
       case 'idle':
