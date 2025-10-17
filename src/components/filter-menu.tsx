@@ -220,9 +220,11 @@ export function FilterMenu({
                     <p className="text-xs break-all">{btcAddress}</p>
                 )}
               </div>
-              <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
            </div>
         </div>
+      </div>
+      <div className="mt-4 text-right">
+        <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
       </div>
     </div>
   )
