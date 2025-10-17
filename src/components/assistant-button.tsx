@@ -157,18 +157,24 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
             if (voices.length > 0) {
                 const brVoice = voices.find(voice => voice.lang === 'pt-BR');
                 resolve(brVoice || voices.find(voice => voice.lang.startsWith('pt-')) || null);
-                return true;
+                return true; // Indicates that voices were found
             }
-            return false;
+            return false; // Indicates voices are not ready yet
         };
 
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = () => getVoices() && resolve(getVoices());
+             window.speechSynthesis.onvoiceschanged = () => {
+                if(getVoices()) {
+                    // Ensure onvoiceschanged doesn't fire multiple times
+                    window.speechSynthesis.onvoiceschanged = null;
+                }
+             };
         }
-
+        
+        // If voices are already loaded, resolve immediately
         if (getVoices()) return;
 
-        // Fallback for browsers that don't fire onvoiceschanged
+        // Fallback for browsers that don't fire onvoiceschanged reliably
         const fallbackInterval = setInterval(() => {
             if (getVoices()) {
                 clearInterval(fallbackInterval);
