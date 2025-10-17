@@ -12,13 +12,14 @@ Além dos registos fotográficos, a galeria inclui centenas de animações, cart
 
 ## Funcionalidades
 
+*   **Menu Inovador e Responsivo**: Um menu superior retrátil em telas grandes, que se oculta para uma visualização ampla e imersiva das artes. Ele inclui uma funcionalidade inédita de pré-visualização do layout da galeria ao escolher o número de colunas. Em dispositivos móveis, transforma-se num menu lateral compacto e intuitivo, no estilo "sanduíche" com seções "acordeão".
 *   **Galeria com Rolagem Infinita**: Navegue de forma fluida por uma vasta coleção de imagens e vídeos.
 *   **Filtragem Avançada**: Filtre as artes por feira (`Feira`) ou por estilo (`Estilo`).
-*   **Layout Customizável e Responsivo**: Ajuste o número de colunas (1, 2, 3 ou 4) para a grade da galeria.
+*   **Layout Customizável**: Ajuste o número de colunas (1, 2, 3 ou 4) para a grade da galeria.
 *   **Reordenação com Arrastar e Soltar**: Organize facilmente os itens de mídia arrastando e soltando-os como desejar.
 *   **Sistema de Favoritos**: Marque suas peças favoritas com uma estrela para acesso rápido e filtragem.
 *   **Lightbox Responsivo**: Visualize a mídia em um lightbox detalhado e em tela cheia que se adapta a diferentes formatos, incluindo layouts especiais para histórias de personagens.
-*   **Design Mobile-First**: Uma interface totalmente responsiva com um menu móvel dedicado para uma ótima experiência em qualquer dispositivo.
+*   **Design Mobile-First**: Uma interface totalmente responsiva para uma ótima experiência em qualquer dispositivo.
 
 ## Tecnologias Utilizadas
 
