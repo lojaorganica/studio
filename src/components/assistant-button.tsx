@@ -60,7 +60,7 @@ Usuário: "Quero ver apenas as fotografias"
 Sofia: "Claro! Filtrando para mostrar apenas as fotografias. 🖼️<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"style\\": \\"Fotografia\\"}}"
 
 Usuário: "Mostre os vídeos do Inhame-Aranha"
-Sofia: "Boa escolha! Preparando a galeria para mostrar as animações de personagens, incluindo nosso herói Inhame-Aranha. 🕸️<|JSON|>{\\"action\\_": \\"filter\\", \\"filters\\": {\\"style\\": \\"Animações de Personagens\\"}}"
+Sofia: "Boa escolha! Preparando a galeria para mostrar as animações de personagens, incluindo nosso herói Inhame-Aranha. 🕸️<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"style\\": \\"Animações de Personagens\\"}}"
 
 Usuário: "Quais artes são da feira de Botafogo?"
 Sofia: "Exibindo agora todas as artes da feira de Botafogo para você! ✨<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"Botafogo\\"}}"
@@ -68,9 +68,12 @@ Sofia: "Exibindo agora todas as artes da feira de Botafogo para você! ✨<|JSON
 Usuário: "Limpar todos os filtros"
 Sofia: "Ok, limpando os filtros e mostrando toda a galeria novamente. 😊<|JSON|>{\\"action\\": \\"filter\\", \\"filters\\": {\\"fair\\": \\"\\", \\"style\\": \\"\\", \\"showOnlyFavorites\\": false}}"`;
 
+const SILENT_MP3 = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjMyLjEwNAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAA";
+
 export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   const [state, setState] = useState<AssistantState>('idle');
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
   
   useEffect(() => {
@@ -134,6 +137,13 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
 
   const handleMouseUp = () => {
     if (state !== 'listening') return;
+
+    // --- AUDIO UNLOCK HACK ---
+    // Play a tiny silent audio file on the first user interaction.
+    // This "unlocks" the audio context on mobile browsers, allowing speech synthesis to work later.
+    audioRef.current?.play().catch(() => {});
+    // --- END AUDIO UNLOCK HACK ---
+
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
@@ -146,22 +156,21 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   
   const getBrazilianVoice = (): Promise<SpeechSynthesisVoice | null> => {
     return new Promise((resolve) => {
-        const getVoices = () => {
-            const voices = window.speechSynthesis.getVoices();
-            if (voices.length > 0) {
-                const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-                resolve(brVoice || null);
-            }
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+            return resolve(brVoice || null);
+        }
+        
+        window.speechSynthesis.onvoiceschanged = () => {
+            voices = window.speechSynthesis.getVoices();
+            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+            resolve(brVoice || null);
         };
 
-        getVoices(); // Try immediately
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = getVoices;
-        }
-
-        // Fallback for browsers that don't fire onvoiceschanged
+         // Fallback for browsers that don't fire onvoiceschanged reliably
         const interval = setInterval(() => {
-            const voices = window.speechSynthesis.getVoices();
+            voices = window.speechSynthesis.getVoices();
             if (voices.length > 0) {
                 clearInterval(interval);
                 const brVoice = voices.find(voice => voice.lang === 'pt-BR');
@@ -169,13 +178,13 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
             }
         }, 100);
 
-        // Safety timeout
         setTimeout(() => {
             clearInterval(interval);
-            const voices = window.speechSynthesis.getVoices();
-            const brVoice = voices.find(voice => voice.lang === 'pt-BR');
-            resolve(brVoice || null);
-        }, 2000); // 2 seconds
+            if (!voices.length){
+                 const brVoice = voices.find(voice => voice.lang === 'pt-BR');
+                 resolve(brVoice || null);
+            }
+        }, 2000);
     });
   };
 
@@ -245,12 +254,12 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
         console.error("Erro da API Google:", JSON.stringify(errorData, null, 2));
         
         let errorMessage = `Desculpe, não consegui me conectar.`;
-        if (errorData.error) {
-             if (errorData.error.message.includes('API key not valid')) {
-                errorMessage = "Desculpe, não consegui me conectar. Por favor, verifique se a sua chave de API é válida.";
-             } else {
-                errorMessage = `Desculpe, ocorreu um erro com a IA: ${errorData.error.message}`;
-             }
+        if (errorData?.error?.message) {
+           if (errorData.error.message.includes('API key not valid')) {
+              errorMessage = "Desculpe, não consegui me conectar. Por favor, verifique se a sua chave de API é válida.";
+           } else {
+              errorMessage = `Desculpe, ocorreu um erro com a IA: ${errorData.error.message}`;
+           }
         }
         
         speak(errorMessage);
@@ -258,11 +267,14 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       }
       
       const result = await response.json();
-
+      
       if (!result.candidates || result.candidates.length === 0 || !result.candidates[0].content) {
-          throw new Error("A resposta da API da IA está vazia ou mal formatada.");
+          const errorMessage = "A IA respondeu, mas a resposta estava vazia ou mal formatada.";
+          console.error(errorMessage, result);
+          speak(errorMessage);
+          return;
       }
-
+      
       let text = result.candidates[0].content.parts[0].text;
       
       let filters = null;
@@ -324,6 +336,8 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
   }
 
   return (
+    <>
+      <audio ref={audioRef} src={SILENT_MP3} className="hidden" />
       <Button
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
@@ -337,7 +351,6 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       >
         {getButtonIcon()}
       </Button>
+    </>
   );
 }
-
-    
