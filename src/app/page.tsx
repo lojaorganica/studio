@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { DndContext, closestCenter, type DragEndEvent } from "@dnd-kit/core"
+import { DndContext, closestCenter, type DragEndEvent, useSensor, useSensors, TouchSensor, MouseSensor } from "@dnd-kit/core"
 import { arrayMove } from "@dnd-kit/sortable"
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
@@ -51,6 +51,19 @@ export default function Home() {
   const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor, {
+      // Requer que o toque seja mantido por 250ms e movido menos de 5px para ativar o arrasto
+      // Isto evita que o scroll da página seja confundido com um arrasto
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    })
+  );
+
 
   const toggleFavorite = (id: string) => {
     setFavoritedIds(prev => {
@@ -222,6 +235,7 @@ export default function Home() {
 
   return (
     <DndContext
+      sensors={sensors}
       collisionDetection={closestCenter}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
