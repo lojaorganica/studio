@@ -6,10 +6,10 @@ import Image from "next/image"
 import type { MediaItem as MediaItemType } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
-import { Badge } from "./ui/badge"
-import { Star, Share2 } from "lucide-react"
+import { Star, Share2, GripVertical } from "lucide-react"
+import { useSortable } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
 
-// Custom SVG Icons to match the reference image
 const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
         <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clipRule="evenodd" />
@@ -22,45 +22,39 @@ const PauseIcon = (props: React.SVGProps<SVGSVGElement>) => (
     </svg>
 );
 
-
 type GalleryItemProps = {
-  item: MediaItemType
-  isDragging: boolean
-  onClick: () => void
-  onDragStart: (id: string) => void
-  onDragEnter: (id: string) => void
-  isFavorited: boolean
-  onToggleFavorite: (id: string) => void
+  id: string;
+  item: MediaItemType;
+  onClick: () => void;
+  isFavorited: boolean;
+  onToggleFavorite: (id: string) => void;
 }
 
 export function GalleryItem({
+  id,
   item,
-  isDragging,
   onClick,
-  onDragStart,
-  onDragEnter,
   isFavorited,
   onToggleFavorite,
 }: GalleryItemProps) {
-  const videoRef = React.useRef<HTMLVideoElement>(null)
-  const [isPlaying, setIsPlaying] = React.useState(true)
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState(true);
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    // This is the magic part. We create a transparent image and use it
-    // as the drag image. This hides the default drag preview and cursor,
-    // allowing our CSS cursor to be visible.
-    const img = new window.Image();
-    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
-    e.dataTransfer.setDragImage(img, 0, 0);
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
 
-    e.dataTransfer.effectAllowed = 'move';
-    onDragStart(item.id);
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 10 : 'auto',
+    opacity: isDragging ? 0.5 : 1,
   };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    onDragEnter(item.id);
-  }
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -100,14 +94,11 @@ export function GalleryItem({
 
   return (
     <div
+      ref={setNodeRef}
+      style={style}
       className={cn(
         "group relative mb-4 break-inside-avoid",
-        isDragging ? "opacity-50" : "cursor-grab"
       )}
-      draggable
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnter={() => onDragEnter(item.id)}
     >
       <Card
         className="overflow-hidden h-full w-full transform-gpu transition-all duration-300 ease-in-out group-hover:scale-[1.02] border-0 bg-transparent"
@@ -142,6 +133,17 @@ export function GalleryItem({
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         </div>
+        
+        {/* Drag Handle */}
+        <button 
+          {...attributes} 
+          {...listeners} 
+          className="absolute top-2 right-2 p-1 bg-black/50 rounded-full text-white cursor-grab focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity"
+          aria-label="Arrastar item"
+          onClick={(e) => e.stopPropagation()} // Prevent click from opening lightbox
+        >
+          <GripVertical className="w-5 h-5" />
+        </button>
         
         {/* Always-visible favorite star */}
         {isFavorited && (
@@ -202,5 +204,3 @@ export function GalleryItem({
     </div>
   )
 }
-
-    

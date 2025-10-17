@@ -2,6 +2,8 @@
 "use client"
 
 import * as React from "react"
+import { DndContext, closestCenter, type DragEndEvent } from "@dnd-kit/core"
+import { arrayMove } from "@dnd-kit/sortable"
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
@@ -45,9 +47,6 @@ export default function Home() {
   const [visibleCount, setVisibleCount] = React.useState(INITIAL_VISIBLE_ITEMS);
   const [isMenuOpen, setMenuOpen] = React.useState(false)
   
-  const [draggingId, setDraggingId] = React.useState<string | null>(null);
-  const [dragOverItemId, setDragOverItemId] = React.useState<string | null>(null);
-
   const [favoritedIds, setFavoritedIds] = React.useState<Set<string>>(new Set());
   const [showOnlyFavorites, setShowOnlyFavorites] = React.useState(false);
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
@@ -198,41 +197,17 @@ export default function Home() {
     )
   }
   
-  // Drag and Drop handlers
-  const handleDragStart = (id: string) => {
-    setDraggingId(id);
-  };
+  function handleDragEnd(event: DragEndEvent) {
+    const {active, over} = event;
 
-  const handleDragEnter = (id: string) => {
-    if (draggingId === null || draggingId === id) return;
-    setDragOverItemId(id);
-  };
-  
-  const handleDragEnd = () => {
-    if (!draggingId || !dragOverItemId || draggingId === dragOverItemId) {
-      setDraggingId(null);
-      setDragOverItemId(null);
-      return;
+    if (over && active.id !== over.id) {
+      setItems((currentItems) => {
+        const oldIndex = currentItems.findIndex(item => item.id === active.id);
+        const newIndex = currentItems.findIndex(item => item.id === over.id);
+        return arrayMove(currentItems, oldIndex, newIndex);
+      });
     }
-
-    setItems(currentItems => {
-      const dragItemIndex = currentItems.findIndex(item => item.id === draggingId);
-      const hoverItemIndex = currentItems.findIndex(item => item.id === dragOverItemId);
-
-      if (dragItemIndex === -1 || hoverItemIndex === -1) {
-        return currentItems; // Should not happen
-      }
-      
-      const newItems = [...currentItems];
-      const [draggedItem] = newItems.splice(dragItemIndex, 1);
-      newItems.splice(hoverItemIndex, 0, draggedItem);
-      
-      return newItems;
-    });
-
-    setDraggingId(null);
-    setDragOverItemId(null);
-  };
+  }
 
 
   // Reset visibility when filters change
@@ -241,89 +216,92 @@ export default function Home() {
   }, [filters, showOnlyFavorites]);
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
-      {/* Mobile Menu */}
-      <div className="md:hidden fixed top-4 left-4 z-50">
-        <MobileMenu
-          isOpen={isMobileMenuOpen}
-          onOpenChange={setMobileMenuOpen}
-          fairs={fairs}
-          styles={styles}
-          filters={filters}
-          onFiltersChange={setFilters}
-          columns={columns}
-          onColumnsChange={setColumns}
-          onUpload={handleUploadMedia}
-          showOnlyFavorites={showOnlyFavorites}
-          onToggleFavorites={toggleShowOnlyFavorites}
-          mediaItems={items}
-        >
-          <button
-            className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
-            onClick={() => setMobileMenuOpen(true)}
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      onDragStart={() => document.body.classList.add('dragging')}
+      onDragCancel={() => document.body.classList.remove('dragging')}
+    >
+      <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
+        {/* Mobile Menu */}
+        <div className="md:hidden fixed top-4 left-4 z-50">
+          <MobileMenu
+            isOpen={isMobileMenuOpen}
+            onOpenChange={setMobileMenuOpen}
+            fairs={fairs}
+            styles={styles}
+            filters={filters}
+            onFiltersChange={setFilters}
+            columns={columns}
+            onColumnsChange={setColumns}
+            onUpload={handleUploadMedia}
+            showOnlyFavorites={showOnlyFavorites}
+            onToggleFavorites={toggleShowOnlyFavorites}
+            mediaItems={items}
           >
-            <Menu className="h-6 w-6 text-white" />
-          </button>
-        </MobileMenu>
-      </div>
-
-       {/* Desktop Menu */}
-      <div
-        key="filter-menu-container"
-        className={cn(
-          "fixed top-0 left-0 right-0 z-40 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
-          "hidden md:block",
-          isMenuOpen ? "translate-y-0" : "-translate-y-full"
-        )}
-        onMouseEnter={handleMouseEnterMenu}
-        onMouseLeave={handleMouseLeaveMenu}
-      >
-        <div className="pt-6 pb-6">
-           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-                <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-                <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
-            </div>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <FilterMenu
-                  fairs={fairs}
-                  styles={styles}
-                  filters={filters}
-                  onFiltersChange={setFilters}
-                  columns={columns}
-                  onColumnsChange={setColumns}
-                  onUpload={handleUploadMedia}
-                  showOnlyFavorites={showOnlyFavorites}
-                  onToggleFavorites={toggleShowOnlyFavorites}
-                  mediaItems={items}
-                />
-            </div>
+            <button
+              className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu className="h-6 w-6 text-white" />
+            </button>
+          </MobileMenu>
         </div>
-      </div>
-      
-      <main className="flex-1 overflow-auto">
-        <GalleryGrid
-          items={itemsToShow}
-          columns={columns}
-          onItemClick={openLightbox}
-          loadMore={loadMore}
-          hasMore={hasMore}
-          draggingId={draggingId}
-          onItemDragStart={handleDragStart}
-          onItemDragEnter={handleDragEnter}
-          onItemDragEnd={handleDragEnd}
-          favoritedIds={favoritedIds}
-          onToggleFavorite={toggleFavorite}
-        />
-      </main>
 
-      {lightboxOpen && (
-        <Lightbox
-          item={filteredItems[activeIndex]}
-          onClose={() => setLightboxOpen(false)}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
-      )}
-    </div>
+        {/* Desktop Menu */}
+        <div
+          key="filter-menu-container"
+          className={cn(
+            "fixed top-0 left-0 right-0 z-40 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
+            "hidden md:block",
+            isMenuOpen ? "translate-y-0" : "-translate-y-full"
+          )}
+          onMouseEnter={handleMouseEnterMenu}
+          onMouseLeave={handleMouseLeaveMenu}
+        >
+          <div className="pt-6 pb-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                  <h1 className="text-3xl font-bold tracking-wider text-white">PORTFÓLIO - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+                  <p className="mt-4 text-base text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
+              </div>
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <FilterMenu
+                    fairs={fairs}
+                    styles={styles}
+                    filters={filters}
+                    onFiltersChange={setFilters}
+                    columns={columns}
+                    onColumnsChange={setColumns}
+                    onUpload={handleUploadMedia}
+                    showOnlyFavorites={showOnlyFavorites}
+                    onToggleFavorites={toggleShowOnlyFavorites}
+                    mediaItems={items}
+                  />
+              </div>
+          </div>
+        </div>
+        
+        <main className="flex-1 overflow-auto">
+          <GalleryGrid
+            items={itemsToShow}
+            columns={columns}
+            onItemClick={openLightbox}
+            loadMore={loadMore}
+            hasMore={hasMore}
+            favoritedIds={favoritedIds}
+            onToggleFavorite={toggleFavorite}
+          />
+        </main>
+
+        {lightboxOpen && (
+          <Lightbox
+            item={filteredItems[activeIndex]}
+            onClose={() => setLightboxOpen(false)}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
+        )}
+      </div>
+    </DndContext>
   )
 }

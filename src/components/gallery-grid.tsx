@@ -3,6 +3,7 @@
 
 import * as React from "react"
 import { useInView } from "react-intersection-observer"
+import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable"
 import { cn } from "@/lib/utils"
 import type { MediaItem } from "@/lib/media"
 import { GalleryItem } from "@/components/gallery-item"
@@ -14,10 +15,6 @@ type GalleryGridProps = {
   onItemClick: (index: number) => void
   loadMore: () => void
   hasMore: boolean
-  draggingId: string | null;
-  onItemDragStart: (id: string) => void;
-  onItemDragEnter: (id: string) => void;
-  onItemDragEnd: () => void;
   favoritedIds: Set<string>;
   onToggleFavorite: (id: string) => void;
 }
@@ -28,10 +25,6 @@ export function GalleryGrid({
   onItemClick,
   loadMore,
   hasMore,
-  draggingId,
-  onItemDragStart,
-  onItemDragEnter,
-  onItemDragEnd,
   favoritedIds,
   onToggleFavorite,
 }: GalleryGridProps) {
@@ -53,43 +46,29 @@ export function GalleryGrid({
     4: "columns-4",
   }
 
-  const handleDragStart = (id: string) => {
-    document.body.classList.add("dragging");
-    onItemDragStart(id);
-  }
-
-  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    document.body.classList.remove("dragging");
-    onItemDragEnd();
-  }
-  
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  }
+  const itemIds = React.useMemo(() => items.map((item) => item.id), [items]);
 
   return (
     <div className="p-4 md:p-6">
-      <div
-        className={cn(
-          "gap-4 md:gap-6",
-          columnClasses[columns]
-        )}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
-        {items.map((item, index) => (
-          <GalleryItem
-            key={item.id}
-            item={item}
-            isDragging={draggingId === item.id}
-            onClick={() => onItemClick(index)}
-            onDragStart={handleDragStart}
-            onDragEnter={onItemDragEnter}
-            isFavorited={favoritedIds.has(item.id)}
-            onToggleFavorite={onToggleFavorite}
-          />
-        ))}
-      </div>
+      <SortableContext items={itemIds} strategy={rectSortingStrategy}>
+        <div
+          className={cn(
+            "gap-4 md:gap-6",
+            columnClasses[columns]
+          )}
+        >
+          {items.map((item, index) => (
+            <GalleryItem
+              key={item.id}
+              id={item.id}
+              item={item}
+              onClick={() => onItemClick(index)}
+              isFavorited={favoritedIds.has(item.id)}
+              onToggleFavorite={onToggleFavorite}
+            />
+          ))}
+        </div>
+      </SortableContext>
        <div ref={ref} className="h-1 w-full mt-10" />
        
        {hasMore && (
