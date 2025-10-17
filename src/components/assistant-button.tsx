@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -144,7 +143,7 @@ export function AssistantButton({ onApplyFilters }: AssistantButtonProps) {
       
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        throw new Error(errorData.details || `HTTP error! status: ${response.status}`);
       }
 
       let text = await response.text();
