@@ -153,7 +153,7 @@ export function GalleryItem({
             {/* Unified Favorite Button */}
             <button
               onClick={handleToggleFavorite}
-              className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75"
+              className="p-1 md:p-2 bg-black/50 rounded-full text-white hover:bg-black/75 transition-colors focus:outline-none focus:ring-2 focus:ring-white/75 active:ring-2 active:ring-white/75 focus-visible:ring-offset-0 focus-visible:ring-0 active:ring-0"
               aria-label={isFavorited ? "Desfavoritar" : "Favoritar"}
             >
               <Star className={cn("w-5 h-5 md:w-6 md:h-6 transition-colors", isFavorited ? "text-yellow-400 fill-yellow-400" : "text-white fill-transparent")} />
