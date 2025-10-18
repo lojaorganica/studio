@@ -233,10 +233,12 @@ export function MobileMenu({
           </div>
           
            <AccordionItem value="nft-resgate">
-              <AccordionTrigger className="font-bold text-xl mb-2 text-white">
-                  <span className="mr-1">RESGATE SUA</span>
-                  <span className="text-accent ml-1">GOTA | NFT</span>
-              </AccordionTrigger>
+                <Link href="/resgate-nft" passHref legacyBehavior>
+                    <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
+                        <span className="mr-1">RESGATE SUA</span>
+                        <span className="text-accent ml-1">GOTA | NFT</span>
+                    </AccordionTrigger>
+                </Link>
               <AccordionContent>
                   <div className="flex flex-col gap-4 items-center">
                       <Image
@@ -246,14 +248,6 @@ export function MobileMenu({
                           height={400}
                           className="w-full h-auto object-cover rounded-md shadow-lg"
                       />
-                       <Link href="/resgate-nft" passHref className="w-full">
-                          <Button 
-                            className="w-full bg-accent hover:bg-accent/80 text-accent-foreground"
-                            onClick={() => onOpenChange(false)}
-                          >
-                            Ver Instruções de Resgate
-                          </Button>
-                       </Link>
                   </div>
               </AccordionContent>
           </AccordionItem>
