@@ -61,7 +61,6 @@ export function MobileMenu({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
     }))
-    onOpenChange(false)
   }
 
   const handleStyleChange = (style: string) => {
@@ -70,7 +69,6 @@ export function MobileMenu({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
     }))
-    onOpenChange(false)
   }
   
   const handleNftButtonClick = () => {
@@ -81,19 +79,16 @@ export function MobileMenu({
   const clearFairs = () => {
     onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, fair: '' }))
-    onOpenChange(false)
   }
 
   const clearStyles = () => {
     onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, style: '' }))
-    onOpenChange(false)
   }
 
   const handleToggleFavorites = () => {
     onShowResgate(false);
     onToggleFavorites()
-    onOpenChange(false)
   }
   
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
