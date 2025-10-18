@@ -35,7 +35,7 @@ type MobileMenuProps = {
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
   mediaItems: MediaItem[]
-  onShowResgate: () => void;
+  onShowResgate: (show: boolean) => void;
 }
 
 export function MobileMenu({
@@ -56,7 +56,7 @@ export function MobileMenu({
 }: MobileMenuProps) {
 
   const handleFairChange = (fair: string) => {
-    onShowResgate();
+    onShowResgate(false);
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
@@ -65,7 +65,7 @@ export function MobileMenu({
   }
 
   const handleStyleChange = (style: string) => {
-    onShowResgate();
+    onShowResgate(false);
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
@@ -74,24 +74,24 @@ export function MobileMenu({
   }
   
   const handleNftButtonClick = () => {
-    onShowResgate();
-    onOpenChange(false); // Fecha o menu ao clicar
+    onShowResgate(true);
+    onOpenChange(false);
   };
 
   const clearFairs = () => {
-    onShowResgate();
+    onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, fair: '' }))
     onOpenChange(false)
   }
 
   const clearStyles = () => {
-    onShowResgate();
+    onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, style: '' }))
     onOpenChange(false)
   }
 
   const handleToggleFavorites = () => {
-    onShowResgate();
+    onShowResgate(false);
     onToggleFavorites()
     onOpenChange(false)
   }
@@ -265,8 +265,8 @@ export function MobileMenu({
             </AccordionTrigger>
             <AccordionContent>
               <div 
-                onClick={handleNftButtonClick}
                 className="flex flex-col gap-4 items-center p-2 cursor-pointer"
+                onClick={handleNftButtonClick}
               >
                 <Image
                   src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
