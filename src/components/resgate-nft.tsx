@@ -26,8 +26,8 @@ export function ResgateNft({ onBack }: ResgateNftProps) {
     };
 
     return (
-        <div className="flex flex-col w-full text-foreground pt-8 md:pt-[19rem]">
-            <div className="w-full max-w-4xl mx-auto px-4 md:px-0">
+        <div className="flex flex-col w-full text-foreground">
+            <div className="w-full max-w-4xl mx-auto px-4">
                 <button onClick={onBack} className="inline-flex items-center text-accent mb-6 hover:text-accent/80">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Voltar para a Galeria

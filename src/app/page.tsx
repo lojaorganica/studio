@@ -121,7 +121,7 @@ export default function Home() {
 
   const handleShowResgate = (show: boolean) => {
     setShowingResgate(show);
-    // When showing resgate, ensure filters are cleared to avoid conflicts
+    setMobileMenuOpen(false); // Fecha o menu mobile ao trocar de vista
     if(show) {
       setFilters({ fair: '', style: '' });
       setShowOnlyFavorites(false);
@@ -322,21 +322,19 @@ export default function Home() {
           </div>
         </header>
         
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto pt-20 md:pt-80">
           {showingResgate ? (
             <ResgateNft onBack={() => handleShowResgate(false)} />
           ) : (
-            <div className="pt-20 md:pt-[19rem]">
-              <GalleryGrid
-                items={itemsToShow}
-                columns={columns}
-                onItemClick={openLightbox}
-                loadMore={loadMore}
-                hasMore={hasMore}
-                favoritedIds={favoritedIds}
-                onToggleFavorite={toggleFavorite}
-              />
-            </div>
+            <GalleryGrid
+              items={itemsToShow}
+              columns={columns}
+              onItemClick={openLightbox}
+              loadMore={loadMore}
+              hasMore={hasMore}
+              favoritedIds={favoritedIds}
+              onToggleFavorite={toggleFavorite}
+            />
           )}
         </main>
 
