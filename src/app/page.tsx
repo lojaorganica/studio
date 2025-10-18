@@ -253,7 +253,6 @@ export default function Home() {
     }
   }, [filters]);
 
-  const desktopMenuHeight = isMenuOpen ? '384px' : '0px';
 
   return (
     <DndContext
@@ -323,8 +322,7 @@ export default function Home() {
           </div>
         </header>
         
-        <main className="flex-1 overflow-auto pt-20 md:pt-0">
-          <div style={{ paddingTop: `calc(${desktopMenuHeight} + 2rem)` }} className="transition-all duration-300 ease-in-out hidden md:block" />
+        <main className="flex-1 overflow-auto pt-20 md:pt-96">
           {showingResgate ? (
             <ResgateNft onBack={() => handleShowResgate(false)} />
           ) : (
@@ -352,5 +350,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
