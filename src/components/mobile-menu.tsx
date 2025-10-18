@@ -55,7 +55,11 @@ export function MobileMenu({
   onShowResgate,
 }: MobileMenuProps) {
 
-  const [openAccordionItems, setOpenAccordionItems] = React.useState<string[]>([]);
+  const [accordionKey, setAccordionKey] = React.useState(0);
+
+  const resetAccordion = () => {
+    setAccordionKey(prevKey => prevKey + 1);
+  };
 
   const handleFairChange = (fair: string) => {
     onShowResgate(false);
@@ -63,7 +67,7 @@ export function MobileMenu({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
     }));
-    setOpenAccordionItems([]);
+    resetAccordion();
   }
 
   const handleStyleChange = (style: string) => {
@@ -72,7 +76,7 @@ export function MobileMenu({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
     }));
-    setOpenAccordionItems([]);
+    resetAccordion();
   }
   
   const handleNftButtonClick = () => {
@@ -83,18 +87,19 @@ export function MobileMenu({
   const clearFairs = () => {
     onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, fair: '' }));
-    setOpenAccordionItems([]);
+    resetAccordion();
   }
 
   const clearStyles = () => {
     onShowResgate(false);
     onFiltersChange(prev => ({ ...prev, style: '' }));
-    setOpenAccordionItems([]);
+    resetAccordion();
   }
 
   const handleToggleFavorites = () => {
     onShowResgate(false);
     onToggleFavorites();
+    resetAccordion();
   }
   
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
@@ -148,7 +153,7 @@ export function MobileMenu({
           <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full" value={openAccordionItems[0]} onValueChange={(value) => setOpenAccordionItems(value ? [value] : [])}>
+        <Accordion key={accordionKey} type="single" collapsible className="w-full">
 
           <AccordionItem value="fairs">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white">
