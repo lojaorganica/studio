@@ -322,7 +322,7 @@ export default function Home() {
           </div>
         </header>
         
-        <main className="flex-1 overflow-auto pt-20 md:pt-96">
+        <main className="flex-1 overflow-auto pt-20 md:pt-0">
           {showingResgate ? (
             <ResgateNft onBack={() => handleShowResgate(false)} />
           ) : (
