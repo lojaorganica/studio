@@ -5,6 +5,7 @@ import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Star, X } from "lucide-react"
 
 import type { MediaItem } from "@/lib/media"
@@ -54,6 +55,7 @@ export function MobileMenu({
   onToggleFavorites,
   mediaItems,
 }: MobileMenuProps) {
+  const router = useRouter();
 
   const handleFairChange = (fair: string) => {
     onFiltersChange((prevFilters) => ({
@@ -68,6 +70,10 @@ export function MobileMenu({
       style: prevFilters.style === style ? '' : style,
     }))
   }
+  
+  const handleNftButtonClick = () => {
+    router.push('/resgate-nft');
+  };
 
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
   const clearStyles = () => onFiltersChange(prev => ({ ...prev, style: '' }))
@@ -233,14 +239,15 @@ export function MobileMenu({
           </div>
           
            <AccordionItem value="nft-resgate">
-                <Link href="/resgate-nft" passHref legacyBehavior>
-                    <AccordionTrigger className="font-bold text-xl mb-2 text-white no-underline">
-                        <span className="mr-1">RESGATE SUA</span>
-                        <span className="text-accent ml-1">GOTA | NFT</span>
-                    </AccordionTrigger>
-                </Link>
+              <AccordionTrigger 
+                className="font-bold text-xl mb-2 text-white no-underline"
+                onClick={handleNftButtonClick}
+              >
+                  <span className="mr-1">RESGATE SUA</span>
+                  <span className="text-accent ml-1">GOTA | NFT</span>
+              </AccordionTrigger>
               <AccordionContent>
-                  <div className="flex flex-col gap-4 items-center">
+                  <div className="flex flex-col gap-4 items-center p-2">
                       <Image
                           src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                           alt="NFT Gota Batatman Preview"
