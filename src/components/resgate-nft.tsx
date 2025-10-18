@@ -91,3 +91,5 @@ export function ResgateNft({ onBack }: ResgateNftProps) {
         </div>
     );
 }
+
+    

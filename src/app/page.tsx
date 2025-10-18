@@ -317,6 +317,7 @@ export default function Home() {
                     showOnlyFavorites={showOnlyFavorites}
                     onToggleFavorites={toggleShowOnlyFavorites}
                     mediaItems={items}
+                    onShowResgate={() => handleShowResgate(true)}
                   />
               </div>
           </div>
@@ -350,3 +351,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    

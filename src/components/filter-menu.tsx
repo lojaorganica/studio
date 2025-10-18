@@ -25,6 +25,7 @@ type FilterMenuProps = {
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
   mediaItems: MediaItem[]
+  onShowResgate: () => void;
 }
 
 export function FilterMenu({
@@ -38,6 +39,7 @@ export function FilterMenu({
   showOnlyFavorites,
   onToggleFavorites,
   mediaItems,
+  onShowResgate,
 }: FilterMenuProps) {
 
   const handleFairChange = (fair: string) => {
@@ -229,3 +231,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
