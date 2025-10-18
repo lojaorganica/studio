@@ -328,11 +328,11 @@ export default function Home() {
         
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
-            <div className="pt-8 md:pt-20">
-              <ResgateNft onBack={() => handleShowResgate(false)} />
+            <div className="pt-8">
+              <ResgateNft />
             </div>
           ) : (
-            <div className="pt-20 md:pt-96">
+            <div className="md:pt-[19rem]">
               <GalleryGrid
                 items={itemsToShow}
                 columns={columns}

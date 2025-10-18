@@ -6,11 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import * as React from 'react';
 
-type ResgateNftProps = {
-  onBack: () => void;
-};
-
-export function ResgateNft({ onBack }: ResgateNftProps) {
+export function ResgateNft() {
     const [copySuccess, setCopySuccess] = React.useState('');
     const redemptionCode = "BATATMAN-01";
 

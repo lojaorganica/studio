@@ -60,6 +60,7 @@ export function MobileMenu({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
     }))
+    onOpenChange(false)
   }
 
   const handleStyleChange = (style: string) => {
@@ -67,6 +68,7 @@ export function MobileMenu({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
     }))
+    onOpenChange(false)
   }
   
   const handleNftButtonClick = () => {
@@ -74,8 +76,20 @@ export function MobileMenu({
     onOpenChange(false); // Fecha o menu ao clicar
   };
 
-  const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
-  const clearStyles = () => onFiltersChange(prev => ({ ...prev, style: '' }))
+  const clearFairs = () => {
+    onFiltersChange(prev => ({ ...prev, fair: '' }))
+    onOpenChange(false)
+  }
+
+  const clearStyles = () => {
+    onFiltersChange(prev => ({ ...prev, style: '' }))
+    onOpenChange(false)
+  }
+
+  const handleToggleFavorites = () => {
+    onToggleFavorites()
+    onOpenChange(false)
+  }
   
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
     1: 'grid-cols-1',
@@ -220,7 +234,7 @@ export function MobileMenu({
 
           <div className="border-b">
              <button
-              onClick={onToggleFavorites}
+              onClick={handleToggleFavorites}
               className='flex w-full flex-1 items-center py-4 font-bold text-xl'
             >
               <span className="mr-2">MEUS</span>
