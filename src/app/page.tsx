@@ -313,12 +313,12 @@ export default function Home() {
                     fairs={fairs}
                     styles={styles}
                     filters={filters}
-                    onFiltersChange={setFilters}
+                    onFiltersChange={handleSetFilters}
                     columns={columns}
-                    onColumnsChange={setColumns}
+                    onColumnsChange={handleSetColumns}
                     onUpload={handleUploadMedia}
                     showOnlyFavorites={showOnlyFavorites}
-                    onToggleFavorites={() => setShowOnlyFavorites(prev => !prev)}
+                    onToggleFavorites={handleToggleShowOnlyFavorites}
                     mediaItems={items}
                     onShowResgate={() => handleShowResgate(true)}
                   />
@@ -328,11 +328,9 @@ export default function Home() {
         
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
-            <div className="pt-8">
-              <ResgateNft />
-            </div>
+            <ResgateNft />
           ) : (
-            <div className="md:pt-[19rem]">
+            <div>
               <GalleryGrid
                 items={itemsToShow}
                 columns={columns}
@@ -358,3 +356,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
