@@ -2,13 +2,16 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft } from 'lucide-react';
 import * as React from 'react';
 
-export default function ResgateNftPage() {
+type ResgateNftProps = {
+  onBack: () => void;
+};
+
+export function ResgateNft({ onBack }: ResgateNftProps) {
     const [copySuccess, setCopySuccess] = React.useState('');
     const redemptionCode = "BATATMAN-01";
 
@@ -25,10 +28,10 @@ export default function ResgateNftPage() {
     return (
         <div className="flex flex-col min-h-screen w-full bg-background text-foreground p-4 md:p-8">
             <div className="w-full max-w-4xl mx-auto">
-                <Link href="/" className="inline-flex items-center text-accent mb-6 hover:text-accent/80">
+                <button onClick={onBack} className="inline-flex items-center text-accent mb-6 hover:text-accent/80">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Voltar para a Galeria
-                </Link>
+                </button>
 
                 <Card className="bg-card/50 border-border/20">
                     <CardHeader>

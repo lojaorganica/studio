@@ -7,6 +7,7 @@ import { arrayMove } from "@dnd-kit/sortable"
 import { FilterMenu, type Filters } from "@/components/filter-menu"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { Lightbox } from "@/components/lightbox"
+import { ResgateNft } from "@/components/resgate-nft"
 import { allMedia, type MediaItem, fairs, styles } from "@/lib/media"
 import { cn } from "@/lib/utils"
 import { MobileMenu } from "@/components/mobile-menu"
@@ -52,6 +53,8 @@ export default function Home() {
   const menuLeaveTimer = React.useRef<NodeJS.Timeout | null>(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   
+  const [showingResgate, setShowingResgate] = React.useState(false);
+
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor, {
@@ -114,6 +117,15 @@ export default function Home() {
     setItems(prevItems => [...newMediaItems, ...prevItems]);
     // Optionally scroll to top to show the new items
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleShowResgate = (show: boolean) => {
+    setShowingResgate(show);
+    // When showing resgate, ensure filters are cleared to avoid conflicts
+    if(show) {
+      setFilters({ fair: '', style: '' });
+      setShowOnlyFavorites(false);
+    }
   };
 
 
@@ -230,8 +242,17 @@ export default function Home() {
 
   // Reset visibility when filters change
   React.useEffect(() => {
-    setVisibleCount(INITIAL_VISIBLE_ITEMS);
-  }, [filters, showOnlyFavorites]);
+    if (!showingResgate) {
+      setVisibleCount(INITIAL_VISIBLE_ITEMS);
+    }
+  }, [filters, showOnlyFavorites, showingResgate]);
+  
+  React.useEffect(() => {
+    if (filters.fair || filters.style) {
+      handleShowResgate(false);
+    }
+  }, [filters]);
+
 
   return (
     <DndContext
@@ -257,6 +278,7 @@ export default function Home() {
             showOnlyFavorites={showOnlyFavorites}
             onToggleFavorites={toggleShowOnlyFavorites}
             mediaItems={items}
+            onShowResgate={() => handleShowResgate(true)}
           >
             <button
               className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
@@ -301,18 +323,22 @@ export default function Home() {
         </div>
         
         <main className="flex-1 overflow-auto">
-          <GalleryGrid
-            items={itemsToShow}
-            columns={columns}
-            onItemClick={openLightbox}
-            loadMore={loadMore}
-            hasMore={hasMore}
-            favoritedIds={favoritedIds}
-            onToggleFavorite={toggleFavorite}
-          />
+          {showingResgate ? (
+            <ResgateNft onBack={() => handleShowResgate(false)} />
+          ) : (
+            <GalleryGrid
+              items={itemsToShow}
+              columns={columns}
+              onItemClick={openLightbox}
+              loadMore={loadMore}
+              hasMore={hasMore}
+              favoritedIds={favoritedIds}
+              onToggleFavorite={toggleFavorite}
+            />
+          )}
         </main>
 
-        {lightboxOpen && (
+        {lightboxOpen && !showingResgate && (
           <Lightbox
             item={filteredItems[activeIndex]}
             onClose={() => setLightboxOpen(false)}

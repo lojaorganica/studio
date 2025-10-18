@@ -4,9 +4,7 @@
 import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Star, X } from "lucide-react"
+import { Star } from "lucide-react"
 
 import type { MediaItem } from "@/lib/media"
 import { cn } from "@/lib/utils"
@@ -16,8 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
-import { Button } from "./ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export type Filters = {
   fair: string
@@ -38,6 +35,7 @@ type MobileMenuProps = {
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
   mediaItems: MediaItem[]
+  onShowResgate: () => void;
 }
 
 export function MobileMenu({
@@ -54,8 +52,8 @@ export function MobileMenu({
   showOnlyFavorites,
   onToggleFavorites,
   mediaItems,
+  onShowResgate,
 }: MobileMenuProps) {
-  const router = useRouter();
 
   const handleFairChange = (fair: string) => {
     onFiltersChange((prevFilters) => ({
@@ -72,7 +70,7 @@ export function MobileMenu({
   }
   
   const handleNftButtonClick = () => {
-    router.push('/resgate-nft');
+    onShowResgate();
   };
 
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
@@ -138,7 +136,11 @@ export function MobileMenu({
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
-                onClick={clearFairs}
+                onClick={() => {
+                  clearFairs();
+                  onShowResgate();
+                  onOpenChange(false); // Fechar menu
+                }}
                 className={`w-full text-left p-2 text-lg hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
                 Todas as Feiras
               </button>
