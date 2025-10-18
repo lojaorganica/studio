@@ -231,5 +231,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    

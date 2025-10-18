@@ -238,24 +238,24 @@ export function MobileMenu({
           </div>
           
            <AccordionItem value="nft-resgate">
-              <AccordionTrigger 
-                className="font-bold text-xl mb-2 text-white no-underline"
-                onClick={handleNftButtonClick}
-              >
-                  <span className="mr-1">RESGATE SUA</span>
-                  <span className="text-accent ml-1">GOTA | NFT</span>
-              </AccordionTrigger>
-              <AccordionContent>
-                  <div className="flex flex-col gap-4 items-center p-2">
-                      <Image
-                          src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                          alt="NFT Gota Batatman Preview"
-                          width={400}
-                          height={400}
-                          className="w-full h-auto object-cover rounded-md shadow-lg"
-                      />
-                  </div>
-              </AccordionContent>
+            <AccordionTrigger
+              className="font-bold text-xl mb-2 text-white no-underline"
+              onClick={handleNftButtonClick}
+            >
+              <span className="mr-1">RESGATE SUA</span>
+              <span className="text-accent ml-1">GOTA | NFT</span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col gap-4 items-center p-2">
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                  alt="NFT Gota Batatman Preview"
+                  width={400}
+                  height={400}
+                  className="w-full h-auto object-cover rounded-md shadow-lg"
+                />
+              </div>
+            </AccordionContent>
           </AccordionItem>
 
 
@@ -313,5 +313,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
