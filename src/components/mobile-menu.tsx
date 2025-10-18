@@ -77,6 +77,7 @@ export function MobileMenu({
   
   const handleNftButtonClick = () => {
     onShowResgate(true);
+    onOpenChange(false);
   };
 
   const clearFairs = () => {
@@ -334,3 +335,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
