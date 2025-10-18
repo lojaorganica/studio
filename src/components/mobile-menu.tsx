@@ -335,5 +335,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
