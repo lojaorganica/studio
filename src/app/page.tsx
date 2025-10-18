@@ -58,8 +58,6 @@ export default function Home() {
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor, {
-      // Requer que o toque seja mantido por 250ms e movido menos de 5px para ativar o arrasto
-      // Isto evita que o scroll da página seja confundido com um arrasto
       activationConstraint: {
         delay: 250,
         tolerance: 5,
@@ -80,9 +78,23 @@ export default function Home() {
     });
   };
 
-  const toggleShowOnlyFavorites = () => {
+  const handleSetFilters = (newFilters: React.SetStateAction<Filters>) => {
+    setShowingResgate(false);
+    setFilters(newFilters);
+    setMobileMenuOpen(false);
+  };
+  
+  const handleSetColumns = (newColumns: React.SetStateAction<1 | 2 | 3 | 4>) => {
+    setShowingResgate(false);
+    setColumns(newColumns);
+    setMobileMenuOpen(false);
+  };
+  
+  const handleToggleShowOnlyFavorites = () => {
+    setShowingResgate(false);
     setShowOnlyFavorites(prev => !prev);
-  }
+    setMobileMenuOpen(false);
+  };
 
 
   React.useEffect(() => {
@@ -115,7 +127,6 @@ export default function Home() {
   
   const handleUploadMedia = (newMediaItems: MediaItem[]) => {
     setItems(prevItems => [...newMediaItems, ...prevItems]);
-    // Optionally scroll to top to show the new items
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -158,7 +169,6 @@ export default function Home() {
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
 
-        // Se nenhum filtro estiver aplicado, mostra tudo
         if (!filters.fair && !filters.style) {
             return true;
         }
@@ -166,13 +176,10 @@ export default function Home() {
         const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
-        // Regra especial para Story
         if (styleKeyword === 'story' && filters.fair) {
             if (filters.fair !== 'Flamengo e Laranjeiras') {
-                // Para qualquer feira (exceto Fla/Laranjeiras) + Story, busca por "todas_feiras"
                 return filename.includes('story') && filename.includes('todas_feiras');
             }
-             // Se for Fla/Laranjeiras, a regra geral abaixo já funciona (procurando por feiras_flamengo_laranjeiras e story)
         }
         
         let fairFilterPassed = !filters.fair;
@@ -240,7 +247,6 @@ export default function Home() {
   }
 
 
-  // Reset visibility when filters change
   React.useEffect(() => {
     if (!showingResgate) {
       setVisibleCount(INITIAL_VISIBLE_ITEMS);
@@ -263,7 +269,6 @@ export default function Home() {
       onDragCancel={() => document.body.classList.remove('dragging')}
     >
       <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
-        {/* Mobile Menu */}
         <div className="md:hidden fixed top-4 left-4 z-50">
           <MobileMenu
             isOpen={isMobileMenuOpen}
@@ -271,12 +276,12 @@ export default function Home() {
             fairs={fairs}
             styles={styles}
             filters={filters}
-            onFiltersChange={setFilters}
+            onFiltersChange={handleSetFilters}
             columns={columns}
-            onColumnsChange={setColumns}
+            onColumnsChange={handleSetColumns}
             onUpload={handleUploadMedia}
             showOnlyFavorites={showOnlyFavorites}
-            onToggleFavorites={toggleShowOnlyFavorites}
+            onToggleFavorites={handleToggleShowOnlyFavorites}
             mediaItems={items}
             onShowResgate={() => handleShowResgate(true)}
           >
@@ -289,7 +294,6 @@ export default function Home() {
           </MobileMenu>
         </div>
 
-        {/* Desktop Menu */}
         <header
           className={cn(
             "fixed top-0 left-0 right-0 z-40 bg-black/90 transition-transform duration-300 ease-in-out will-change-transform backdrop-blur-sm",
@@ -314,7 +318,7 @@ export default function Home() {
                     onColumnsChange={setColumns}
                     onUpload={handleUploadMedia}
                     showOnlyFavorites={showOnlyFavorites}
-                    onToggleFavorites={toggleShowOnlyFavorites}
+                    onToggleFavorites={() => setShowOnlyFavorites(prev => !prev)}
                     mediaItems={items}
                     onShowResgate={() => handleShowResgate(true)}
                   />
@@ -324,11 +328,11 @@ export default function Home() {
         
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
-            <div className="pt-8">
+            <div className="pt-8 md:pt-20">
               <ResgateNft onBack={() => handleShowResgate(false)} />
             </div>
           ) : (
-            <div className="md:pt-[19rem]">
+            <div className="pt-20 md:pt-96">
               <GalleryGrid
                 items={itemsToShow}
                 columns={columns}

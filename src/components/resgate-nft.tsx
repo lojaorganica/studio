@@ -4,7 +4,6 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
 import * as React from 'react';
 
 type ResgateNftProps = {
@@ -28,11 +27,6 @@ export function ResgateNft({ onBack }: ResgateNftProps) {
     return (
         <div className="flex flex-col w-full text-foreground">
             <div className="w-full max-w-4xl mx-auto px-4">
-                <button onClick={onBack} className="inline-flex items-center text-accent mb-6 hover:text-accent/80">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Voltar para a Galeria
-                </button>
-
                 <Card className="bg-card/50 border-border/20">
                     <CardHeader>
                         <CardTitle className="text-2xl md:text-3xl font-bold text-accent">Resgate sua Gota | NFT Exclusiva!</CardTitle>
