@@ -233,7 +233,7 @@ export function MobileMenu({
            <AccordionItem value="nft-drop">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white">
                <span className="mr-1">RESGATE SUA</span>
-               <span className="text-accent ml-1">GOTA (NFT)</span>
+               <span className="text-accent ml-1">GOTA | NFT</span>
             </AccordionTrigger>
             <AccordionContent>
               <div className="p-2">
@@ -303,3 +303,5 @@ export function MobileMenu({
     </Sheet>
   )
 }
+
+    
