@@ -55,12 +55,15 @@ export function MobileMenu({
   onShowResgate,
 }: MobileMenuProps) {
 
+  const [openAccordionItems, setOpenAccordionItems] = React.useState<string[]>([]);
+
   const handleFairChange = (fair: string) => {
     onShowResgate(false);
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
-    }))
+    }));
+    setOpenAccordionItems([]);
   }
 
   const handleStyleChange = (style: string) => {
@@ -68,27 +71,29 @@ export function MobileMenu({
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
-    }))
+    }));
+    setOpenAccordionItems([]);
   }
   
   const handleNftButtonClick = () => {
     onShowResgate(true);
-    onOpenChange(false);
   };
 
   const clearFairs = () => {
     onShowResgate(false);
-    onFiltersChange(prev => ({ ...prev, fair: '' }))
+    onFiltersChange(prev => ({ ...prev, fair: '' }));
+    setOpenAccordionItems([]);
   }
 
   const clearStyles = () => {
     onShowResgate(false);
-    onFiltersChange(prev => ({ ...prev, style: '' }))
+    onFiltersChange(prev => ({ ...prev, style: '' }));
+    setOpenAccordionItems([]);
   }
 
   const handleToggleFavorites = () => {
     onShowResgate(false);
-    onToggleFavorites()
+    onToggleFavorites();
   }
   
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
@@ -142,7 +147,7 @@ export function MobileMenu({
           <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
         </div>
 
-        <Accordion type="multiple" className="w-full">
+        <Accordion type="single" collapsible className="w-full" value={openAccordionItems[0]} onValueChange={(value) => setOpenAccordionItems(value ? [value] : [])}>
 
           <AccordionItem value="fairs">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white">
@@ -319,7 +324,7 @@ export function MobileMenu({
                 )}
               </div>
               <p className="text-sm text-gray-300 my-2 space-y-1">
-                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço acima. Muito obrigado!
+                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
               <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
             </AccordionContent>

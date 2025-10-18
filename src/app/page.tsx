@@ -77,19 +77,17 @@ export default function Home() {
       return newSet;
     });
   };
-
+  
   const handleSetFilters = (newFilters: React.SetStateAction<Filters>) => {
     setFilters(newFilters);
   };
   
   const handleSetColumns = (newColumns: React.SetStateAction<1 | 2 | 3 | 4>) => {
     setColumns(newColumns);
-    setMobileMenuOpen(false);
   };
   
   const handleToggleShowOnlyFavorites = () => {
     setShowOnlyFavorites(prev => !prev);
-    setMobileMenuOpen(false);
   };
 
 
@@ -131,6 +129,7 @@ export default function Home() {
     if(show) {
       setFilters({ fair: '', style: '' });
       setShowOnlyFavorites(false);
+      setMobileMenuOpen(false);
     }
   };
 
@@ -248,12 +247,6 @@ export default function Home() {
     }
   }, [filters, showOnlyFavorites, showingResgate]);
   
-  React.useEffect(() => {
-    if (filters.fair || filters.style) {
-      handleShowResgate(false);
-    }
-  }, [filters]);
-
 
   return (
     <DndContext
@@ -325,15 +318,17 @@ export default function Home() {
           {showingResgate ? (
             <ResgateNft />
           ) : (
-            <GalleryGrid
-              items={itemsToShow}
-              columns={columns}
-              onItemClick={openLightbox}
-              loadMore={loadMore}
-              hasMore={hasMore}
-              favoritedIds={favoritedIds}
-              onToggleFavorite={toggleFavorite}
-            />
+             <div className="md:pt-[19rem]">
+                <GalleryGrid
+                  items={itemsToShow}
+                  columns={columns}
+                  onItemClick={openLightbox}
+                  loadMore={loadMore}
+                  hasMore={hasMore}
+                  favoritedIds={favoritedIds}
+                  onToggleFavorite={toggleFavorite}
+                />
+             </div>
           )}
         </main>
 
@@ -349,5 +344,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
