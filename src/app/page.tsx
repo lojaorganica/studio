@@ -318,7 +318,7 @@ export default function Home() {
           {showingResgate ? (
             <ResgateNft />
           ) : (
-             <div className="md:pt-[19rem]">
+             <div>
                 <GalleryGrid
                   items={itemsToShow}
                   columns={columns}
