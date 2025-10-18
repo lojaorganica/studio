@@ -5,6 +5,8 @@ import type { Dispatch, SetStateAction } from "react"
 import * as React from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
+import { useRouter } from "next/navigation";
+
 
 import type { MediaItem } from "@/lib/media"
 import { cn } from "@/lib/utils"
@@ -71,7 +73,6 @@ export function MobileMenu({
   
   const handleNftButtonClick = () => {
     onShowResgate();
-    // Não fecha o menu, permite que o usuário veja a página atrás
   };
 
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
