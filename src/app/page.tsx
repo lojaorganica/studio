@@ -323,21 +323,19 @@ export default function Home() {
           </div>
         </div>
         
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto pt-20 md:pt-[24rem]">
           {showingResgate ? (
             <ResgateNft onBack={() => handleShowResgate(false)} />
           ) : (
-            <div className="pt-20 md:pt-[24rem]">
-              <GalleryGrid
-                items={itemsToShow}
-                columns={columns}
-                onItemClick={openLightbox}
-                loadMore={loadMore}
-                hasMore={hasMore}
-                favoritedIds={favoritedIds}
-                onToggleFavorite={toggleFavorite}
-              />
-            </div>
+            <GalleryGrid
+              items={itemsToShow}
+              columns={columns}
+              onItemClick={openLightbox}
+              loadMore={loadMore}
+              hasMore={hasMore}
+              favoritedIds={favoritedIds}
+              onToggleFavorite={toggleFavorite}
+            />
           )}
         </main>
 
