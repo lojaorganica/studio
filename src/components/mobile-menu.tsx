@@ -16,6 +16,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { Button } from "./ui/button"
 
 export type Filters = {
   fair: string
@@ -231,17 +232,31 @@ export function MobileMenu({
             </button>
           </div>
           
-           <div className="border-b">
-              <Link href="/resgate-nft" passHref>
-                <div
-                  className='flex w-full flex-1 items-center py-4 font-bold text-xl'
-                  onClick={() => onOpenChange(false)}
-                >
+           <AccordionItem value="nft-resgate">
+              <AccordionTrigger className="font-bold text-xl mb-2 text-white">
                   <span className="mr-1">RESGATE SUA</span>
                   <span className="text-accent ml-1">GOTA | NFT</span>
-                </div>
-              </Link>
-          </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                  <div className="flex flex-col gap-4 items-center">
+                      <Image
+                          src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                          alt="NFT Gota Batatman Preview"
+                          width={400}
+                          height={400}
+                          className="w-full h-auto object-cover rounded-md shadow-lg"
+                      />
+                       <Link href="/resgate-nft" passHref className="w-full">
+                          <Button 
+                            className="w-full bg-accent hover:bg-accent/80 text-accent-foreground"
+                            onClick={() => onOpenChange(false)}
+                          >
+                            Ver Instruções de Resgate
+                          </Button>
+                       </Link>
+                  </div>
+              </AccordionContent>
+          </AccordionItem>
 
 
           <AccordionItem value="dicas">
