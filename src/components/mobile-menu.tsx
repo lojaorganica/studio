@@ -71,6 +71,7 @@ export function MobileMenu({
   
   const handleNftButtonClick = () => {
     onShowResgate();
+    // Não fecha o menu, permite que o usuário veja a página atrás
   };
 
   const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
@@ -136,11 +137,7 @@ export function MobileMenu({
             </AccordionTrigger>
             <AccordionContent className="flex flex-col">
               <button 
-                onClick={() => {
-                  clearFairs();
-                  onShowResgate();
-                  onOpenChange(false); // Fechar menu
-                }}
+                onClick={clearFairs}
                 className={`w-full text-left p-2 text-lg hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
                 Todas as Feiras
               </button>
