@@ -79,19 +79,16 @@ export default function Home() {
   };
 
   const handleSetFilters = (newFilters: React.SetStateAction<Filters>) => {
-    setShowingResgate(false);
     setFilters(newFilters);
     setMobileMenuOpen(false);
   };
   
   const handleSetColumns = (newColumns: React.SetStateAction<1 | 2 | 3 | 4>) => {
-    setShowingResgate(false);
     setColumns(newColumns);
     setMobileMenuOpen(false);
   };
   
   const handleToggleShowOnlyFavorites = () => {
-    setShowingResgate(false);
     setShowOnlyFavorites(prev => !prev);
     setMobileMenuOpen(false);
   };
@@ -132,12 +129,15 @@ export default function Home() {
 
   const handleShowResgate = (show: boolean) => {
     setShowingResgate(show);
-    setMobileMenuOpen(false); // Fecha o menu mobile ao trocar de vista
     if(show) {
       setFilters({ fair: '', style: '' });
       setShowOnlyFavorites(false);
     }
   };
+
+  const handleShowGallery = () => {
+      setShowingResgate(false);
+  }
 
 
   const filteredItems = React.useMemo(() => {
@@ -283,7 +283,7 @@ export default function Home() {
             showOnlyFavorites={showOnlyFavorites}
             onToggleFavorites={handleToggleShowOnlyFavorites}
             mediaItems={items}
-            onShowResgate={() => handleShowResgate(true)}
+            onShowResgate={handleShowGallery}
           >
             <button
               className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
@@ -356,5 +356,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    

@@ -56,6 +56,7 @@ export function MobileMenu({
 }: MobileMenuProps) {
 
   const handleFairChange = (fair: string) => {
+    onShowResgate();
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
@@ -64,6 +65,7 @@ export function MobileMenu({
   }
 
   const handleStyleChange = (style: string) => {
+    onShowResgate();
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
@@ -77,16 +79,19 @@ export function MobileMenu({
   };
 
   const clearFairs = () => {
+    onShowResgate();
     onFiltersChange(prev => ({ ...prev, fair: '' }))
     onOpenChange(false)
   }
 
   const clearStyles = () => {
+    onShowResgate();
     onFiltersChange(prev => ({ ...prev, style: '' }))
     onOpenChange(false)
   }
 
   const handleToggleFavorites = () => {
+    onShowResgate();
     onToggleFavorites()
     onOpenChange(false)
   }
@@ -251,15 +256,18 @@ export function MobileMenu({
             </button>
           </div>
           
-           <AccordionItem value="nft-resgate">
+          <AccordionItem value="nft-resgate">
             <AccordionTrigger
               className="font-bold text-xl mb-2 text-white no-underline"
             >
               <span className="mr-1">RESGATE SUA</span>
               <span className="text-accent ml-1">GOTA | NFT</span>
             </AccordionTrigger>
-            <AccordionContent onClick={handleNftButtonClick} className="cursor-pointer">
-              <div className="flex flex-col gap-4 items-center p-2">
+            <AccordionContent>
+              <div 
+                onClick={handleNftButtonClick}
+                className="flex flex-col gap-4 items-center p-2 cursor-pointer"
+              >
                 <Image
                   src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                   alt="NFT Gota Batatman Preview"
