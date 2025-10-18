@@ -326,7 +326,7 @@ export default function Home() {
           {showingResgate ? (
             <ResgateNft onBack={() => handleShowResgate(false)} />
           ) : (
-            <div className="md:pt-[19rem]">
+            <div className="pt-0 md:pt-[19rem]">
               <GalleryGrid
                 items={itemsToShow}
                 columns={columns}
