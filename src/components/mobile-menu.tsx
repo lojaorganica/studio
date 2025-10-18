@@ -230,6 +230,25 @@ export function MobileMenu({
             </button>
           </div>
           
+           <AccordionItem value="nft-drop">
+            <AccordionTrigger className="font-bold text-xl mb-2 text-white">
+               <span className="mr-1">RESGATE SUA</span>
+               <span className="text-accent ml-1">GOTA (NFT)</span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="p-2">
+                <Image 
+                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                  alt="NFT Gota Batatman"
+                  width={300}
+                  height={300}
+                  className="w-full h-auto object-cover rounded-md"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+
+
           <AccordionItem value="dicas">
             <AccordionTrigger className="font-bold text-xl mb-2 text-white">
               <span className="mr-1">ALGUMAS</span>
