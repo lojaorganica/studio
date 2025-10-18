@@ -80,7 +80,6 @@ export default function Home() {
 
   const handleSetFilters = (newFilters: React.SetStateAction<Filters>) => {
     setFilters(newFilters);
-    setMobileMenuOpen(false);
   };
   
   const handleSetColumns = (newColumns: React.SetStateAction<1 | 2 | 3 | 4>) => {
@@ -134,10 +133,6 @@ export default function Home() {
       setShowOnlyFavorites(false);
     }
   };
-
-  const handleShowGallery = () => {
-      setShowingResgate(false);
-  }
 
 
   const filteredItems = React.useMemo(() => {
@@ -283,7 +278,7 @@ export default function Home() {
             showOnlyFavorites={showOnlyFavorites}
             onToggleFavorites={handleToggleShowOnlyFavorites}
             mediaItems={items}
-            onShowResgate={handleShowGallery}
+            onShowResgate={handleShowResgate}
           >
             <button
               className="p-2 bg-black/80 backdrop-blur-sm rounded-md"
@@ -330,17 +325,15 @@ export default function Home() {
           {showingResgate ? (
             <ResgateNft />
           ) : (
-            <div>
-              <GalleryGrid
-                items={itemsToShow}
-                columns={columns}
-                onItemClick={openLightbox}
-                loadMore={loadMore}
-                hasMore={hasMore}
-                favoritedIds={favoritedIds}
-                onToggleFavorite={toggleFavorite}
-              />
-            </div>
+            <GalleryGrid
+              items={itemsToShow}
+              columns={columns}
+              onItemClick={openLightbox}
+              loadMore={loadMore}
+              hasMore={hasMore}
+              favoritedIds={favoritedIds}
+              onToggleFavorite={toggleFavorite}
+            />
           )}
         </main>
 
@@ -356,3 +349,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
