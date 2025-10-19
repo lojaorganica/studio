@@ -21,7 +21,7 @@ export function ResgateNft() {
     };
 
     return (
-        <div className="flex flex-col w-full text-foreground pt-2 md:pt-4">
+        <div className="flex flex-col w-full text-foreground pt-20 md:pt-24">
             <div className="w-full max-w-4xl mx-auto px-4">
                 <Card className="bg-card/50 border-border/20">
                     <CardHeader>
