@@ -315,6 +315,7 @@ export default function Home() {
                     onColumnsChange={handleSetColumns}
                     showOnlyFavorites={showOnlyFavorites}
                     onToggleFavorites={handleToggleShowOnlyFavorites}
+                    favoritedIds={favoritedIds}
                     mediaItems={items}
                     onShowResgate={() => handleShowResgate(true)}
                     onReturnToGallery={handleReturnToGallery}
