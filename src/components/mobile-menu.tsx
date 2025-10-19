@@ -331,9 +331,8 @@ export function MobileMenu({
                 )}
               </div>
               <p className="text-sm text-gray-300 my-2 space-y-1">
-                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
+                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço acima. Muito obrigado!
               </p>
-              <p className="text-xs text-center mt-4 text-gray-400">Powered by Marcos Melo | Essência Vital</p>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
