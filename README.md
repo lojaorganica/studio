@@ -19,6 +19,7 @@ Além dos registos fotográficos, a galeria inclui centenas de animações, cart
 *   **Reordenação com "Arrastar e Soltar" (Drag and Drop)**: Organize facilmente os itens de mídia arrastando e soltando-os como desejar.
 *   **Sistema de Favoritos**: Marque suas peças favoritas com uma estrela para acesso rápido e filtragem.
 *   **Lightbox Responsivo**: Visualize a mídia em um lightbox detalhado e em tela cheia que se adapta a diferentes formatos, incluindo layouts especiais para histórias de personagens.
+*   **Resgate de Gotas | NFT**: Resgate de artes digitais como NFTs colecionáveis diretamente no site GOTAS.COM, uma funcionalidade inovadora no projeto.
 *   **Design Mobile-First**: Uma interface totalmente responsiva para uma ótima experiência em qualquer dispositivo.
 
 ## Tecnologias Utilizadas
