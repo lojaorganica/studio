@@ -62,7 +62,7 @@ export function FilterMenu({
     onFiltersChange(prev => ({ ...prev, fair: '' }))
   }
   const clearStyles = () => {
-    onReturnToGallery();
+    onReturnTogallery();
     onFiltersChange(prev => ({ ...prev, style: '' }))
   }
 
@@ -122,8 +122,8 @@ export function FilterMenu({
     <div className="text-white pt-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         
-        {/* Col 1: Feiras, Favoritos e Dicas */}
-        <div className="md:col-span-3 flex flex-col space-y-8">
+        {/* Col 1: Feiras e Dicas */}
+        <div className="md:col-span-3 flex flex-col space-y-4">
           <div>
             <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
             <div className="flex flex-col">
@@ -143,7 +143,38 @@ export function FilterMenu({
               ))}
             </div>
           </div>
+          <div className="p-4 rounded-lg bg-black/50">
+            <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
+            <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
+              <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
+              <li>Arraste e solte as imagens e vídeos para organizar</li>
+              <li>Faça downloads</li>
+              <li>Escolha favoritos</li>
+              <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Col 2: Estilos e Favoritos */}
+        <div className="md:col-span-3 flex flex-col space-y-4">
           <div>
+            <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
+            <button 
+              onClick={clearStyles}
+              className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.style ? 'bg-accent text-accent-foreground' : ''}`}>
+              Todos os Estilos
+            </button>
+            {styles.map((style) => (
+               <button
+                key={style}
+                onClick={() => handleStyleChange(style)}
+                className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.style === style ? 'bg-accent text-accent-foreground' : ''}`}
+              >
+                {style}
+              </button>
+            ))}
+          </div>
+          <div className="pt-4">
             <button
               onClick={handleToggleFavorites}
               className={cn(
@@ -157,35 +188,6 @@ export function FilterMenu({
               <span className="font-bold">FAVORITOS</span>
             </button>
           </div>
-          <div className="p-4 rounded-lg bg-black/50">
-            <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-            <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-              <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
-              <li>Arraste e solte as imagens e vídeos para organizar</li>
-              <li>Faça downloads</li>
-              <li>Escolha favoritos</li>
-              <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Col 2: Estilos */}
-        <div className="md:col-span-3">
-          <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
-           <button 
-            onClick={clearStyles}
-            className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.style ? 'bg-accent text-accent-foreground' : ''}`}>
-            Todos os Estilos
-          </button>
-          {styles.map((style) => (
-             <button
-              key={style}
-              onClick={() => handleStyleChange(style)}
-              className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.style === style ? 'bg-accent text-accent-foreground' : ''}`}
-            >
-              {style}
-            </button>
-          ))}
         </div>
         
         {/* Col 3: Colunas */}
@@ -227,26 +229,28 @@ export function FilterMenu({
         </div>
 
         {/* Col 4: NFT e Apoio */}
-        <div className="md:col-span-3">
-           <h3 className="font-bold text-xl mb-4 text-left">
-            <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
-          </h3>
-          <div 
-            className="cursor-pointer space-y-2"
-            onClick={handleShowResgate}
-          >
-            <div className="w-[87%]">
-              <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                  alt="NFT Batatman"
-                  width={250}
-                  height={250}
-                  className="rounded-md object-cover w-full h-auto"
-              />
+        <div className="md:col-span-3 flex flex-col space-y-6">
+          <div>
+            <h3 className="font-bold text-xl mb-4 text-left">
+              <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
+            </h3>
+            <div 
+              className="cursor-pointer space-y-2"
+              onClick={handleShowResgate}
+            >
+              <div className="w-[82%]">
+                <Image
+                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                    alt="NFT Batatman"
+                    width={250}
+                    height={250}
+                    className="rounded-md object-cover w-full h-auto"
+                />
+              </div>
+              <p className="text-sm text-gray-300">
+                  Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
+              </p>
             </div>
-             <p className="text-sm text-gray-300">
-                Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
-            </p>
           </div>
           <div className="mt-6">
               <h3 className="font-bold text-xl mb-2"><span className="text-white">APOIE ESSE</span> <span className="text-accent">PROJETO</span></h3>
@@ -267,10 +271,8 @@ export function FilterMenu({
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1">
-        <div className="md:col-span-12 md:self-end text-right">
-          <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
-        </div>
+      <div className="mt-8 md:col-span-12 md:self-end text-right">
+        <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
       </div>
     </div>
   )
