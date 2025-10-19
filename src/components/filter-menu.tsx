@@ -123,24 +123,40 @@ export function FilterMenu({
       {/* Top 4 columns wrapper */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
-        {/* Col 1: Feiras */}
-        <div className="md:col-span-3">
-          <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
-          <div className="flex flex-col">
-            <button 
-              onClick={clearFairs}
-              className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
-              Todas as Feiras
+        {/* Col 1: Feiras & Favoritos */}
+        <div className="md:col-span-3 flex flex-col justify-between">
+            <div>
+              <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
+              <div className="flex flex-col">
+                <button 
+                  onClick={clearFairs}
+                  className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
+                  Todas as Feiras
+                </button>
+                {fairs.map((fair) => (
+                  <button
+                    key={fair}
+                    onClick={() => handleFairChange(fair)}
+                    className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
+                  >
+                    {fair}
+                  </button>
+                ))}
+              </div>
+            </div>
+             <div className="mt-8">
+             <button
+              onClick={handleToggleFavorites}
+              className={cn(
+                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
+                showOnlyFavorites
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
+              )}
+            >
+              <Star className="w-5 h-5 mr-2" />
+              <span className="font-bold">FAVORITOS</span>
             </button>
-            {fairs.map((fair) => (
-              <button
-                key={fair}
-                onClick={() => handleFairChange(fair)}
-                className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
-              >
-                {fair}
-              </button>
-            ))}
           </div>
         </div>
 
@@ -210,7 +226,7 @@ export function FilterMenu({
             className="cursor-pointer space-y-2"
             onClick={handleShowResgate}
           >
-             <div className="w-[85%]">
+            <div className="w-[87%]">
               <Image
                   src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o%2Fnft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                   alt="NFT Batatman"
@@ -219,7 +235,7 @@ export function FilterMenu({
                   className="rounded-md object-cover w-full h-auto"
               />
             </div>
-             <p className="text-sm text-gray-300">
+            <p className="text-sm text-gray-300">
                 Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
             </p>
           </div>
@@ -239,22 +255,7 @@ export function FilterMenu({
                 )}
               </div>
            </div>
-           <div className="mt-8">
-             <button
-              onClick={handleToggleFavorites}
-              className={cn(
-                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
-                showOnlyFavorites
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
-              )}
-            >
-              <Star className="w-5 h-5 mr-2" />
-              <span className="font-bold">FAVORITOS</span>
-            </button>
-          </div>
         </div>
-
       </div>
 
       {/* Dicas Section and Footer */}
@@ -278,5 +279,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
