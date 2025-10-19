@@ -143,10 +143,10 @@ export function FilterMenu({
               ))}
             </div>
           </div>
-          <div>
+           <div className="space-y-2 pt-4">
             <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-             <p className="text-sm text-gray-300 space-y-1">
-                • Pesquise artes por feiras e estilos com a combinação de botões • Arraste e solte as imagens e vídeos para organizar • Faça downloads • Escolha favoritos • Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares • Faça uma doação para o projeto • Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira • Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
+             <p className="text-sm text-gray-300 leading-relaxed">
+              <span className="text-accent font-bold mx-1.5">•</span>Pesquise artes por feiras e estilos com a combinação de botões<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span>Faça downloads<span className="text-accent font-bold mx-1.5">•</span>Escolha favoritos<span className="text-accent font-bold mx-1.5">•</span>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
             </p>
           </div>
         </div>
@@ -180,9 +180,9 @@ export function FilterMenu({
                     : 'bg-transparent hover:bg-yellow-500/20'
                 )}
               >
-                <span className="text-white">MEUS</span>
+                <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
                 <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
-                <Star className={cn("w-5 h-5", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-accent")} />
+                <Star className={cn("w-5 h-5", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-transparent")} />
               </button>
           </div>
         </div>
@@ -235,7 +235,7 @@ export function FilterMenu({
               className="cursor-pointer space-y-2"
               onClick={handleShowResgate}
             >
-               <div className="w-[84%] transform">
+               <div className="w-[86%] transform">
                  <Image
                     src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
