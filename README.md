@@ -1,4 +1,4 @@
-# Galeria Orgânica - Circuito Carioca de feiras Orgânicas
+# Galeria Orgânica - Circuito Carioca de Feiras Orgânicas
 
 A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores. O objetivo é permitir que milhares de clientes — e também os próprios agricultores — tenham acesso rápido, engajem e compartilhem as artes em suas redes a qualquer hora e de qualquer lugar. Dessa forma, o projeto fortalece a divulgação das feiras orgânicas de maneira colaborativa e descentralizada, amplia sua visibilidade e reduz a dependência de estruturas centralizadas, etapas intermediárias e custos elevados.
 
