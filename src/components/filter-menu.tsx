@@ -120,57 +120,57 @@ export function FilterMenu({
 
   return (
     <div className="text-white pt-8">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         
         {/* Col 1: Feiras e Dicas */}
         <div className="md:col-span-3 flex flex-col space-y-4">
-          <div>
-            <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
-            <div className="flex flex-col">
-              <button 
-                onClick={clearFairs}
-                className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
-                Todas as Feiras
-              </button>
-              {fairs.map((fair) => (
-                <button
-                  key={fair}
-                  onClick={() => handleFairChange(fair)}
-                  className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
-                >
-                  {fair}
+            <div>
+                <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
+                <div className="flex flex-col">
+                <button 
+                    onClick={clearFairs}
+                    className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
+                    Todas as Feiras
                 </button>
-              ))}
+                {fairs.map((fair) => (
+                    <button
+                    key={fair}
+                    onClick={() => handleFairChange(fair)}
+                    className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
+                    >
+                    {fair}
+                    </button>
+                ))}
+                </div>
             </div>
-          </div>
-           <div className="space-y-2 pt-4">
-            <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-             <p className="text-sm text-gray-300 leading-relaxed">
-              <span className="text-accent font-bold mx-1.5">•</span>Pesquise artes por feiras e estilos com a combinação de botões<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span>Faça downloads<span className="text-accent font-bold mx-1.5">•</span>Escolha favoritos<span className="text-accent font-bold mx-1.5">•</span>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
-            </p>
-          </div>
+            <div className="space-y-2 pt-4">
+              <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
+               <p className="text-sm text-gray-300 leading-relaxed">
+                  <span className="text-accent font-bold mx-1.5">•</span>Pesquise as artes digitais com a combinação dos botões das feiras, estilos e colunas<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span>Escolha favoritos<span className="text-accent font-bold mx-1.5">•</span>Compartilhe e poste as artes em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou compre seus orgânicos em nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
+              </p>
+            </div>
         </div>
 
         {/* Col 2: Estilos e Favoritos */}
         <div className="md:col-span-3 flex flex-col space-y-4">
-          <div>
-            <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
-            <button 
-              onClick={clearStyles}
-              className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.style ? 'bg-accent text-accent-foreground' : ''}`}>
-              Todos os Estilos
-            </button>
-            {styles.map((style) => (
-               <button
-                key={style}
-                onClick={() => handleStyleChange(style)}
-                className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.style === style ? 'bg-accent text-accent-foreground' : ''}`}
-              >
-                {style}
-              </button>
-            ))}
-          </div>
-          <div className="pt-4">
+            <div>
+                <h3 className="font-bold text-xl mb-4">ESCOLHA OS <span className="text-accent">ESTILOS</span></h3>
+                <button 
+                onClick={clearStyles}
+                className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.style ? 'bg-accent text-accent-foreground' : ''}`}>
+                Todos os Estilos
+                </button>
+                {styles.map((style) => (
+                <button
+                    key={style}
+                    onClick={() => handleStyleChange(style)}
+                    className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.style === style ? 'bg-accent text-accent-foreground' : ''}`}
+                >
+                    {style}
+                </button>
+                ))}
+            </div>
+            <div className="pt-4">
                <button
                 onClick={handleToggleFavorites}
                 className={cn(
@@ -184,89 +184,89 @@ export function FilterMenu({
                 <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
                 <Star className={cn("w-5 h-5", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-transparent")} />
               </button>
-          </div>
+            </div>
         </div>
         
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
-          <h3 className="font-bold text-xl mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
-          <div className="grid grid-cols-4 gap-0 mb-4">
-            {[1, 2, 3, 4].map((num) => (
-              <button
-                key={num}
-                className={cn('w-full p-2 text-xl flex items-center justify-center border-0', 
-                  columns === num 
-                  ? 'bg-accent text-accent-foreground' 
-                  : 'bg-black hover:bg-accent'
-                )}
-                onClick={() => handleColumnsChange(num as 1 | 2 | 3 | 4)}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-          <div className={cn("grid gap-1", columnGridClasses[columns])}>
-            {columnPreviews.map((item) => (
-                <div key={item.id} className="relative aspect-square">
-                    {item.type === 'image' ? (
-                        <Image src={item.src} alt={item.alt} fill className="object-cover rounded bg-muted/20" />
-                    ) : (
-                        <video
-                            src={item.src}
-                            loop
-                            muted
-                            autoPlay
-                            playsInline
-                            className="w-full h-full object-cover rounded bg-muted/20"
-                        />
+            <h3 className="font-bold text-xl mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
+            <div className="grid grid-cols-4 gap-0 mb-4">
+                {[1, 2, 3, 4].map((num) => (
+                <button
+                    key={num}
+                    className={cn('w-full p-2 text-xl flex items-center justify-center border-0', 
+                    columns === num 
+                    ? 'bg-accent text-accent-foreground' 
+                    : 'bg-black hover:bg-accent'
                     )}
-                </div>
-            ))}
-          </div>
+                    onClick={() => handleColumnsChange(num as 1 | 2 | 3 | 4)}
+                >
+                    {num}
+                </button>
+                ))}
+            </div>
+            <div className={cn("grid gap-1", columnGridClasses[columns])}>
+                {columnPreviews.map((item) => (
+                    <div key={item.id} className="relative aspect-square">
+                        {item.type === 'image' ? (
+                            <Image src={item.src} alt={item.alt} fill className="object-cover rounded bg-muted/20" />
+                        ) : (
+                            <video
+                                src={item.src}
+                                loop
+                                muted
+                                autoPlay
+                                playsInline
+                                className="w-full h-full object-cover rounded bg-muted/20"
+                            />
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
 
         {/* Col 4: NFT e Apoio */}
         <div className="md:col-span-3 flex flex-col space-y-6">
-          <div>
-            <h3 className="font-bold text-xl mb-4 text-left">
-              <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
-            </h3>
-            <div 
-              className="cursor-pointer space-y-2"
-              onClick={handleShowResgate}
-            >
-               <div className="w-[86%] transform">
-                 <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                    alt="NFT Batatman"
-                    width={250}
-                    height={250}
-                    className="rounded-md object-cover w-full h-auto"
-                />
-              </div>
-              <p className="text-sm text-gray-300">
-                  Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
-              </p>
+            <div>
+                <h3 className="font-bold text-xl mb-4 text-left">
+                <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
+                </h3>
+                <div 
+                className="cursor-pointer space-y-2"
+                onClick={handleShowResgate}
+                >
+                <div className="w-[86%] transform hover:scale-[1.02] transition-transform duration-300">
+                    <Image
+                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                        alt="NFT Batatman"
+                        width={250}
+                        height={250}
+                        className="rounded-md object-cover w-full h-auto"
+                    />
+                </div>
+                <p className="text-sm text-gray-300">
+                    Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
+                </p>
+                </div>
             </div>
-          </div>
-          <div className="mt-6">
-              <h3 className="font-bold text-xl mb-2"><span className="text-white">APOIE ESSE</span> <span className="text-accent">PROJETO</span></h3>
-              <p className="text-sm text-gray-300 mb-2 space-y-1">
-                Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
-              </p>
-              <div 
-                className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
-                onClick={handleCopy}
-              >
-                {copySuccess ? (
-                    <p className="text-sm font-bold text-accent">{copySuccess}</p>
-                ) : (
-                    <p className="text-xs break-all">{btcAddress}</p>
-                )}
-              </div>
-           </div>
+            <div className="mt-6">
+                <h3 className="font-bold text-xl mb-2"><span className="text-white">APOIE ESSE</span> <span className="text-accent">PROJETO</span></h3>
+                <p className="text-sm text-gray-300 mb-2 space-y-1">
+                    Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
+                </p>
+                <div 
+                    className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
+                    onClick={handleCopy}
+                >
+                    {copySuccess ? (
+                        <p className="text-sm font-bold text-accent">{copySuccess}</p>
+                    ) : (
+                        <p className="text-xs break-all">{btcAddress}</p>
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
   )
 }
