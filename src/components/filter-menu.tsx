@@ -127,17 +127,17 @@ export function FilterMenu({
               className="p-2 rounded-lg bg-black/50 hover:bg-black/80 cursor-pointer transition-colors border border-accent/30 hover:border-accent"
               onClick={onShowResgate}
             >
-              <div className="flex items-center gap-3">
-                <div className="w-1/3 flex-shrink-0">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-2/3 flex-shrink-0">
                   <Image
                     src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
-                    width={100}
-                    height={100}
+                    width={150}
+                    height={150}
                     className="rounded-md object-cover w-full h-auto"
                   />
                 </div>
-                <p className="text-xs text-gray-300">
+                <p className="text-xs text-center text-gray-300">
                   Parabéns! Você encontrou uma Gota. Clique aqui e siga os passos para resgatar seu NFT exclusivo.
                 </p>
               </div>
@@ -252,5 +252,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
