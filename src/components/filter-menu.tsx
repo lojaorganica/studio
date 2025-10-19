@@ -120,10 +120,10 @@ export function FilterMenu({
 
   return (
     <div className="text-white pt-8">
-      {/* Top 4 columns */}
+      {/* Top 4 columns wrapper */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
-        {/* Col 1: Feiras & Favoritos */}
+        {/* Col 1: Feiras */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <div className="flex flex-col">
@@ -141,20 +141,6 @@ export function FilterMenu({
                 {fair}
               </button>
             ))}
-          </div>
-          <div className="mt-6">
-             <button
-              onClick={handleToggleFavorites}
-              className={cn(
-                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
-                showOnlyFavorites
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
-              )}
-            >
-              <Star className="w-5 h-5 mr-2" />
-              <span className="font-bold">FAVORITOS</span>
-            </button>
           </div>
         </div>
 
@@ -217,7 +203,7 @@ export function FilterMenu({
 
         {/* Col 4: NFT e Apoio */}
         <div className="md:col-span-3">
-          <h3 className="font-bold text-xl mb-4 text-left">
+           <h3 className="font-bold text-xl mb-4 text-left">
             <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
           </h3>
           <div 
@@ -253,6 +239,20 @@ export function FilterMenu({
                 )}
               </div>
            </div>
+           <div className="mt-8">
+             <button
+              onClick={handleToggleFavorites}
+              className={cn(
+                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
+                showOnlyFavorites
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
+              )}
+            >
+              <Star className="w-5 h-5 mr-2" />
+              <span className="font-bold">FAVORITOS</span>
+            </button>
+          </div>
         </div>
 
       </div>
