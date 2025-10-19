@@ -193,7 +193,7 @@ export function FilterMenu({
                 </TooltipTrigger>
                 {favoritedIds.size === 0 && !showOnlyFavorites && (
                     <TooltipContent side="bottom" className="bg-black text-white border-accent">
-                        <p>Sua galeria de favoritos está vazia. Comece a escolher algumas artes!</p>
+                        <p>Sua galeria de favoritos está vazia. Escolha algumas artes!</p>
                     </TooltipContent>
                 )}
               </Tooltip>
@@ -284,3 +284,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
