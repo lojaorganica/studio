@@ -145,13 +145,9 @@ export function FilterMenu({
           </div>
           <div>
             <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-            <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-              <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
-              <li>Arraste e solte as imagens e vídeos para organizar</li>
-              <li>Faça downloads</li>
-              <li>Escolha favoritos</li>
-              <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
-            </ul>
+             <p className="text-sm text-gray-300 space-y-1">
+                • Pesquise artes por feiras e estilos com a combinação de botões • Arraste e solte as imagens e vídeos para organizar • Faça downloads • Escolha favoritos • Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares • Faça uma doação para o projeto • Frequente as feiras orgânicas ou encomende seus orgânicos por nosso app Minha Feira • Conheça nosso perfil no <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
+            </p>
           </div>
         </div>
 
@@ -175,16 +171,16 @@ export function FilterMenu({
             ))}
           </div>
           <div className="pt-4">
-              <button
+               <button
                 onClick={handleToggleFavorites}
                 className={cn(
                   'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
                   showOnlyFavorites
-                    ? 'bg-yellow-500 text-white'
+                    ? 'bg-yellow-400 text-white'
                     : 'bg-transparent hover:bg-yellow-500/20'
                 )}
               >
-                <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
+                <span className="text-white">MEUS</span>
                 <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
                 <Star className={cn("w-5 h-5", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-accent")} />
               </button>
@@ -239,7 +235,7 @@ export function FilterMenu({
               className="cursor-pointer space-y-2"
               onClick={handleShowResgate}
             >
-              <div className="w-[84%] transform scale-[1.02]">
+               <div className="w-[84%] transform">
                  <Image
                     src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
