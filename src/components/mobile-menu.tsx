@@ -146,7 +146,7 @@ export function MobileMenu({
         {children}
       </SheetTrigger>
       <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/60 backdrop-blur-sm text-white p-0">
-        <ScrollArea className="h-full w-full p-4">
+        <ScrollArea className="h-full w-full p-4 [--scroll-bar-display:none]">
           <div className="mt-8 mb-6 flex items-center gap-3">
             <Image src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2FLogo_Circuito.png?alt=media&token=9b122ad7-4dbf-46c3-a91c-19b5ff1210ef" alt="Logo Circuito Carioca" width={50} height={50} className="rounded-full" />
             <div>
