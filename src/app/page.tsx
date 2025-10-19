@@ -316,7 +316,7 @@ export default function Home() {
         
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
-            <div className="pt-20">
+            <div className="-mt-12">
               <ResgateNft />
             </div>
           ) : (
