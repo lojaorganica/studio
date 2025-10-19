@@ -78,15 +78,24 @@ export default function Home() {
     });
   };
   
+  const handleReturnToGallery = () => {
+    if (showingResgate) {
+      setShowingResgate(false);
+    }
+  }
+
   const handleSetFilters = (newFilters: React.SetStateAction<Filters>) => {
+    handleReturnToGallery();
     setFilters(newFilters);
   };
   
   const handleSetColumns = (newColumns: React.SetStateAction<1 | 2 | 3 | 4>) => {
+    handleReturnToGallery();
     setColumns(newColumns);
   };
   
   const handleToggleShowOnlyFavorites = () => {
+    handleReturnToGallery();
     setShowOnlyFavorites(prev => !prev);
   };
 
@@ -304,11 +313,11 @@ export default function Home() {
                     onFiltersChange={handleSetFilters}
                     columns={columns}
                     onColumnsChange={handleSetColumns}
-                    onUpload={handleUploadMedia}
                     showOnlyFavorites={showOnlyFavorites}
                     onToggleFavorites={handleToggleShowOnlyFavorites}
                     mediaItems={items}
                     onShowResgate={() => handleShowResgate(true)}
+                    onReturnToGallery={handleReturnToGallery}
                   />
               </div>
           </div>

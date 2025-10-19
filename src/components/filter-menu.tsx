@@ -7,7 +7,6 @@ import Image from "next/image"
 import { fairs as allFairs, styles as allStyles, type MediaItem } from "@/lib/media"
 import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { UploadButton } from "./upload-button"
 
 export type Filters = {
   fair: string
@@ -21,11 +20,11 @@ type FilterMenuProps = {
   onFiltersChange: Dispatch<SetStateAction<Filters>>
   columns: 1 | 2 | 3 | 4
   onColumnsChange: Dispatch<SetStateAction<1 | 2 | 3 | 4>>
-  onUpload: (newMedia: MediaItem[]) => void
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
   mediaItems: MediaItem[]
   onShowResgate: () => void;
+  onReturnToGallery: () => void;
 }
 
 export function FilterMenu({
@@ -35,14 +34,15 @@ export function FilterMenu({
   onFiltersChange,
   columns,
   onColumnsChange,
-  onUpload,
   showOnlyFavorites,
   onToggleFavorites,
   mediaItems,
   onShowResgate,
+  onReturnToGallery,
 }: FilterMenuProps) {
 
   const handleFairChange = (fair: string) => {
+    onReturnToGallery();
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       fair: prevFilters.fair === fair ? '' : fair,
@@ -50,14 +50,31 @@ export function FilterMenu({
   }
 
   const handleStyleChange = (style: string) => {
+    onReturnToGallery();
     onFiltersChange((prevFilters) => ({
       ...prevFilters,
       style: prevFilters.style === style ? '' : style,
     }))
   }
 
-  const clearFairs = () => onFiltersChange(prev => ({ ...prev, fair: '' }))
-  const clearStyles = () => onFiltersChange(prev => ({ ...prev, style: '' }))
+  const clearFairs = () => {
+    onReturnToGallery();
+    onFiltersChange(prev => ({ ...prev, fair: '' }))
+  }
+  const clearStyles = () => {
+    onReturnToGallery();
+    onFiltersChange(prev => ({ ...prev, style: '' }))
+  }
+
+  const handleToggleFavorites = () => {
+    onReturnToGallery();
+    onToggleFavorites();
+  }
+
+  const handleColumnsChange = (num: 1 | 2 | 3 | 4) => {
+    onReturnToGallery();
+    onColumnsChange(num);
+  }
 
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
     1: 'grid-cols-1',
@@ -119,7 +136,7 @@ export function FilterMenu({
               </button>
             ))}
           </div>
-          <div className="mt-6">
+           <div className="mt-6">
             <h3 className="font-bold text-xl mb-4 text-left">
               RESGATE SUA <span className="text-accent">GOTA | NFT</span>
             </h3>
@@ -176,7 +193,7 @@ export function FilterMenu({
                   ? 'bg-accent text-accent-foreground' 
                   : 'bg-black hover:bg-accent'
                 )}
-                onClick={() => onColumnsChange(num as 1 | 2 | 3 | 4)}
+                onClick={() => handleColumnsChange(num as 1 | 2 | 3 | 4)}
               >
                 {num}
               </button>
@@ -205,7 +222,7 @@ export function FilterMenu({
         {/* Col 4: Dicas e Apoio */}
         <div className="md:col-span-3">
             <button
-              onClick={onToggleFavorites}
+              onClick={handleToggleFavorites}
               className={cn(
                 'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
                 showOnlyFavorites
