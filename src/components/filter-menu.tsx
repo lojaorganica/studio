@@ -124,7 +124,7 @@ export function FilterMenu({
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
         {/* Col 1: Feiras & Favoritos */}
-        <div className="md:col-span-3 flex flex-col justify-between">
+        <div className="md:col-span-3 flex flex-col">
             <div>
               <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
               <div className="flex flex-col">
@@ -279,5 +279,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
