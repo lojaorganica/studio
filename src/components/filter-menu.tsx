@@ -239,7 +239,7 @@ export function FilterMenu({
               className="cursor-pointer space-y-2"
               onClick={handleShowResgate}
             >
-              <div className="w-[84%]">
+              <div className="w-[84%] transform scale-[1.02]">
                  <Image
                     src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
@@ -270,10 +270,6 @@ export function FilterMenu({
               </div>
            </div>
         </div>
-      </div>
-
-      <div className="mt-8 md:col-span-12 md:self-end text-right">
-        <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
       </div>
     </div>
   )
