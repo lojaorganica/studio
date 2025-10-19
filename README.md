@@ -1,4 +1,4 @@
-# Galeria de Arte Orgânica - Circuito Carioca de Feiras Orgânicas
+# Galeria Orgânica - Circuito Carioca de feiras Orgânicas
 
 Este projeto é uma galeria de arte digital que exibe mais de uma década de trabalho criativo para o "Circuito Carioca de Feiras Orgânicas", desenvolvido pelo deisgner e builder Marcos Melo e apoio da organização Essência Vital.
 
