@@ -328,7 +328,7 @@ export default function Home() {
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
             <div>
-              <ResgateNft />
+              <ResgateNft onClose={handleReturnToGallery} />
             </div>
           ) : (
              <div>

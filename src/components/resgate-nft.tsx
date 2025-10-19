@@ -5,8 +5,13 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import * as React from 'react';
+import { X } from 'lucide-react';
 
-export function ResgateNft() {
+type ResgateNftProps = {
+  onClose: () => void;
+}
+
+export function ResgateNft({ onClose }: ResgateNftProps) {
     const [copySuccess, setCopySuccess] = React.useState('');
     const redemptionCode = "BATATMAN-01";
 
@@ -23,9 +28,16 @@ export function ResgateNft() {
     return (
         <div className="flex flex-col w-full text-foreground pt-14">
             <div className="w-full max-w-4xl mx-auto px-4">
-                <Card className="bg-card/50 border-border/20">
+                <Card className="bg-card/50 border-border/20 relative">
+                    <button 
+                        onClick={onClose} 
+                        className="absolute right-4 top-4 rounded-full p-1.5 bg-accent text-accent-foreground opacity-100 ring-offset-background transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        aria-label="Fechar"
+                    >
+                        <X className="h-5 w-5" />
+                    </button>
                     <CardHeader>
-                        <CardTitle className="text-2xl md:text-3xl font-bold text-accent">Resgate sua Gota | NFT EXCLUSIVA!</CardTitle>
+                        <CardTitle className="text-2xl md:text-3xl font-bold text-accent pr-12">Resgate sua Gota | NFT EXCLUSIVA!</CardTitle>
                         <CardDescription className="text-foreground/80 text-base md:text-lg pt-2">
                            Parabéns! Você encontrou uma Gota colecionável. Corra, porque são apenas 900 NFTs do Batatman. Esse NFT é um ativo digital raro, que pode agregar valor com o tempo e traz, em sua área de benefícios, um desconto especial para a compra de mel orgânico em uma de nossas feiras orgânicas. Siga os passos abaixo para resgatar seu NFT exclusivo.
                         </CardDescription>
