@@ -293,7 +293,7 @@ export default function Home() {
         >
           <div className="pt-6 pb-6">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-                  <h1 className="text-3xl font-bold tracking-wider text-white">GALERIA DE ARTES - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
+                  <h1 className="text-4xl font-bold tracking-wider text-white">GALERIA ORGÂNICA - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
                   <p className="mt-4 text-lg text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -316,7 +316,7 @@ export default function Home() {
         
         <main className="flex-1 overflow-auto">
           {showingResgate ? (
-            <div>
+            <div className="pt-20">
               <ResgateNft />
             </div>
           ) : (
