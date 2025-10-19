@@ -146,10 +146,10 @@ export function MobileMenu({
       </SheetTrigger>
       <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/60 backdrop-blur-sm text-white p-4 overflow-y-auto">
         <div className="mt-8 mb-6 flex items-center gap-3">
-          <Image src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2FLogo_Circuito.png?alt=media&token=9b122ad7-4dbf-46c3-a91c-19b5ff1210ef" alt="Logo Circuito Carioca" width={40} height={40} className="rounded-full" />
+          <Image src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2FLogo_Circuito.png?alt=media&token=9b122ad7-4dbf-46c3-a91c-19b5ff1210ef" alt="Logo Circuito Carioca" width={50} height={50} className="rounded-full" />
           <div>
             <h1 className="text-lg font-bold tracking-wider text-white">GALERIA ORGÂNICA</h1>
-            <span className="block text-sm font-normal tracking-normal">- CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS -</span>
+            <span className="block text-sm font-normal tracking-normal">CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</span>
           </div>
         </div>
         <p className="mb-6 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
@@ -341,5 +341,3 @@ export function MobileMenu({
     </Sheet>
   )
 }
-
-    
