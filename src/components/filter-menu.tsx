@@ -178,24 +178,33 @@ export function FilterMenu({
              <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                    <button
-                      onClick={handleToggleFavorites}
+                  <button
+                    onClick={handleToggleFavorites}
+                    className={cn(
+                      'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
+                      showOnlyFavorites
+                        ? 'bg-accent' // Active state background
+                        : 'bg-transparent hover:bg-yellow-500/20' // Inactive state
+                    )}
+                  >
+                    <span className="text-white">MEUS</span>
+                    <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>
+                      FAVORITOS
+                    </span>
+                    <Star
                       className={cn(
-                          'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
-                          showOnlyFavorites
-                          ? 'bg-amber-600 text-white'
-                          : 'bg-transparent hover:bg-yellow-500/20'
+                        'w-5 h-5 ml-2',
+                        showOnlyFavorites
+                          ? 'text-amber-600 fill-amber-600' // Active star color
+                          : 'text-accent fill-transparent' // Inactive star color
                       )}
-                    >
-                      <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
-                      <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
-                      <Star className={cn("w-5 h-5 ml-2", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-transparent")} />
-                    </button>
+                    />
+                  </button>
                 </TooltipTrigger>
                 {favoritedIds.size === 0 && !showOnlyFavorites && (
-                    <TooltipContent side="bottom" className="bg-black text-white border-accent">
-                        <p>Sua galeria de favoritos está vazia.<br/>Escolha algumas artes!</p>
-                    </TooltipContent>
+                  <TooltipContent side="bottom" className="bg-black text-white border-accent">
+                    <p>Sua galeria de favoritos está vazia.<br/>Escolha algumas artes!</p>
+                  </TooltipContent>
                 )}
               </Tooltip>
             </TooltipProvider>
@@ -285,3 +294,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
