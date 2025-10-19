@@ -117,7 +117,7 @@ export function FilterMenu({
     <div className="text-white pt-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
 
-        {/* Col 1: Feiras & NFT */}
+        {/* Col 1: Feiras & Favoritos */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
           <div className="flex flex-col">
@@ -136,26 +136,19 @@ export function FilterMenu({
               </button>
             ))}
           </div>
-           <div className="mt-6">
-            <h3 className="font-bold text-xl mb-4 text-left">
-              RESGATE SUA <span className="text-accent">GOTA | NFT</span>
-            </h3>
-            <div 
-              className="cursor-pointer"
-              onClick={onShowResgate}
+          <div className="mt-6">
+             <button
+              onClick={handleToggleFavorites}
+              className={cn(
+                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
+                showOnlyFavorites
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
+              )}
             >
-              <div className="flex flex-col items-start gap-3">
-                <div className="w-3/4 flex-shrink-0">
-                  <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                    alt="NFT Batatman"
-                    width={250}
-                    height={250}
-                    className="rounded-md object-cover w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
+              <Star className="w-5 h-5 mr-2" />
+              <span className="font-bold">FAVORITOS</span>
+            </button>
           </div>
         </div>
 
@@ -216,33 +209,28 @@ export function FilterMenu({
           </div>
         </div>
 
-        {/* Col 4: Dicas e Apoio */}
+        {/* Col 4: NFT e Apoio */}
         <div className="md:col-span-3">
-            <button
-              onClick={handleToggleFavorites}
-              className={cn(
-                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
-                showOnlyFavorites
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
-              )}
+           <h3 className="font-bold text-xl mb-4 text-left">
+              RESGATE SUA <span className="text-accent">GOTA | NFT</span>
+            </h3>
+            <div 
+              className="cursor-pointer"
+              onClick={onShowResgate}
             >
-              <Star className="w-5 h-5 mr-2" />
-              <span className="font-bold">FAVORITOS</span>
-            </button>
-            
-           <div className="mb-4">
-              <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
-              <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-                <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
-                <li>Arraste e solte as imagens e vídeos para organizar</li>
-                <li>Faça downloads</li>
-                <li>Escolha favoritos</li>
-                <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
-              </ul>
-           </div>
-
-           <div>
+              <div className="flex flex-col items-start gap-2">
+                <div className="w-3/4 flex-shrink-0">
+                  <Image
+                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                    alt="NFT Batatman"
+                    width={250}
+                    height={250}
+                    className="rounded-md object-cover w-full h-auto"
+                  />
+                </div>
+              </div>
+            </div>
+           <div className="mt-6">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
               <p className="text-sm text-gray-300 mb-2 space-y-1">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
@@ -259,6 +247,21 @@ export function FilterMenu({
               </div>
            </div>
         </div>
+
+        {/* Dicas Section spanning 2 columns */}
+        <div className="md:col-span-6 mt-8">
+           <div className="p-4 rounded-lg bg-black/50">
+              <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
+              <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
+                <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
+                <li>Arraste e solte as imagens e vídeos para organizar</li>
+                <li>Faça downloads</li>
+                <li>Escolha favoritos</li>
+                <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
+              </ul>
+           </div>
+        </div>
+
       </div>
       <div className="mt-4 text-right">
         <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
@@ -266,3 +269,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
