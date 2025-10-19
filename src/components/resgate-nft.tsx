@@ -25,9 +25,10 @@ export function ResgateNft() {
             <div className="w-full max-w-4xl mx-auto px-4">
                 <Card className="bg-card/50 border-border/20">
                     <CardHeader>
-                        <CardTitle className="text-2xl md:text-3xl font-bold text-accent">Resgate sua Gota | NFT Exclusiva!</CardTitle>
-                        <CardDescription className="text-foreground/80 text-base md:text-lg">
-                            Parabéns! Você encontrou uma Gota colecionável. Siga os passos abaixo para resgatar seu NFT exclusivo.
+                        <CardTitle className="text-2xl md:text-3xl font-bold text-accent">Resgate sua Gota | NFT EXCLUSIVA!</CardTitle>
+                        <CardDescription className="text-foreground/80 text-base md:text-lg space-y-2">
+                            <p>Parabéns! Você encontrou uma Gota colecionável.</p>
+                            <p>Existirão somente 900 gotas do Batatman, então corra para garantir a sua. Ah! Seu NFT, além de se valorizar ($$) com o tempo, traz - na área de benefícios - um desconto para a compra de mel orgânico em uma de nossas feiras orgânicas.</p>
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -48,10 +49,10 @@ export function ResgateNft() {
                                 1. Acesse o site <a href="https://gotas.com" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-accent/80">gotas.com</a>.
                             </p>
                             <p>
-                                2. Procure a seção de resgate de Gotas ou NFTs.
+                                2. Faça seu cadastro/login com seu e-mail do Google, Apple ou carteira Metamask.
                             </p>
                             <p>
-                                3. Quando solicitado, insira o código abaixo para validar seu resgate:
+                                3. Insira o código abaixo para validar o resgate de sua gotinha (NFT) do Batatman:
                             </p>
                             
                             <div 
