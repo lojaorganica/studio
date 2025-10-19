@@ -223,7 +223,7 @@ export function FilterMenu({
             className="cursor-pointer space-y-2"
             onClick={handleShowResgate}
           >
-            <div className="w-3/4">
+             <div className="w-[85%]">
               <Image
                   src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                   alt="NFT Batatman"
@@ -232,9 +232,12 @@ export function FilterMenu({
                   className="rounded-md object-cover w-full h-auto"
               />
             </div>
+            <p className="text-sm text-gray-300">
+                Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
+            </p>
           </div>
           <div className="mt-6">
-              <h3 className="font-bold text-xl mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
+              <h3 className="font-bold text-xl mb-2"><span className="text-white">APOIE ESSE</span> <span className="text-accent">PROJETO</span></h3>
               <p className="text-sm text-gray-300 mb-2 space-y-1">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
