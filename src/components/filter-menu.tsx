@@ -141,8 +141,8 @@ export function FilterMenu({
               </button>
             ))}
           </div>
-           <div className="mt-6">
-             <button
+          <div className="mt-6">
+            <button
               onClick={handleToggleFavorites}
               className={cn(
                 'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
@@ -251,8 +251,11 @@ export function FilterMenu({
            </div>
         </div>
 
-        {/* Dicas Section spanning 2 columns */}
-        <div className="md:col-span-6 mt-8">
+      </div>
+
+      {/* Dicas Section and Footer */}
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div className="md:col-span-6">
            <div className="p-4 rounded-lg bg-black/50">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
@@ -264,10 +267,9 @@ export function FilterMenu({
               </ul>
            </div>
         </div>
-
-      </div>
-      <div className="mt-4 text-right">
-        <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
+        <div className="md:col-span-6 md:self-end text-right">
+          <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
+        </div>
       </div>
     </div>
   )
