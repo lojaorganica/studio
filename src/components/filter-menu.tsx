@@ -118,28 +118,6 @@ export function FilterMenu({
                 {fair}
               </button>
             ))}
-             <div 
-                className="mt-4 p-2 rounded-lg bg-black/50 hover:bg-black/80 cursor-pointer transition-colors border border-accent/30 hover:border-accent"
-                onClick={onShowResgate}
-              >
-                <h3 className="font-bold text-lg mb-2 text-center">
-                  <span className="text-accent">RESGATE SUA GOTA | NFT</span>
-                </h3>
-                <div className="flex items-center gap-3">
-                  <div className="w-1/3 flex-shrink-0">
-                    <Image
-                      src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                      alt="NFT Batatman"
-                      width={100}
-                      height={100}
-                      className="rounded-md object-cover w-full h-auto"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-300">
-                    Parabéns! Você encontrou uma Gota. Clique aqui e siga os passos para resgatar seu NFT exclusivo.
-                  </p>
-                </div>
-              </div>
           </div>
         </div>
 
@@ -214,6 +192,31 @@ export function FilterMenu({
               <Star className="w-5 h-5 mr-2" />
               <span className="font-bold">FAVORITOS</span>
             </button>
+            
+            <div className="mb-4">
+                <h3 className="font-bold text-xl mb-4 text-left">
+                  RESGATE SUA <span className="text-accent">GOTA | NFT</span>
+                </h3>
+                <div 
+                  className="p-2 rounded-lg bg-black/50 hover:bg-black/80 cursor-pointer transition-colors border border-accent/30 hover:border-accent"
+                  onClick={onShowResgate}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-1/3 flex-shrink-0">
+                      <Image
+                        src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                        alt="NFT Batatman"
+                        width={100}
+                        height={100}
+                        className="rounded-md object-cover w-full h-auto"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-300">
+                      Parabéns! Você encontrou uma Gota. Clique aqui e siga os passos para resgatar seu NFT exclusivo.
+                    </p>
+                  </div>
+                </div>
+            </div>
            
            <div className="mb-4">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
@@ -250,5 +253,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
