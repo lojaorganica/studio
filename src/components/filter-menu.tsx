@@ -121,7 +121,7 @@ export function FilterMenu({
   return (
     <div className="text-white pt-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-
+        
         {/* Col 1: Feiras & Favoritos */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
@@ -252,7 +252,7 @@ export function FilterMenu({
         </div>
 
         {/* Dicas Section spanning 2 columns */}
-        <div className="md:col-span-6">
+        <div className="md:col-span-6 mt-8">
            <div className="p-4 rounded-lg bg-black/50">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
