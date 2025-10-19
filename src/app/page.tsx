@@ -95,6 +95,7 @@ export default function Home() {
   };
   
   const handleToggleShowOnlyFavorites = () => {
+    if (favoritedIds.size === 0 && !showOnlyFavorites) return;
     handleReturnToGallery();
     setShowOnlyFavorites(prev => !prev);
   };

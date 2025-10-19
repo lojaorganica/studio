@@ -145,13 +145,14 @@ export function MobileMenu({
         {children}
       </SheetTrigger>
       <SheetContent side="left" className="w-[85vw] max-w-sm bg-black/60 backdrop-blur-sm text-white p-4 overflow-y-auto">
-        <div className="mt-8 mb-6">
-           <h1 className="text-lg font-bold tracking-wider text-white">
-            GALERIA DE ARTES DIGITAIS
-            <span className="block text-sm font-normal tracking-normal mt-1">- CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS -</span>
-          </h1>
-          <p className="mt-2 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
+        <div className="mt-8 mb-6 flex items-center gap-3">
+          <Image src="https://placehold.co/40x40/1a1a1a/ffffff?text=L" alt="Logo Circuito Carioca" width={40} height={40} className="rounded-full" />
+          <div>
+            <h1 className="text-lg font-bold tracking-wider text-white">GALERIA ORGÂNICA</h1>
+            <span className="block text-sm font-normal tracking-normal">- CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS -</span>
+          </div>
         </div>
+        <p className="mb-6 text-xs text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
 
         <Accordion key={accordionKey} type="single" collapsible className="w-full">
 
