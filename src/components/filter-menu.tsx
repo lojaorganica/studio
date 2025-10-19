@@ -136,7 +136,7 @@ export function FilterMenu({
               </button>
             ))}
           </div>
-          <div className="mt-6">
+           <div className="mt-6">
              <button
               onClick={handleToggleFavorites}
               className={cn(
@@ -211,31 +211,29 @@ export function FilterMenu({
 
         {/* Col 4: NFT e Apoio */}
         <div className="md:col-span-3">
-           <h3 className="font-bold text-xl mb-4 text-left">
-              RESGATE SUA <span className="text-accent">GOTA | NFT</span>
-            </h3>
-            <div 
-              className="cursor-pointer"
-              onClick={onShowResgate}
-            >
-              <div className="flex flex-col items-start gap-2">
-                <div className="w-3/4 flex-shrink-0">
-                  <Image
+          <h3 className="font-bold text-xl mb-4 text-left">
+            <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
+          </h3>
+          <div 
+            className="cursor-pointer"
+            onClick={onShowResgate}
+          >
+            <div className="w-3/4">
+                <Image
                     src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
                     width={250}
                     height={250}
                     className="rounded-md object-cover w-full h-auto"
-                  />
-                </div>
-              </div>
+                />
             </div>
-           <div className="mt-6">
+          </div>
+          <div className="mt-6">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">APOIE ESSE PROJETO</span></h3>
               <p className="text-sm text-gray-300 mb-2 space-y-1">
                 Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
               </p>
-               <div 
+              <div 
                 className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
                 onClick={handleCopy}
               >
@@ -249,7 +247,7 @@ export function FilterMenu({
         </div>
 
         {/* Dicas Section spanning 2 columns */}
-        <div className="md:col-span-6 mt-8">
+        <div className="md:col-span-6">
            <div className="p-4 rounded-lg bg-black/50">
               <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
@@ -269,5 +267,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
