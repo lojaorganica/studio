@@ -21,13 +21,13 @@ export function ResgateNft() {
     };
 
     return (
-        <div className="flex flex-col w-full text-foreground pt-8 md:pt-12">
+        <div className="flex flex-col w-full text-foreground pt-2 md:pt-4">
             <div className="w-full max-w-4xl mx-auto px-4">
                 <Card className="bg-card/50 border-border/20">
                     <CardHeader>
                         <CardTitle className="text-2xl md:text-3xl font-bold text-accent">Resgate sua Gota | NFT EXCLUSIVA!</CardTitle>
                         <CardDescription className="text-foreground/80 text-base md:text-lg pt-2">
-                           Parabéns! Você encontrou uma Gota colecionável. Então corra porque são apenas 900 NFTs do Batatman, ativos digitais que vão valorizar com o tempo, trazem - na área de benefícios - um desconto para a compra de mel orgânico em uma de nossas feiras orgânicas. Siga os passos abaixo para resgatar seu NFT exclusivo.
+                           Parabéns! Você encontrou uma Gota colecionável. Então corra porque são apenas 900 NFTs do Batatman, ativos digitais que vão valorizar com o tempo e trazem - na área de benefícios - um desconto para a compra de mel orgânico em uma de nossas feiras orgânicas. Siga os passos abaixo para resgatar seu NFT exclusivo.
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
