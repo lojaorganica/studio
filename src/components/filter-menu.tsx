@@ -120,6 +120,7 @@ export function FilterMenu({
 
   return (
     <div className="text-white pt-8">
+      {/* Top 4 columns */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         
         {/* Col 1: Feiras & Favoritos */}
@@ -142,7 +143,7 @@ export function FilterMenu({
             ))}
           </div>
           <div className="mt-6">
-            <button
+             <button
               onClick={handleToggleFavorites}
               className={cn(
                 'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
@@ -225,14 +226,14 @@ export function FilterMenu({
           >
              <div className="w-[85%]">
               <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o%2Fnft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                   alt="NFT Batatman"
                   width={250}
                   height={250}
                   className="rounded-md object-cover w-full h-auto"
               />
             </div>
-            <p className="text-sm text-gray-300">
+             <p className="text-sm text-gray-300">
                 Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
             </p>
           </div>
@@ -260,7 +261,7 @@ export function FilterMenu({
       <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="md:col-span-6">
            <div className="p-4 rounded-lg bg-black/50">
-              <h3 className="font-bold text-xl mb-2"><span className="text-accent">DICAS</span></h3>
+              <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
               <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                 <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
                 <li>Arraste e solte as imagens e vídeos para organizar</li>
@@ -277,3 +278,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
