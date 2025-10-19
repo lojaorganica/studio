@@ -146,12 +146,12 @@ export function FilterMenu({
               ))}
             </div>
           </div>
-            <div className="space-y-2 pt-4">
-               <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-               <p className="text-xs text-gray-300 leading-relaxed">
-                  <span className="text-accent font-bold mx-1.5">•</span>Pesquise as artes digitais com a combinação dos botões das feiras, estilos e colunas<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span><span className="whitespace-nowrap">Escolha favoritos</span><span className="text-accent font-bold mx-1.5">•</span>Compartilhe e poste as artes em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou compre seus orgânicos em nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
-              </p>
-            </div>
+          <div className="space-y-2 pt-4">
+            <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
+            <p className="text-xs text-gray-300 leading-relaxed">
+              <span className="text-accent font-bold mx-1.5">•</span>Pesquise as artes digitais com a combinação dos botões das feiras, estilos e colunas<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span><span className="whitespace-nowrap">Escolha favoritos</span><span className="text-accent font-bold mx-1.5">•</span>Compartilhe e poste as artes em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou compre seus orgânicos em nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
+            </p>
+          </div>
         </div>
 
         {/* Col 2: Estilos e Favoritos */}
@@ -178,17 +178,18 @@ export function FilterMenu({
               <Tooltip>
                 <TooltipTrigger asChild>
                     <button
-                    onClick={handleToggleFavorites}
-                    className={cn(
-                        'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
-                        showOnlyFavorites
-                        ? 'bg-amber-600 text-white'
-                        : 'bg-transparent hover:bg-yellow-500/20'
-                    )}
+                      onClick={handleToggleFavorites}
+                      disabled={favoritedIds.size === 0}
+                      className={cn(
+                          'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+                          showOnlyFavorites
+                          ? 'bg-amber-600 text-white'
+                          : 'bg-transparent hover:bg-yellow-500/20'
+                      )}
                     >
-                    <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
-                    <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
-                    <Star className={cn("w-5 h-5 ml-2", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-transparent")} />
+                      <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
+                      <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
+                      <Star className={cn("w-5 h-5 ml-2", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-transparent")} />
                     </button>
                 </TooltipTrigger>
                 {favoritedIds.size === 0 && !showOnlyFavorites && (
@@ -284,5 +285,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
