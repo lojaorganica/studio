@@ -175,18 +175,19 @@ export function FilterMenu({
             ))}
           </div>
           <div className="pt-4">
-            <button
-              onClick={handleToggleFavorites}
-              className={cn(
-                'w-full p-2 text-xl flex items-center justify-center border-0',
-                showOnlyFavorites
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
-              )}
-            >
-              <Star className="w-5 h-5 mr-2" />
-              <span className="font-bold">FAVORITOS</span>
-            </button>
+              <button
+                onClick={handleToggleFavorites}
+                className={cn(
+                  'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
+                  showOnlyFavorites
+                    ? 'bg-yellow-500 text-white'
+                    : 'bg-transparent hover:bg-yellow-500/20'
+                )}
+              >
+                <span className={cn(showOnlyFavorites ? 'text-white' : 'text-white')}>MEUS</span>
+                <span className={cn('mx-2', showOnlyFavorites ? 'text-white' : 'text-accent')}>FAVORITOS</span>
+                <Star className={cn("w-5 h-5", showOnlyFavorites ? "text-white fill-white" : "text-accent fill-accent")} />
+              </button>
           </div>
         </div>
         
@@ -238,9 +239,9 @@ export function FilterMenu({
               className="cursor-pointer space-y-2"
               onClick={handleShowResgate}
             >
-              <div className="w-[82%]">
-                <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o%2Fnft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+              <div className="w-[84%]">
+                 <Image
+                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
                     width={250}
                     height={250}
@@ -277,5 +278,3 @@ export function FilterMenu({
     </div>
   )
 }
-
-    
