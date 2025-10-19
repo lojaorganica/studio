@@ -23,7 +23,7 @@ type FilterMenuProps = {
   showOnlyFavorites: boolean
   onToggleFavorites: () => void
   mediaItems: MediaItem[]
-  onShowResgate: () => void;
+  onShowResgate: (show: boolean) => void;
   onReturnToGallery: () => void;
 }
 
@@ -75,6 +75,11 @@ export function FilterMenu({
     onReturnToGallery();
     onColumnsChange(num);
   }
+  
+  const handleShowResgate = () => {
+    onShowResgate(true);
+  }
+
 
   const columnGridClasses: Record<1 | 2 | 3 | 4, string> = {
     1: 'grid-cols-1',
@@ -97,7 +102,7 @@ export function FilterMenu({
       alt: item.alt,
       type: item.type
     }));
-  }, [columns, mediaItems]);
+  }, [columns, mediaItems, columnPreviewsCount]);
 
   const [copySuccess, setCopySuccess] = React.useState('');
   const btcAddress = "bc1qruelzl38as900axknvhkjaug0mv9s7jhmxhfzj";
@@ -170,7 +175,7 @@ export function FilterMenu({
             </button>
           ))}
         </div>
-
+        
         {/* Col 3: Colunas */}
         <div className="md:col-span-3">
           <h3 className="font-bold text-xl mb-4">ESCOLHA O <span className="text-accent">N° DE COLUNAS</span></h3>
@@ -215,17 +220,17 @@ export function FilterMenu({
             <span className="text-white">RESGATE SUA</span> <span className="text-accent">GOTA | NFT</span>
           </h3>
           <div 
-            className="cursor-pointer"
-            onClick={onShowResgate}
+            className="cursor-pointer space-y-2"
+            onClick={handleShowResgate}
           >
             <div className="w-3/4">
-                <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
-                    alt="NFT Batatman"
-                    width={250}
-                    height={250}
-                    className="rounded-md object-cover w-full h-auto"
-                />
+              <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                  alt="NFT Batatman"
+                  width={250}
+                  height={250}
+                  className="rounded-md object-cover w-full h-auto"
+              />
             </div>
           </div>
           <div className="mt-6">
