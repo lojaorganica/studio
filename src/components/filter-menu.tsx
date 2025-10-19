@@ -71,6 +71,7 @@ export function FilterMenu({
   }
 
   const handleToggleFavorites = () => {
+    if (favoritedIds.size === 0 && !showOnlyFavorites) return;
     onReturnToGallery();
     onToggleFavorites();
   }
@@ -179,9 +180,8 @@ export function FilterMenu({
                 <TooltipTrigger asChild>
                     <button
                       onClick={handleToggleFavorites}
-                      disabled={favoritedIds.size === 0}
                       className={cn(
-                          'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+                          'w-full p-2 text-xl flex items-center justify-center border-0 font-bold transition-colors',
                           showOnlyFavorites
                           ? 'bg-amber-600 text-white'
                           : 'bg-transparent hover:bg-yellow-500/20'
