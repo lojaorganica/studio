@@ -62,7 +62,7 @@ export function FilterMenu({
     onFiltersChange(prev => ({ ...prev, fair: '' }))
   }
   const clearStyles = () => {
-    onReturnTogallery();
+    onReturnToGallery();
     onFiltersChange(prev => ({ ...prev, style: '' }))
   }
 
@@ -143,7 +143,7 @@ export function FilterMenu({
               ))}
             </div>
           </div>
-          <div className="p-4 rounded-lg bg-black/50">
+          <div>
             <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
               <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
@@ -240,7 +240,7 @@ export function FilterMenu({
             >
               <div className="w-[82%]">
                 <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/nft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
+                    src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o%2Fnft_gotas%2FNFT%2001%20-%20Batatman.webp?alt=media&token=06fb6126-ab32-4a2a-8761-b9278f769956"
                     alt="NFT Batatman"
                     width={250}
                     height={250}
@@ -277,3 +277,5 @@ export function FilterMenu({
     </div>
   )
 }
+
+    
