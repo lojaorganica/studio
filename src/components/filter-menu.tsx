@@ -62,7 +62,7 @@ export function FilterMenu({
     onFiltersChange(prev => ({ ...prev, fair: '' }))
   }
   const clearStyles = () => {
-    onReturnTo-gallery();
+    onReturnToGallery();
     onFiltersChange(prev => ({ ...prev, style: '' }))
   }
 
@@ -144,7 +144,7 @@ export function FilterMenu({
           </div>
           <div className="space-y-2 pt-4">
             <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-             <p className="text-sm text-gray-300 leading-relaxed">
+             <p className="text-xs text-gray-300 leading-relaxed">
                   <span className="text-accent font-bold mx-1.5">•</span>Pesquise as artes digitais com a combinação dos botões das feiras, estilos e colunas<span className="text-accent font-bold mx-1.5">•</span>Arraste e solte as imagens e vídeos para organizar<span className="text-accent font-bold mx-1.5">•</span>Escolha favoritos<span className="text-accent font-bold mx-1.5">•</span>Compartilhe e poste as artes em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares<span className="text-accent font-bold mx-1.5">•</span>Faça uma doação para o projeto<span className="text-accent font-bold mx-1.5">•</span>Frequente as feiras orgânicas ou compre seus orgânicos em nosso app Minha Feira<span className="text-accent font-bold mx-1.5">•</span>Conheça nosso <a href="https://www.facebook.com/feirasorganicas" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Facebook</a>
               </p>
           </div>
@@ -251,7 +251,7 @@ export function FilterMenu({
             <div className="mt-6">
                 <h3 className="font-bold text-xl mb-2"><span className="text-white">APOIE ESSE</span> <span className="text-accent">PROJETO</span></h3>
                 <p className="text-sm text-gray-300 mb-2 space-y-1">
-                    Não aceitamos recursos públicos em nosso apoio às famílias de agricultores orgânicos. Por isso, sua doação espontânea — mesmo que pequena — é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
+                    Sua doação espontânea é essencial para manter e desenvolver esse projeto. Contribua com alguns satoshis de BTC para o endereço abaixo. Muito obrigado!
                 </p>
                 <div 
                     className="bg-gray-800 p-2 text-center cursor-pointer hover:bg-gray-700"
