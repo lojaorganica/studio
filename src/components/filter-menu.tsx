@@ -120,35 +120,34 @@ export function FilterMenu({
 
   return (
     <div className="text-white pt-8">
-      {/* Top 4 columns wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         
-        {/* Col 1: Feiras & Favoritos */}
-        <div className="md:col-span-3 flex flex-col">
-            <div>
-              <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
-              <div className="flex flex-col">
-                <button 
-                  onClick={clearFairs}
-                  className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
-                  Todas as Feiras
+        {/* Col 1: Feiras, Favoritos e Dicas */}
+        <div className="md:col-span-3 flex flex-col space-y-8">
+          <div>
+            <h3 className="font-bold text-xl mb-4">ESCOLHA AS <span className="text-accent">FEIRAS</span></h3>
+            <div className="flex flex-col">
+              <button 
+                onClick={clearFairs}
+                className={`w-full text-left p-2 text-xl hover:bg-accent ${!filters.fair ? 'bg-accent text-accent-foreground' : ''}`}>
+                Todas as Feiras
+              </button>
+              {fairs.map((fair) => (
+                <button
+                  key={fair}
+                  onClick={() => handleFairChange(fair)}
+                  className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
+                >
+                  {fair}
                 </button>
-                {fairs.map((fair) => (
-                  <button
-                    key={fair}
-                    onClick={() => handleFairChange(fair)}
-                    className={`w-full text-left p-2 text-xl hover:bg-accent ${filters.fair === fair ? 'bg-accent text-accent-foreground' : ''}`}
-                  >
-                    {fair}
-                  </button>
-                ))}
-              </div>
+              ))}
             </div>
-             <div className="mt-8">
-             <button
+          </div>
+          <div>
+            <button
               onClick={handleToggleFavorites}
               className={cn(
-                'w-full p-2 text-xl flex items-center justify-center mb-4 border-0',
+                'w-full p-2 text-xl flex items-center justify-center border-0',
                 showOnlyFavorites
                   ? 'bg-accent text-accent-foreground'
                   : 'text-yellow-400 hover:bg-accent hover:text-accent-foreground'
@@ -157,6 +156,16 @@ export function FilterMenu({
               <Star className="w-5 h-5 mr-2" />
               <span className="font-bold">FAVORITOS</span>
             </button>
+          </div>
+          <div className="p-4 rounded-lg bg-black/50">
+            <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
+            <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
+              <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
+              <li>Arraste e solte as imagens e vídeos para organizar</li>
+              <li>Faça downloads</li>
+              <li>Escolha favoritos</li>
+              <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
+            </ul>
           </div>
         </div>
 
@@ -235,7 +244,7 @@ export function FilterMenu({
                   className="rounded-md object-cover w-full h-auto"
               />
             </div>
-            <p className="text-sm text-gray-300">
+             <p className="text-sm text-gray-300">
                 Parabéns! Você encontrou uma Gota colecionável. Siga os passos para resgatar.
             </p>
           </div>
@@ -258,21 +267,8 @@ export function FilterMenu({
         </div>
       </div>
 
-      {/* Dicas Section and Footer */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
-        <div className="md:col-span-6">
-           <div className="p-4 rounded-lg bg-black/50">
-              <h3 className="font-bold text-xl mb-2"><span className="text-white">ALGUMAS</span> <span className="text-accent">DICAS</span></h3>
-              <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-                <li>Pesquise artes por feiras e estilos com a combinação de botões</li>
-                <li>Arraste e solte as imagens e vídeos para organizar</li>
-                <li>Faça downloads</li>
-                <li>Escolha favoritos</li>
-                <li>Compartilhe em suas redes para ajudar na divulgação das feiras orgânicas e fortalecer nossos agricultores familiares</li>
-              </ul>
-           </div>
-        </div>
-        <div className="md:col-span-6 md:self-end text-right">
+      <div className="mt-8 grid grid-cols-1">
+        <div className="md:col-span-12 md:self-end text-right">
           <p className="text-xs text-gray-400">Powered by Marcos Melo | Essência Vital</p>
         </div>
       </div>
