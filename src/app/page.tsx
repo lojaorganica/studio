@@ -187,7 +187,7 @@ export default function Home() {
                     isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
                     break;
                 case 'story':
-                     isStyleMatch = filename.includes('story') || (styleKeyword === 'story' && filename.includes('fot')) || (styleKeyword === 'story' && filename.includes('cartoon'));
+                     isStyleMatch = filename.includes('story');
                     break;
                 case 'cartoon':
                     isStyleMatch = filename.includes('cartoon');
@@ -202,13 +202,7 @@ export default function Home() {
         
         // If a fair is selected (and it's not Fla/Laranjeiras), we might need to include generic stories.
         if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
-            // Case 1: "Todos os Estilos" is selected. Show all items for the fair + all generic stories.
-            if (!filters.style) {
-                return isFairMatch || isGenericStory;
-            }
-            // Case 2: A specific style ("Cartoon" or "Fotografia") is selected.
-            // Show items that match the fair AND style, OR are generic stories that ALSO match the style.
-            const isGenericStoryOfStyle = isGenericStory && filename.includes(styleKeyword!);
+            const isGenericStoryOfStyle = isGenericStory && (isStyleMatch || !styleKeyword) ;
             return (isFairMatch && isStyleMatch) || isGenericStoryOfStyle;
         }
 
@@ -318,7 +312,7 @@ export default function Home() {
           <div className="pt-6 pb-6">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
                   <h1 className="text-4xl font-bold tracking-wider text-white">GALERIA ORGÂNICA - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-                  <p className="mt-4 text-lg text-gray-300">A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores. O objetivo é permitir que milhares de clientes — e também os próprios agricultores — tenham acesso rápido, engajem e compartilhem as artes em suas redes a qualquer hora e de qualquer lugar. Dessa forma, o projeto fortalece a divulgação das feiras orgânicas de maneira colaborativa e descentralizada, amplia sua visibilidade e reduz a dependência de estruturas centralizadas, etapas intermediárias e custos elevados.</p>
+                  <p className="mt-4 text-lg text-gray-300">Aqui você encontra todas as artes digitais produzidas com apoio da organização Essência Vital, ao longo de mais de uma década, para a comunicação, propaganda e marketing das feiras orgânicas do Circuito Carioca e apoio às famílias de seus agricultores.</p>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <FilterMenu
