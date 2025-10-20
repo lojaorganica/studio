@@ -173,6 +173,7 @@ export default function Home() {
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
 
+        // No filters applied, show all
         if (!filters.fair && !filters.style) {
             return true;
         }
@@ -180,9 +181,20 @@ export default function Home() {
         const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
+        // If a fair is selected (but not Fla/Laranjeiras) and style is "All Styles"
+        if (filters.fair && !filters.style && filters.fair !== 'Flamengo e Laranjeiras') {
+            const isFairMatch = filename.includes(fairKeyword!);
+            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
+            return isFairMatch || isGenericStory;
+        }
+
+        // This specific rule handles "Story" style for fairs other than Fla/Laranjeiras,
+        // to include the generic stories
         if (styleKeyword === 'story' && filters.fair) {
             if (filters.fair !== 'Flamengo e Laranjeiras') {
-                return filename.includes('story') && filename.includes('todas_feiras');
+                const isFairStory = filename.includes(fairKeyword!) && filename.includes('story');
+                const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
+                return isFairStory || isGenericStory;
             }
         }
         
