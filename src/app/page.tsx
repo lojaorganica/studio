@@ -146,11 +146,11 @@ export default function Home() {
 
   const filteredItems = React.useMemo(() => {
     const fairKeywords: { [key: string]: string } = {
-      'Tijuca': 'tijuca',
-      'Grajaú': 'grajau',
-      'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
-      'Botafogo': 'botafogo',
-      'Leme': 'leme',
+        'Tijuca': 'tijuca',
+        'Grajaú': 'grajau',
+        'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
+        'Botafogo': 'botafogo',
+        'Leme': 'leme',
     };
 
     const styleKeywords: { [key: string]: string } = {
@@ -173,36 +173,47 @@ export default function Home() {
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
 
-        // If no style is selected, include generic stories for relevant fairs
-        if (filters.fair && !filters.style && filters.fair !== 'Flamengo e Laranjeiras') {
-            const fairKeyword = fairKeywords[filters.fair];
-            const isFairMatch = filename.includes(fairKeyword!);
-            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-            return isFairMatch || isGenericStory;
-        }
+        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
+        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
-        let fairFilterPassed = !filters.fair;
-        if (filters.fair) {
-            fairFilterPassed = filename.includes(fairKeywords[filters.fair]);
-        }
+        const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
+        const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
 
-        let styleFilterPassed = !filters.style;
-        if (filters.style) {
-            const styleKeyword = styleKeywords[filters.style];
-            if (styleKeyword === 'ap_') {
-                 styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-            } else if (styleKeyword === 'story') {
-                 styleFilterPassed = filename.includes('story');
-            } else if (styleKeyword === 'cartoon') {
-                 styleFilterPassed = filename.includes('cartoon');
-            } else if (styleKeyword === 'fot') {
-                 styleFilterPassed = filename.includes('fot');
-            } else {
-                styleFilterPassed = filename.includes(styleKeyword);
+        // Logic for style matching
+        let isStyleMatch = !styleKeyword;
+        if (styleKeyword) {
+            switch (styleKeyword) {
+                case 'ap_':
+                    isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+                    break;
+                case 'story':
+                    isStyleMatch = filename.includes('story');
+                    break;
+                case 'cartoon':
+                    isStyleMatch = filename.includes('cartoon');
+                    break;
+                case 'fot':
+                    isStyleMatch = filename.includes('fot');
+                    break;
+                default:
+                    isStyleMatch = filename.includes(styleKeyword);
             }
         }
+        
+        // If a fair is selected (and it's not Fla/Laranjeiras), we might need to include generic stories.
+        if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
+            // Case 1: "Todos os Estilos" is selected. Show all items for the fair + all generic stories.
+            if (!filters.style) {
+                return isFairMatch || isGenericStory;
+            }
+            // Case 2: A specific style ("Cartoon" or "Fotografia") is selected.
+            // Show items that match the fair AND style, OR are generic stories that ALSO match the style.
+            const isGenericStoryOfStyle = isGenericStory && filename.includes(styleKeyword!);
+            return (isFairMatch && isStyleMatch) || isGenericStoryOfStyle;
+        }
 
-        return fairFilterPassed && styleFilterPassed;
+        // Default behavior for "Todas as Feiras" or "Flamengo e Laranjeiras"
+        return isFairMatch && isStyleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
   
