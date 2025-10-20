@@ -150,7 +150,7 @@ export function MobileMenu({
           <div className="mt-8 mb-6 flex items-center gap-3">
             <Image src="https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/documentacoes_circuito%2FLogo_Circuito.png?alt=media&token=9b122ad7-4dbf-46c3-a91c-19b5ff1210ef" alt="Logo Circuito Carioca" width={75} height={75} className="rounded-full" />
             <div>
-              <h1 className="text-2xl font-bold tracking-wider text-white">GALERIA ORGÂNICA</h1>
+              <h1 className="text-xl font-bold tracking-wider text-white">GALERIA ORGÂNICA</h1>
               <span className="block text-[9px] font-normal tracking-normal">CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</span>
             </div>
           </div>
