@@ -186,5 +186,5 @@ export const allMedia: MediaItem[] = [
   { id: 'tijuca-81', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_98_feira_tijuca.png?alt=media&token=4ddc1ed9-63a7-4f47-9746-08ccdc1ac6b0', type: 'image', alt: 'fot_98_feira_tijuca', author: 'Essência Vital', fair: 'Tijuca', style: 'Fotografia' },
 ]
 
-export const fairs = [...new Set(allMedia.map((item) => item.fair))]
+export const fairs = [...new Set(allMedia.map((item) => item.fair))].sort((a, b) => a.localeCompare(b));
 export const styles = [...new Set(allMedia.map((item) => item.style))].sort((a, b) => a.localeCompare(b));
