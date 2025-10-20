@@ -208,45 +208,6 @@ export function MobileMenu({
                 ))}
               </AccordionContent>
             </AccordionItem>
-            
-            {noFavorites ? (
-               <AccordionItem value="favorites-info">
-                  <AccordionTrigger className={cn('py-4 font-bold text-xl hover:no-underline', showOnlyFavorites ? 'text-yellow-400' : 'text-white')}>
-                     <div className="flex items-center">
-                        <span className="mr-2">MEUS</span>
-                        <span className="text-accent">FAVORITOS</span>
-                        <Star
-                          strokeWidth={1}
-                          className={'w-5 h-5 ml-2 text-accent'}
-                        />
-                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-sm text-gray-300 leading-relaxed px-2">
-                      Sua galeria de favoritos está vazia. Escolha algumas artes!
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-            ) : (
-                <div className="border-b">
-                  <button
-                    onClick={handleToggleFavorites}
-                    className='flex w-full flex-1 items-center py-4 font-bold text-xl'
-                  >
-                    <span className="mr-2">MEUS</span>
-                    <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
-                      FAVORITOS
-                    </span>
-                    <Star
-                      strokeWidth={1}
-                      className={cn(
-                        'w-5 h-5 ml-2',
-                        showOnlyFavorites ? 'text-yellow-400 fill-yellow-400' : 'text-accent'
-                      )}
-                    />
-                  </button>
-                </div>
-            )}
 
             <AccordionItem value="columns">
               <AccordionTrigger className="font-bold text-xl mb-2 text-white">
@@ -289,6 +250,45 @@ export function MobileMenu({
                 </div>
               </AccordionContent>
             </AccordionItem>
+
+            {noFavorites ? (
+               <AccordionItem value="favorites-info">
+                  <AccordionTrigger className={cn('py-4 font-bold text-xl hover:no-underline', showOnlyFavorites ? 'text-yellow-400' : 'text-white')}>
+                     <div className="flex items-center">
+                        <span className="mr-2">MEUS</span>
+                        <span className="text-accent">FAVORITOS</span>
+                        <Star
+                          strokeWidth={1}
+                          className={'w-5 h-5 ml-2 text-accent'}
+                        />
+                     </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-sm text-gray-300 leading-relaxed px-2">
+                      Sua galeria de favoritos está vazia. Escolha algumas artes!
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+            ) : (
+                <div className="border-b">
+                  <button
+                    onClick={handleToggleFavorites}
+                    className='flex w-full flex-1 items-center py-4 font-bold text-xl'
+                  >
+                    <span className="mr-2">MEUS</span>
+                    <span className={cn(showOnlyFavorites ? "text-yellow-400" : "text-accent")}>
+                      FAVORITOS
+                    </span>
+                    <Star
+                      strokeWidth={1}
+                      className={cn(
+                        'w-5 h-5 ml-2',
+                        showOnlyFavorites ? 'text-yellow-400 fill-yellow-400' : 'text-accent'
+                      )}
+                    />
+                  </button>
+                </div>
+            )}
             
             <AccordionItem value="nft-resgate">
               <AccordionTrigger
