@@ -187,7 +187,7 @@ export default function Home() {
                     isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
                     break;
                 case 'story':
-                    isStyleMatch = filename.includes('story');
+                     isStyleMatch = filename.includes('story') || (styleKeyword === 'story' && filename.includes('fot')) || (styleKeyword === 'story' && filename.includes('cartoon'));
                     break;
                 case 'cartoon':
                     isStyleMatch = filename.includes('cartoon');
@@ -293,6 +293,7 @@ export default function Home() {
             onUpload={handleUploadMedia}
             showOnlyFavorites={showOnlyFavorites}
             onToggleFavorites={handleToggleShowOnlyFavorites}
+            favoritedIds={favoritedIds}
             mediaItems={items}
             onShowResgate={handleShowResgate}
           >
