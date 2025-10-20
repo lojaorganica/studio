@@ -173,40 +173,30 @@ export default function Home() {
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
 
-        // No filters applied, show all
-        if (!filters.fair && !filters.style) {
-            return true;
-        }
-
-        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
-        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
-
-        // If a fair is selected (but not Fla/Laranjeiras) and style is "All Styles"
+        // If no style is selected, include generic stories for relevant fairs
         if (filters.fair && !filters.style && filters.fair !== 'Flamengo e Laranjeiras') {
+            const fairKeyword = fairKeywords[filters.fair];
             const isFairMatch = filename.includes(fairKeyword!);
             const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
             return isFairMatch || isGenericStory;
         }
 
-        // This specific rule handles "Story" style for fairs other than Fla/Laranjeiras,
-        // to include the generic stories
-        if (styleKeyword === 'story' && filters.fair) {
-            if (filters.fair !== 'Flamengo e Laranjeiras') {
-                const isFairStory = filename.includes(fairKeyword!) && filename.includes('story');
-                const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-                return isFairStory || isGenericStory;
-            }
-        }
-        
         let fairFilterPassed = !filters.fair;
-        if (fairKeyword) {
-            fairFilterPassed = filename.includes(fairKeyword);
+        if (filters.fair) {
+            fairFilterPassed = filename.includes(fairKeywords[filters.fair]);
         }
 
         let styleFilterPassed = !filters.style;
-        if (styleKeyword) {
+        if (filters.style) {
+            const styleKeyword = styleKeywords[filters.style];
             if (styleKeyword === 'ap_') {
                  styleFilterPassed = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            } else if (styleKeyword === 'story') {
+                 styleFilterPassed = filename.includes('story');
+            } else if (styleKeyword === 'cartoon') {
+                 styleFilterPassed = filename.includes('cartoon');
+            } else if (styleKeyword === 'fot') {
+                 styleFilterPassed = filename.includes('fot');
             } else {
                 styleFilterPassed = filename.includes(styleKeyword);
             }
@@ -316,7 +306,7 @@ export default function Home() {
           <div className="pt-6 pb-6">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
                   <h1 className="text-4xl font-bold tracking-wider text-white">GALERIA ORGÂNICA - CIRCUITO CARIOCA DE FEIRAS ORGÂNICAS</h1>
-                  <p className="mt-4 text-lg text-gray-300">Aqui você encontra todas as artes produzidas ao longo de mais de uma década, com apoio da organização Essência Vital, para a comunicação, propaganda e marketing de suporte às feiras orgânicas do Circuito Carioca e suas famílias de agricultores.</p>
+                  <p className="mt-4 text-lg text-gray-300">A aplicação funciona como um portfólio completo e interativo de animações, fotos, cartoons e outras peças de arte usadas para comunicação, publicidade e marketing de suporte às feiras orgânicas e suas famílias de agricultores. O objetivo é permitir que milhares de clientes — e também os próprios agricultores — tenham acesso rápido, engajem e compartilhem as artes em suas redes a qualquer hora e de qualquer lugar. Dessa forma, o projeto fortalece a divulgação das feiras orgânicas de maneira colaborativa e descentralizada, amplia sua visibilidade e reduz a dependência de estruturas centralizadas, etapas intermediárias e custos elevados.</p>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <FilterMenu
