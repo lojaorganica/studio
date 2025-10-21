@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -201,8 +200,11 @@ export default function Home() {
         if (filters.fair) {
             const isGenericStory = (item.style === 'Story' || filename.includes("story")) && filename.includes('todas_feiras');
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
-            
+
             if (filters.style === 'Story') {
+                 if (filters.fair === 'Botafogo' || filters.fair === 'Leme') {
+                    return (isFairMatch && item.style === 'Story') || isGenericStory;
+                }
                 return (isFairMatch && (item.style === 'Story' || filename.includes("story"))) || isGenericStory;
             }
             if (filters.style === "Animações de Personagens") {
