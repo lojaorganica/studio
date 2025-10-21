@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -143,49 +142,40 @@ export default function Home() {
     }
   };
 
+
   const filteredItems = React.useMemo(() => {
-    const sourceItems = showOnlyFavorites
+    let sourceItems = showOnlyFavorites
       ? items.filter(item => favoritedIds.has(item.id))
       : items;
 
-    let baseFilter = sourceItems;
+    return sourceItems.filter(item => {
+      const fairMatch = !filters.fair || item.fair === filters.fair;
+      const styleMatch = !filters.style || item.style === filters.style;
 
-    // 1. Filter by Style
-    if (filters.style) {
+      // Special logic for "Animações de Personagens"
       if (filters.style === "Animações de Personagens") {
-        baseFilter = baseFilter.filter(item => item.style === "Animações de Personagens" || item.style === "Cartoon");
-      } else if (filters.style === "Story") {
-        baseFilter = baseFilter.filter(item => item.style === "Story");
-      } else {
-        baseFilter = baseFilter.filter(item => item.style === filters.style);
-      }
-    }
-
-    // 2. Filter by Fair
-    if (filters.fair) {
-      baseFilter = baseFilter.filter(item => item.fair === filters.fair);
-    }
-    
-    // 3. Special additive logic for "Animações de Personagens" for specific fairs
-    if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
-        const genericCharacters = sourceItems.filter(item =>
-            item.fair === 'todas_feiras' && 
-            (item.style === "Animações de Personagens" || item.style === "Cartoon" || item.style === "Story")
-        );
-        baseFilter = [...baseFilter, ...genericCharacters];
-    }
-    
-    // 4. Remove duplicates
-    const uniqueIds = new Set<string>();
-    return baseFilter.filter(item => {
-        if (uniqueIds.has(item.id)) {
-            return false;
+        const isCharacterAnimation = item.style === "Animações de Personagens" || item.style === "Cartoon";
+        
+        // If a fair is selected (Tijuca or Grajaú), also include generic character animations
+        if ((filters.fair === "Tijuca" || filters.fair === "Grajaú") && item.fair === 'todas_feiras' as any && isCharacterAnimation) {
+          return true;
         }
-        uniqueIds.add(item.id);
+        
+        return fairMatch && isCharacterAnimation;
+      }
+      
+      // Special logic for "Story"
+      if(filters.style === "Story" && item.style === "Story") {
+        // If a fair is selected, show its stories and generic stories
+        if (filters.fair && item.fair !== 'todas_feiras' as any && item.fair !== filters.fair) {
+          return false;
+        }
         return true;
-    });
+      }
 
-  }, [filters, favoritedIds, showOnlyFavorites, items]);
+      return fairMatch && styleMatch;
+    });
+  }, [items, filters, favoritedIds, showOnlyFavorites]);
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
@@ -341,5 +331,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
