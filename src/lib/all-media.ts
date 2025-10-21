@@ -22,7 +22,7 @@ A batalha pela saúde começa no seu prato e Uverine já escolheu o lado certo d
 
 
 const mediaUrls: { url: string, idPrefix: string }[] = [
-    // Grajaú - Restaurado
+    // Grajaú
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_36_ivison.mp4?alt=media&token=0a322470-36a8-4034-9df2-50d4d4239843", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_37_ivison.mp4?alt=media&token=028be5e7-a9a7-47b8-b184-b080b031448b", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_083_cenoura_feira_grajau.mp4?alt=media&token=ffdd7676-e8d1-4de5-8d48-8df0e107b22a", idPrefix: "g" },
@@ -191,7 +191,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_108_feiras_flamengo_laranjeiras.png?alt=media&token=4f87c177-42d5-4448-812d-1562fe385b46", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_feiras_flamengo_laranjeiras.png?alt=media&token=c3026733-dd66-42d3-9659-ef8e10d197e2", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_116_feiras_flamengo_laranjeiras.png?alt=media&token=99a6bf6c-badb-46fd-b5d3-d19d7871b8c9", idPrefix: "fl" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_117_feiras_flamengo_laranjeiras.png?alt=media&token=4e53f6f4-dd95-4ae7-aebe-3b7a9df18c59", idPrefix: "fl" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_117_feiras_flamengo_laranjeiras.png?alt=media&token=4e536f64-dd95-4ae7-aebe-3b7a9df18c59", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_120_deadpepper.jpg?alt=media&token=4b915c9a-20fa-4892-a7da-75d84e67f6f0", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_112_deadpepper.jpg?alt=media&token=c639be20-a8c4-4a6b-aec7-ae2aadab5efd", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_111_deadpepper.mp4?alt=media&token=e8b8b8c0-7457-4103-933f-368c92bb9628", idPrefix: "fl" },
@@ -387,29 +387,30 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
 ];
 
 function getFairFromFilename(filename: string): MediaItem['fair'] {
-  if (filename.includes('feira_tijuca')) return 'Tijuca';
   if (filename.includes('feira_grajau')) return 'Grajaú';
+  if (filename.includes('feira_tijuca')) return 'Tijuca';
   if (filename.includes('feiras_flamengo_laranjeiras')) return 'Flamengo e Laranjeiras';
   if (filename.includes('feira_botafogo')) return 'Botafogo';
   if (filename.includes('feira_leme')) return 'Leme';
   if (filename.includes('todas_feiras')) return 'todas_feiras' as any;
+  // This was the error, it needs to be more specific.
   if (filename.includes('ap_cartoon_feira_grajau')) return 'Grajaú';
-  return 'Tijuca'; // Default
+  return 'Tijuca'; // Fallback, though should not be reached with current data.
 }
 
 function getStyleFromFilename(filename: string): MediaItem['style'] {
-    if (filename.includes('story')) return 'Story';
-    if (filename.includes('cartoon')) return 'Cartoon';
-    if (filename.includes('ap_')) return 'Animações de Personagens';
-    if (filename.includes('aali_')) return 'Animações de Alimentos';
-    if (filename.includes('aagr_')) return 'Animações de Agricultores';
-    if (filename.includes('fot_')) return 'Fotografia';
-    if (filename.includes('flyer_')) return 'Flyer';
-    if (filename.includes('datas_especiais_')) return 'Datas Especiais';
-    if (filename.includes('chuva_')) return 'Dias de Chuva';
+    const lowerCaseFilename = filename.toLowerCase();
+    if (lowerCaseFilename.includes('story')) return 'Story';
+    if (lowerCaseFilename.includes('cartoon')) return 'Cartoon';
+    if (lowerCaseFilename.includes('ap_')) return 'Animações de Personagens';
+    if (lowerCaseFilename.includes('aali_')) return 'Animações de Alimentos';
+    if (lowerCaseFilename.includes('aagr_')) return 'Animações de Agricultores';
+    if (lowerCaseFilename.includes('fot_')) return 'Fotografia';
+    if (lowerCaseFilename.includes('flyer_')) return 'Flyer';
+    if (lowerCaseFilename.includes('datas_especiais_')) return 'Datas Especiais';
+    if (lowerCaseFilename.includes('chuva_')) return 'Dias de Chuva';
     return 'Fotografia'; // Default
 }
-
 
 function getCharacterName(filename: string): string | undefined {
     const lowerCaseFilename = filename.toLowerCase();
@@ -452,5 +453,3 @@ export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) =>
     story,
   };
 });
-
-    
