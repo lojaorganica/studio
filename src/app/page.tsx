@@ -199,11 +199,11 @@ export default function Home() {
         }
         
         if (filters.fair) {
-            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
+            const isGenericStory = (item.style === 'Story' || filename.includes("story")) && filename.includes('todas_feiras');
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
-
+            
             if (filters.style === 'Story') {
-                return (isFairMatch && item.style === 'Story') || isGenericStory;
+                return (isFairMatch && (item.style === 'Story' || filename.includes("story"))) || isGenericStory;
             }
             if (filters.style === "Animações de Personagens") {
                 return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
