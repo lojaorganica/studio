@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -209,7 +210,7 @@ export default function Home() {
                  if (filters.fair === 'Botafogo' || filters.fair === 'Leme' || filters.fair === 'Grajaú') {
                     return (isFairMatch && item.style === 'Story') || isGenericStory;
                 }
-                return (isFairMatch && item.style === 'Story') || isGenericStory;
+                return (isFairMatch && item.style === 'Story');
             }
             if (filters.style === "Animações de Personagens") {
                 return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
