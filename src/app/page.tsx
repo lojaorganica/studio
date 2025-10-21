@@ -148,44 +148,42 @@ export default function Home() {
       ? items.filter(item => favoritedIds.has(item.id))
       : items;
 
-    let results: MediaItem[] = sourceItems;
+    let baseFilter = sourceItems;
 
     // Handle Style filter
     if (filters.style) {
-        if (filters.style === "Animações de Personagens") {
-            results = sourceItems.filter(item =>
-                item.style === "Animações de Personagens" || item.style === "Cartoon"
-            );
-        } else if (filters.style === "Story") {
-            results = sourceItems.filter(item =>
-                item.style === "Story"
-            );
-        } else {
-            results = sourceItems.filter(item => item.style === filters.style);
-        }
+      if (filters.style === "Animações de Personagens") {
+        baseFilter = baseFilter.filter(item => item.style === "Animações de Personagens" || item.style === "Cartoon");
+      } else {
+        baseFilter = baseFilter.filter(item => item.style === filters.style);
+      }
     }
 
     // Handle Fair filter
+    let fairFilter = baseFilter;
     if (filters.fair) {
-        results = results.filter(item => {
-            if (item.fair === filters.fair) return true;
-            if (filters.fair !== 'Flamengo e Laranjeiras' && item.fair === 'todas_feiras') return true;
-            return false;
-        });
+      fairFilter = baseFilter.filter(item => {
+        // Item belongs to the specific fair
+        if (item.fair === filters.fair) return true;
+        // Item is generic ('todas_feiras') and the selected fair is not one that excludes generics
+        if (item.fair === 'todas_feiras' && filters.fair !== 'Flamengo e Laranjeiras') return true;
+        return false;
+      });
     }
-
-    // Special logic for "Animações de Personagens" for Tijuca and Grajaú
+    
+    // Special additive logic for "Animações de Personagens" for Tijuca and Grajaú
     if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
-        const genericCharacterStories = sourceItems.filter(item =>
+        const genericCharacters = sourceItems.filter(item =>
             item.fair === 'todas_feiras' && 
             (item.style === "Animações de Personagens" || item.style === "Cartoon")
         );
-        results = [...results, ...genericCharacterStories];
+        // Combine the fair-specific results with the generic character results
+        fairFilter = [...fairFilter, ...genericCharacters];
     }
     
     // Remove duplicates
     const uniqueIds = new Set<string>();
-    return results.filter(item => {
+    return fairFilter.filter(item => {
         if (uniqueIds.has(item.id)) {
             return false;
         }
