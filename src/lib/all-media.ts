@@ -65,8 +65,6 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_39_batatman.png?alt=media&token=c19013c8-e047-4ae9-873b-53c896590c37", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_38_aqualface.png?alt=media&token=c81b53e8-5b23-41c3-8821-2e6396f437c3", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_77_beterraba_de_ferro.png?alt=media&token=d0275815-5945-42a9-8588-4660e5a953e1", idPrefix: "g" },
-
-    // Novas URLs Grajau
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_81_deadpepper.mp4?alt=media&token=67f0ecee-08a8-4fff-a0d9-8b1d31dd9438", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_84_thalhor.mp4?alt=media&token=db3d1d29-1474-4adb-b517-ae9a7e0719ca", idPrefix: "g" },
@@ -394,14 +392,18 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
 
 function getFairFromFilename(filename: string): MediaItem['fair'] {
   const lowerCaseFilename = filename.toLowerCase();
+  
+  if (lowerCaseFilename.includes('feiras_flamengo_laranjeiras')) return 'Flamengo e Laranjeiras';
   if (lowerCaseFilename.includes('feira_grajau')) return 'Grajaú';
   if (lowerCaseFilename.includes('feira_tijuca')) return 'Tijuca';
-  if (lowerCaseFilename.includes('feiras_flamengo_laranjeiras')) return 'Flamengo e Laranjeiras';
   if (lowerCaseFilename.includes('feira_botafogo')) return 'Botafogo';
   if (lowerCaseFilename.includes('feira_leme')) return 'Leme';
   if (lowerCaseFilename.includes('todas_feiras')) return 'todas_feiras' as any;
-  return 'Tijuca'; // Fallback
+  
+  // Fallback if no specific fair is found
+  return 'Tijuca'; 
 }
+
 
 function getStyleFromFilename(filename: string): MediaItem['style'] {
     const lowerCaseFilename = filename.toLowerCase();
