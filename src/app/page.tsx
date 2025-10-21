@@ -168,7 +168,7 @@ export default function Home() {
         'Datas Especiais': 'especial',
         'Dias de Chuva': 'chuva',
     };
-
+    
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
 
@@ -197,22 +197,26 @@ export default function Home() {
             }
         }
         
-        if (filters.fair) {
-            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
-            const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
-
-            if (filters.style === 'Story') {
-                if (filters.fair === 'Flamengo e Laranjeiras') {
-                    // Regra exclusiva: Apenas stories da feira, sem genéricos.
-                    return isFairMatch && item.style === 'Story';
-                }
+        if (filters.style === 'Story') {
+            const isGenericStory = filename.includes('story_todas_feiras');
+            
+            if (filters.fair === 'Flamengo e Laranjeiras') {
+                // Regra exclusiva: Apenas stories da feira, sem genéricos.
+                return isFairMatch && item.style === 'Story' && !isGenericStory;
+            }
+            
+            if (filters.fair) {
                 // Regra inclusiva para outras feiras: stories da feira OU genéricos
-                return (isFairMatch && item.style === 'Story') || isGenericStory;
+                return (isFairMatch && item.style === 'Story') || (isGenericStory && item.style === 'Story');
             }
+            
+            // Se nenhuma feira estiver selecionada (fair filter é falsy), mostra todos os stories.
+             return item.style === 'Story';
+        }
 
-            if (filters.style === "Animações de Personagens") {
-                return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
-            }
+        if (filters.fair && filters.style === "Animações de Personagens") {
+            const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+            return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
         }
         
         return isFairMatch && isStyleMatch;

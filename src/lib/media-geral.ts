@@ -1,3 +1,4 @@
+
 import type { MediaItem } from './media-types';
 
 const INHAME_ARANHA_STORY = `INHAME-ARANHA, INHAME-ARANHA
@@ -34,11 +35,8 @@ function getStyleFromFilename(filename: string): MediaItem['style'] {
 
 function getTypeFromFilename(filename: string): 'image' | 'video' {
     const lowerCaseFilename = filename.toLowerCase();
-    if (lowerCaseFilename.endsWith('.mp4') || lowerCaseFilename.endsWith('.webm') || lowerCaseFilename.endsWith('.ogg') || lowerCaseFilename.endsWith('.jpg') || lowerCaseFilename.endsWith('.png') || lowerCaseFilename.endsWith('.jpeg')) {
-        // Assume video for mp4/webm/ogg, otherwise image
-        if (lowerCaseFilename.endsWith('.mp4') || lowerCaseFilename.endsWith('.webm') || lowerCaseFilename.endsWith('.ogg')) {
-            return 'video';
-        }
+    if (lowerCaseFilename.endsWith('.mp4') || lowerCaseFilename.endsWith('.webm') || lowerCaseFilename.endsWith('.ogg')) {
+        return 'video';
     }
     return 'image';
 }
@@ -192,16 +190,15 @@ const mediaUrls: string[] = [
 
 export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
     const alt = getAltFromUrl(url);
-    const type = getTypeFromFilename(alt);
     const item: MediaItem = {
         id: `geral-${index + 1}`,
-        type: type,
+        type: getTypeFromFilename(alt),
         src: url,
         alt: alt,
         author: 'Essência Vital',
-        fair: 'Tijuca', // Placeholder, a lógica de filtro usará o nome do arquivo
+        fair: 'Tijuca', // This is the specific property I will fix.
         style: getStyleFromFilename(alt),
-        'data-ai-hint': type === 'image' ? 'market photo' : undefined
+        'data-ai-hint': 'market photo'
     };
 
     if (alt.toLowerCase().includes('inhame_aranha')) {
@@ -216,3 +213,5 @@ export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
     
     return item;
 });
+
+    
