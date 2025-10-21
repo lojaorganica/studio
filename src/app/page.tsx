@@ -152,60 +152,55 @@ export default function Home() {
 
     // Handle Style filter first
     if (filters.style) {
-      if (filters.style === "Animações de Personagens") {
-        results = sourceItems.filter(item => 
-          item.style === "Animações de Personagens" || item.style === "Cartoon"
-        );
-      } else if (filters.style === "Story") {
-        results = sourceItems.filter(item => 
-          item.style === "Story" || item.alt.includes("story")
-        );
-      } else {
-        results = sourceItems.filter(item => item.style === filters.style);
-      }
+        if (filters.style === "Animações de Personagens") {
+            results = sourceItems.filter(item =>
+                item.style === "Animações de Personagens" || item.style === "Cartoon"
+            );
+        } else if (filters.style === "Story") {
+            results = sourceItems.filter(item =>
+                item.style === "Story" || item.alt.toLowerCase().includes("story")
+            );
+        } else {
+            results = sourceItems.filter(item => item.style === filters.style);
+        }
     }
 
     // Handle Fair filter
     if (filters.fair) {
-      const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
-      
-      // Special logic for "Animações de Personagens"
-      if (filters.style === "Animações de Personagens") {
-          const fairSpecificCharacters = sourceItems.filter(item => 
-              (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
-              item.fair === filters.fair
-          );
-          
-          const genericCharacterStories = sourceItems.filter(item =>
-              (item.fair === 'todas_feiras' || item.fair === 'Tijuca' || item.fair === 'Grajaú') && 
-              (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
-              (item.alt.includes('ap_cartoon_story_todas_feiras') || item.alt.includes('ap_story_personagem_todas_feiras'))
-          );
-          
-          let combinedResults = [...fairSpecificCharacters];
-          if (filters.fair === "Tijuca" || filters.fair === "Grajaú") {
-            combinedResults = [...combinedResults, ...genericCharacterStories];
-          }
+        const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
+        
+        // Special logic for "Animações de Personagens" for Tijuca and Grajaú
+        if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
+            const fairSpecificCharacters = sourceItems.filter(item => 
+                (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
+                item.fair === filters.fair
+            );
+            
+            const genericCharacterStories = sourceItems.filter(item =>
+                (item.fair === 'todas_feiras') && 
+                (item.style === "Animações de Personagens" || item.style === "Cartoon")
+            );
 
-          results = combinedResults;
-      } else {
-          // Default logic for other styles
-          results = results.filter(item => {
-              if (item.fair === filters.fair) return true;
-              if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
-              return false;
-          });
-      }
+            results = [...fairSpecificCharacters, ...genericCharacterStories];
+
+        } else {
+            // Default logic for other styles and fairs
+            results = results.filter(item => {
+                if (item.fair === filters.fair) return true;
+                if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
+                return false;
+            });
+        }
     }
-    
+
     // Remove duplicates
     const uniqueIds = new Set<string>();
     return results.filter(item => {
-      if (uniqueIds.has(item.id)) {
-        return false;
-      }
-      uniqueIds.add(item.id);
-      return true;
+        if (uniqueIds.has(item.id)) {
+            return false;
+        }
+        uniqueIds.add(item.id);
+        return true;
     });
 
   }, [filters, favoritedIds, showOnlyFavorites, items]);
