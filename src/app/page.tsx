@@ -147,7 +147,15 @@ export default function Home() {
  const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
-        baseItems = items.filter(item => favoritedIds.has(item.id));
+      baseItems = items.filter(item => favoritedIds.has(item.id));
+    }
+
+    if (!filters.fair && !filters.style) {
+      return baseItems;
+    }
+    
+    if (!filters.fair && filters.style === 'Story') {
+        return baseItems.filter(item => item.style === 'Story');
     }
 
     const fairKeywords: { [key: string]: string } = {
@@ -169,48 +177,48 @@ export default function Home() {
         'Datas Especiais': 'especial',
         'Dias de Chuva': 'chuva',
     };
-
+    
     return baseItems.filter((item) => {
-        const filename = item.alt.toLowerCase();
+      const filename = item.alt.toLowerCase();
 
-        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
-        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
+      const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
+      const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
-        const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
-        
-        let isStyleMatch = !styleKeyword;
-        if (styleKeyword) {
-            switch (styleKeyword) {
-                case 'ap_':
-                    isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-                    break;
-                case 'story':
-                     isStyleMatch = filename.includes('story');
-                    break;
-                case 'cartoon':
-                    isStyleMatch = filename.includes('cartoon');
-                    break;
-                case 'fot':
-                    isStyleMatch = filename.includes('fot');
-                    break;
-                default:
-                    isStyleMatch = filename.includes(styleKeyword);
-            }
+      const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
+
+      let isStyleMatch = !styleKeyword;
+      if (styleKeyword) {
+        switch (styleKeyword) {
+          case 'ap_':
+            isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            break;
+          case 'story':
+            isStyleMatch = filename.includes('story');
+            break;
+          case 'cartoon':
+            isStyleMatch = filename.includes('cartoon');
+            break;
+          case 'fot':
+             isStyleMatch = filename.includes('fot');
+             break;
+          default:
+            isStyleMatch = filename.includes(styleKeyword);
         }
-        
-        if (filters.fair) {
-            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
-            const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+      }
 
-            if (filters.style === 'Story') {
-                return (isFairMatch && item.style === 'Story') || isGenericStory;
-            }
-            if (filters.style === "Animações de Personagens") {
-                return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
-            }
-        }
-        
-        return isFairMatch && isStyleMatch;
+      if (filters.fair) {
+          const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
+          const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+
+          if (filters.style === 'Story') {
+              return (isFairMatch && item.style === 'Story') || isGenericStory;
+          }
+          if (filters.style === "Animações de Personagens") {
+              return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
+          }
+      }
+
+      return isFairMatch && isStyleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
   
