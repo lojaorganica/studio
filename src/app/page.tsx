@@ -150,7 +150,7 @@ export default function Home() {
         baseItems = items.filter(item => favoritedIds.has(item.id));
     }
 
-    // Explicit override for "Todas as Feiras" + "Story"
+    // Caso especial e prioritário: "Todas as Feiras" + "Story"
     if (filters.fair === '' && filters.style === 'Story') {
       return baseItems.filter(item => item.style === 'Story');
     }
@@ -203,10 +203,6 @@ export default function Home() {
             }
         }
         
-        if (filters.style === 'Story' && !filters.fair) {
-          return item.style === 'Story';
-        }
-
         if (filters.fair) {
             const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
