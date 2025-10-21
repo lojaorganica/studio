@@ -209,9 +209,6 @@ export default function Home() {
                  if (filters.fair === 'Botafogo' || filters.fair === 'Leme' || filters.fair === 'Grajaú') {
                     return (isFairMatch && item.style === 'Story') || isGenericStory;
                 }
-                if (filters.fair === 'Flamengo e Laranjeiras') {
-                    return isFairMatch && item.style === 'Story' && filename.includes('story_feiras_flamengo_laranjeiras');
-                }
                 return (isFairMatch && item.style === 'Story') || isGenericStory;
             }
             if (filters.style === "Animações de Personagens") {
