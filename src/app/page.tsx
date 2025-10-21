@@ -160,7 +160,7 @@ export default function Home() {
           return isCharacterAnimation;
         }
 
-        const isGenericCharacter = item.fair === 'todas_feiras' as any && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
+        const isGenericCharacter = (item.fair as any) === 'todas_feiras' && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
         
         if (fairMatch && isCharacterAnimation) {
           return true;
@@ -180,7 +180,7 @@ export default function Home() {
         if (!filters.fair) return true; // If "Todas as Feiras", show all stories
         
         // If a specific fair is selected, show stories for that fair AND generic stories
-        return item.fair === filters.fair || item.fair === 'todas_feiras' as any;
+        return item.fair === filters.fair || (item.fair as any) === 'todas_feiras';
       }
 
       return fairMatch && styleMatch;
