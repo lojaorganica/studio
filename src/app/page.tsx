@@ -200,7 +200,7 @@ export default function Home() {
 
         // Lógica de exceções e inclusões
         if (filters.style === 'Story') {
-            const isGenericStory = filename.includes('story_todas_feiras');
+            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
 
             // Caso especial: Flamengo e Laranjeiras + Story (exclusivo)
             if (filters.fair === 'Flamengo e Laranjeiras') {
