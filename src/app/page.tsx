@@ -160,7 +160,7 @@ export default function Home() {
           return item.style === "Story";
         }
         // If a specific fair is selected, show stories for that fair AND generic stories
-        return item.style === "Story" && (item.fair === filters.fair || (item.fair as any) === 'todas_feiras' || item.alt.includes('todas_feiras'));
+        return item.style === "Story" && (item.fair === filters.fair || item.alt.toLowerCase().includes('todas_feiras'));
       }
 
       // Special logic for "Animações de Personagens"
@@ -171,7 +171,7 @@ export default function Home() {
           return isCharacterAnimation;
         }
 
-        const isGenericCharacter = ((item.fair as any) === 'todas_feiras' || item.alt.includes('todas_feiras')) && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
+        const isGenericCharacter = (item.alt.toLowerCase().includes('todas_feiras')) && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
         
         if (fairMatch && isCharacterAnimation) {
           return true;
@@ -343,3 +343,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
