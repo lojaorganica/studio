@@ -145,8 +145,8 @@ export default function Home() {
 
   const filteredItems = React.useMemo(() => {
     const sourceItems = showOnlyFavorites
-      ? allMedia.filter(item => favoritedIds.has(item.id))
-      : allMedia;
+      ? items.filter(item => favoritedIds.has(item.id))
+      : items;
 
     let results = sourceItems;
 
@@ -163,21 +163,22 @@ export default function Home() {
     }
 
     if (filters.fair) {
-      if (filters.style === "Animações de Personagens") {
-        const fairSpecificCharacters = results.filter(item => item.fair === filters.fair);
-        const genericCharacterStories = sourceItems.filter(item => 
-            item.fair === 'todas_feiras' &&
-            item.alt.includes('ap_cartoon_story_todas_feiras')
-        );
-        results = [...fairSpecificCharacters, ...genericCharacterStories];
-      } else {
         const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
-        results = results.filter(item => {
-          if (item.fair === filters.fair) return true;
-          if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
-          return false;
-        });
-      }
+        
+        if (filters.style === "Animações de Personagens") {
+            const fairSpecificCharacters = results.filter(item => item.fair === filters.fair);
+            const genericCharacterStories = sourceItems.filter(item => 
+                item.fair === 'todas_feiras' &&
+                (item.alt.includes('ap_cartoon_story_todas_feiras') || item.alt.includes('ap_story_personagem_todas_feiras'))
+            );
+            results = [...fairSpecificCharacters, ...genericCharacterStories];
+        } else {
+            results = results.filter(item => {
+                if (item.fair === filters.fair) return true;
+                if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
+                return false;
+            });
+        }
     }
     
     // Remove duplicates
@@ -190,7 +191,7 @@ export default function Home() {
       return true;
     });
 
-  }, [filters, favoritedIds, showOnlyFavorites]);
+  }, [filters, favoritedIds, showOnlyFavorites, items]);
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
@@ -346,5 +347,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
