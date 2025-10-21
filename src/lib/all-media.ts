@@ -22,7 +22,7 @@ A batalha pela saúde começa no seu prato e Uverine já escolheu o lado certo d
 
 
 const mediaUrls: { url: string, idPrefix: string }[] = [
-    // Grajaú
+    // Grajaú - Adicionados de volta
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_36_ivison.mp4?alt=media&token=0a322470-36a8-4034-9df2-50d4d4239843", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_37_ivison.mp4?alt=media&token=028be5e7-a9a7-47b8-b184-b080b031448b", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_083_cenoura_feira_grajau.mp4?alt=media&token=ffdd7676-e8d1-4de5-8d48-8df0e107b22a", idPrefix: "g" },
@@ -50,12 +50,6 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_63_inhame_aranha.mp4?alt=media&token=250616b4-6a01-444a-a92e-3367129522b2", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_65_batatman.mp4?alt=media&token=1e5d7a6e-4e4c-4a37-b371-d64e9e07f6f7", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_66_robinete.mp4?alt=media&token=924619b0-95b6-455b-bf08-9dfc82301980", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_81_deadpepper.mp4?alt=media&token=67f0ecee-08a8-4fff-a0d9-8b1d31dd9438", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_84_thalhor.mp4?alt=media&token=db3d1d29-1474-4adb-b517-ae9a7e0719ca", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_83_thalhor.png?alt=media&token=cd24decc-3505-4a05-86e8-4b00b920c0b0", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_86_drshiitaker.mp4?alt=media&token=8eccbe82-8875-4598-832a-2dbbdd844d44", idPrefix: "g" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_85_drshiitaker.png?alt=media&token=efab6150-3778-43ff-9666-4dce58b98fc4", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_64_pepino_verde.png?alt=media&token=e8557342-9907-4286-9a25-e51c890e1f7a", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_60_abobrinha_maravilha.png?alt=media&token=b73652f9-724d-45c1-92d5-4e78a6358482", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_57_mandiorpheus.png?alt=media&token=7c1b52a3-23a5-48b2-8419-48e04b4f0b24", idPrefix: "g" },
@@ -71,6 +65,14 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_39_batatman.png?alt=media&token=c19013c8-e047-4ae9-873b-53c896590c37", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_38_aqualface.png?alt=media&token=c81b53e8-5b23-41c3-8821-2e6396f437c3", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_77_beterraba_de_ferro.png?alt=media&token=d0275815-5945-42a9-8588-4660e5a953e1", idPrefix: "g" },
+
+    // Novas URLs Grajau
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_81_deadpepper.mp4?alt=media&token=67f0ecee-08a8-4fff-a0d9-8b1d31dd9438", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_84_thalhor.mp4?alt=media&token=db3d1d29-1474-4adb-b517-ae9a7e0719ca", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_83_thalhor.png?alt=media&token=cd24decc-3505-4a05-86e8-4b00b920c0b0", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_86_drshiitaker.mp4?alt=media&token=8eccbe82-8875-4598-832a-2dbbdd844d44", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_85_drshiitaker.png?alt=media&token=efab6150-3778-43ff-9666-4dce58b98fc4", idPrefix: "g" },
 
     // Flamengo e Laranjeiras
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_cartoon_feiras_flamengo_laranjeiras_74_ivison.png?alt=media&token=407a4857-fb2d-46b1-8856-9bb112bfd8c4", idPrefix: "fl" },
@@ -201,6 +203,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_123_drshiitaker.png?alt=media&token=6ea4f2f7-4914-4e9b-ac94-9015a033637a", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_116_drshiitaker.mp4?alt=media&token=8ba5627e-7bd7-4f31-843a-6a4ea541e308", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_115_drshiitaker.png?alt=media&token=34fd9367-ae7d-467f-befa-f799e2213191", idPrefix: "fl" },
+    
     // Botafogo
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_cartoon_feira_botafogo_67_ivison.jpg?alt=media&token=6448f512-2caa-4852-9e74-052f207a2e37", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_botafogo_28_walace.mp4?alt=media&token=71db03c5-f42f-43a3-a93c-6554a33a0885", idPrefix: "b" },
@@ -275,6 +278,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_86_thalhor.png?alt=media&token=179974ac-17bf-47c0-9ad6-2b5d70a5ed51", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_botafogo_89_drshiitaker.mp4?alt=media&token=39120319-4540-4528-ab08-aca2b4d9314a", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_botafogo_88_drshiitaker.png?alt=media&token=23bf513b-fbf1-4c47-932c-410ea44c8de4", idPrefix: "b" },
+    
     // Leme
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_026_abacate_feira_leme.mp4?alt=media&token=0f39fa51-a303-4482-b4a8-ff07ad8818ce", idPrefix: "l" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_057_maracugina_feira_leme.mp4?alt=media&token=05c73073-97b5-4a8b-8e62-774656b0abeb", idPrefix: "l" },
@@ -334,6 +338,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_82_thalhor.png?alt=media&token=9cb95498-6f20-471d-a365-90f42cdc6650", idPrefix: "l" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_leme_85_drshiitaker.mp4?alt=media&token=aea837f1-589e-4364-b34b-19063897ab62", idPrefix: "l" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_84_drshiitaker.png?alt=media&token=64c2154a-9fc3-422e-a7cd-6469bb4a0b77", idPrefix: "l" },
+
     // Tijuca
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_tijuca_42_lucia.mp4?alt=media&token=7b9c7554-a8ef-47f7-ade2-0242a639efe5", idPrefix: "t" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_071_cenoura_feira_tijuca.mp4?alt=media&token=d1f85584-0a37-4d64-839e-d309191e4e2c", idPrefix: "t" },
@@ -369,6 +374,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_101_thalhor.png?alt=media&token=d428168b-59b4-4599-8225-456faa9e2c1e", idPrefix: "t" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_104_drshiitaker.mp4?alt=media&token=3632cded-6d51-4b11-a55c-40a37c05cfd2", idPrefix: "t" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_103_drshiitaker.png?alt=media&token=56878ecd-7fce-4b80-aedb-1ce8b60e32ef", idPrefix: "t" },
+
     // Todas as Feiras
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_114_thalhor.mp4?alt=media&token=33457a7f-7dbc-4a31-86f6-ddbb7f65b3c7", idPrefix: "tf" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_125_todas_feiras.jpg?alt=media&token=6d06fd85-470e-49b3-8983-fa6b3f3e4bf2", idPrefix: "tf" },
@@ -387,15 +393,14 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
 ];
 
 function getFairFromFilename(filename: string): MediaItem['fair'] {
-  if (filename.includes('feira_grajau')) return 'Grajaú';
-  if (filename.includes('feira_tijuca')) return 'Tijuca';
-  if (filename.includes('feiras_flamengo_laranjeiras')) return 'Flamengo e Laranjeiras';
-  if (filename.includes('feira_botafogo')) return 'Botafogo';
-  if (filename.includes('feira_leme')) return 'Leme';
-  if (filename.includes('todas_feiras')) return 'todas_feiras' as any;
-  // This was the error, it needs to be more specific.
-  if (filename.includes('ap_cartoon_feira_grajau')) return 'Grajaú';
-  return 'Tijuca'; // Fallback, though should not be reached with current data.
+  const lowerCaseFilename = filename.toLowerCase();
+  if (lowerCaseFilename.includes('feira_grajau')) return 'Grajaú';
+  if (lowerCaseFilename.includes('feira_tijuca')) return 'Tijuca';
+  if (lowerCaseFilename.includes('feiras_flamengo_laranjeiras')) return 'Flamengo e Laranjeiras';
+  if (lowerCaseFilename.includes('feira_botafogo')) return 'Botafogo';
+  if (lowerCaseFilename.includes('feira_leme')) return 'Leme';
+  if (lowerCaseFilename.includes('todas_feiras')) return 'todas_feiras' as any;
+  return 'Tijuca'; // Fallback
 }
 
 function getStyleFromFilename(filename: string): MediaItem['style'] {
@@ -424,7 +429,6 @@ function getCharacterName(filename: string): string | undefined {
 function getStory(characterName?: string): string | undefined {
     if (characterName === 'Inhame-Aranha') return INHAME_ARANHA_STORY;
     if (characterName === 'Uverine') return UVERINE_STORY;
-    // Adicionar histórias para Thalhor e Dr. Shiitaker se existirem
     return undefined;
 }
 
@@ -432,7 +436,7 @@ function getStory(characterName?: string): string | undefined {
 export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) => {
   const filename = url.split('%2F').pop()?.split('?')[0] || '';
   const type = filename.endsWith('.mp4') ? 'video' : 'image';
-  const id = `${idPrefix}-${index}-${Math.random()}`; // Add random element to ID
+  const id = `${idPrefix}-${index}-${Math.random()}`; 
   const alt = filename.replace(/_/g, ' ').replace(/\.[^/.]+$/, "");
 
   const fair = getFairFromFilename(filename);
@@ -453,3 +457,5 @@ export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) =>
     story,
   };
 });
+
+    
