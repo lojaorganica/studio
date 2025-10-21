@@ -119,7 +119,9 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_78_feira_leme.png?alt=media&token=e4edc342-9a1f-4ae1-8f4b-06f54be9333d",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_79_feira_leme.png?alt=media&token=d56b3fa3-6f29-467f-9b36-8fdc1dc69070",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_81_deadpepper.jpg?alt=media&token=3ac8af3f-da42-4a50-b687-e2b38514a010",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_leme_80_deadpepper.mp4?alt=media&token=2cbb895b-17c1-42ff-867f-32aedca330c3"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_leme_80_deadpepper.mp4?alt=media&token=2cbb895b-17c1-42ff-867f-32aedca330c3",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_leme_83_thalhor.mp4?alt=media&token=7c1c1763-c6de-4fc2-816e-3828a93052be",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_leme_82_thalhor.png?alt=media&token=9cb95498-6f20-471d-a365-90f42cdc6650"
 ];
 
 export const mediaL: MediaItem[] = mediaUrls.map((url, index) => {
@@ -147,5 +149,7 @@ export const mediaL: MediaItem[] = mediaUrls.map((url, index) => {
 
     return item;
 });
+
+    
 
     

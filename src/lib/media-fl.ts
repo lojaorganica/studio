@@ -176,7 +176,10 @@ const mediaUrls: string[] = [
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_117_feiras_flamengo_laranjeiras.png?alt=media&token=4e53f6f4-dd95-4ae7-aebe-3b7a9df18c59",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_120_deadpepper.jpg?alt=media&token=4b915c9a-20fa-4892-a7da-75d84e67f6f0",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_112_deadpepper.jpg?alt=media&token=c639be20-a8c4-4a6b-aec7-ae2aadab5efd",
-  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_111_deadpepper.mp4?alt=media&token=e8b8b8c0-7457-4103-933f-368c92bb9628"
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_111_deadpepper.mp4?alt=media&token=e8b8b8c0-7457-4103-933f-368c92bb9628",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_122_thalhor.png?alt=media&token=e867c826-549b-4dde-b6bb-9f5dd133e4f6",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_113_thalhor.mp4?alt=media&token=aacc7aaf-53b5-47ee-9542-591d44621c62",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_114_thalhor.png?alt=media&token=aba3d397-a954-4021-931b-0691ccafa38a"
 ];
 
 export const mediaFL: MediaItem[] = mediaUrls.map((url, index) => {
@@ -204,5 +207,7 @@ export const mediaFL: MediaItem[] = mediaUrls.map((url, index) => {
     
     return item;
 });
+
+    
 
     

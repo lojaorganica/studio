@@ -129,11 +129,17 @@ export const allMedia: MediaItem[] = [
   { id: 'tijuca-87', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_100_deadpepper.jpg?alt=media&token=dd0e0557-b1e1-45b1-8afa-bc1b7890e18b', type: 'image', alt: 'ap_cartoon_feira_tijuca_100_deadpepper.jpg', author: 'Essência Vital', fair: 'Tijuca', style: 'Cartoon' },
   { id: 'tijuca-88', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_99_deadpepper.mp4?alt=media&token=f676541f-ad7d-46b0-ae9a-ce7e43605426', type: 'video', alt: 'ap_feira_tijuca_99_deadpepper.mp4', author: 'Essência Vital', fair: 'Tijuca', style: 'Animações de Personagens' },
   { id: 'grajau-67', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_81_deadpepper.mp4?alt=media&token=67f0ecee-08a8-4fff-a0d9-8b1d31dd9438', type: 'video', alt: 'ap_feira_grajau_81_deadpepper.mp4', author: 'Essência Vital', fair: 'Grajaú', style: 'Animações de Personagens' },
-  { id: 'grajau-68', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82', type: 'image', alt: 'ap_cartoon_feira_grajau_82_deadpepper.jpg', author: 'Essência Vital', fair: 'Grajaú', style: 'Cartoon' }
+  { id: 'grajau-68', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82', type: 'image', alt: 'ap_cartoon_feira_grajau_82_deadpepper.jpg', author: 'Essência Vital', fair: 'Grajaú', style: 'Cartoon' },
+  { id: 'tijuca-89', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_102_thalhor.mp4?alt=media&token=a4952c6a-1967-46ba-a21a-7a20b445d141', type: 'video', alt: 'ap_feira_tijuca_102_thalhor.mp4', author: 'Essência Vital', fair: 'Tijuca', style: 'Animações de Personagens' },
+  { id: 'grajau-69', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_84_thalhor.mp4?alt=media&token=db3d1d29-1474-4adb-b517-ae9a7e0719ca', type: 'video', alt: 'ap_feira_grajau_84_thalhor.mp4', author: 'Essência Vital', fair: 'Grajaú', style: 'Animações de Personagens' },
+  { id: 'tijuca-90', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_101_thalhor.png?alt=media&token=d428168b-59b4-4599-8225-456faa9e2c1e', type: 'image', alt: 'ap_cartoon_feira_tijuca_101_thalhor.png', author: 'Essência Vital', fair: 'Tijuca', style: 'Cartoon' },
+  { id: 'grajau-70', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_83_thalhor.png?alt=media&token=cd24decc-3505-4a05-86e8-4b00b920c0b0', type: 'image', alt: 'ap_cartoon_feira_grajau_83_thalhor.png', author: 'Essência Vital', fair: 'Grajaú', style: 'Cartoon' }
 ]
 
 export const fairs = [...new Set(allMedia.map((item) => item.fair))].sort((a, b) => a.localeCompare(b));
 export const styles = [...new Set(allMedia.map((item) => item.style))].sort((a, b) => a.localeCompare(b));
+
+    
 
     
 
