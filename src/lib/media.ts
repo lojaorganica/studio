@@ -125,10 +125,16 @@ export const allMedia: MediaItem[] = [
   { id: "tijuca-83", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_feira_tijuca.png?alt=media&token=2608865d-c8f5-446d-853d-e076be396703", alt: "fot_109_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" },
   { id: "tijuca-84", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_feira_tijuca.png?alt=media&token=3b289e7a-d954-47b3-942d-8f050dfcdce8", alt: "fot_105_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" },
   { id: "tijuca-85", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_feira_tijuca.png?alt=media&token=78b040f6-5313-43a4-a2e9-9e4ead9daf91", alt: "fot_106_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" },
-  { id: "tijuca-86", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_107_feira_tijuca.png?alt=media&token=1993f58e-72d7-462e-bf76-3bc92f7fe101", alt: "fot_107_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" }
+  { id: "tijuca-86", type: "image", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_107_feira_tijuca.png?alt=media&token=1993f58e-72d7-462e-bf76-3bc92f7fe101", alt: "fot_107_feira_tijuca", author: "Essência Vital", fair: "Tijuca", style: "Fotografia", "data-ai-hint": "market photo" },
+  { id: 'tijuca-87', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_tijuca_100_deadpepper.jpg?alt=media&token=dd0e0557-b1e1-45b1-8afa-bc1b7890e18b', type: 'image', alt: 'ap_cartoon_feira_tijuca_100_deadpepper.jpg', author: 'Essência Vital', fair: 'Tijuca', style: 'Cartoon' },
+  { id: 'tijuca-88', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_99_deadpepper.mp4?alt=media&token=f676541f-ad7d-46b0-ae9a-ce7e43605426', type: 'video', alt: 'ap_feira_tijuca_99_deadpepper.mp4', author: 'Essência Vital', fair: 'Tijuca', style: 'Animações de Personagens' },
+  { id: 'grajau-67', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_81_deadpepper.mp4?alt=media&token=67f0ecee-08a8-4fff-a0d9-8b1d31dd9438', type: 'video', alt: 'ap_feira_grajau_81_deadpepper.mp4', author: 'Essência Vital', fair: 'Grajaú', style: 'Animações de Personagens' },
+  { id: 'grajau-68', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_82_deadpepper.jpg?alt=media&token=d1a9edbe-7abd-4cd7-bc3f-fda1bb32bb82', type: 'image', alt: 'ap_cartoon_feira_grajau_82_deadpepper.jpg', author: 'Essência Vital', fair: 'Grajaú', style: 'Cartoon' }
 ]
 
 export const fairs = [...new Set(allMedia.map((item) => item.fair))].sort((a, b) => a.localeCompare(b));
 export const styles = [...new Set(allMedia.map((item) => item.style))].sort((a, b) => a.localeCompare(b));
+
+    
 
     
