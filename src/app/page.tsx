@@ -151,7 +151,6 @@ export default function Home() {
   
     const { fair, style } = filters;
   
-    // Original working logic restored
     if (!fair && !style) {
       return baseItems;
     }
