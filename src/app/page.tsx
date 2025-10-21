@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -152,6 +153,20 @@ export default function Home() {
       const fairMatch = !filters.fair || item.fair === filters.fair;
       const styleMatch = !filters.style || item.style === filters.style;
 
+      // START: Logic correction for Story filter
+      if (filters.style === "Story") {
+        if (item.style !== "Story") return false; // Item must be a story
+        
+        // If "Todas as Feiras" is selected, show ALL stories.
+        if (!filters.fair) {
+          return true; 
+        }
+
+        // If a specific fair is selected, show stories for that fair AND generic stories
+        return item.fair === filters.fair || (item.fair as any) === 'todas_feiras';
+      }
+      // END: Logic correction for Story filter
+
       // Special logic for "Animações de Personagens"
       if (filters.style === "Animações de Personagens") {
         const isCharacterAnimation = item.style === "Animações de Personagens" || item.style === "Cartoon";
@@ -174,15 +189,6 @@ export default function Home() {
         return false;
       }
       
-      // Special logic for "Story"
-      if (filters.style === "Story") {
-        if (item.style !== "Story") return false; // Must be a story
-        if (!filters.fair) return true; // If "Todas as Feiras", show all stories
-        
-        // If a specific fair is selected, show stories for that fair AND generic stories
-        return item.fair === filters.fair || (item.fair as any) === 'todas_feiras';
-      }
-
       return fairMatch && styleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
@@ -341,3 +347,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
