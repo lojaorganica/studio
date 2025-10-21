@@ -165,50 +165,61 @@ export default function Home() {
         'Dias de Chuva': 'chuva',
     };
 
-    let baseItems = items;
-    if (showOnlyFavorites) {
-        baseItems = items.filter(item => favoritedIds.has(item.id));
-    }
+    let baseItems = showOnlyFavorites ? items.filter(item => favoritedIds.has(item.id)) : items;
 
-    return baseItems.filter((item) => {
+    const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
+    const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
+
+    // Helper function to check if an item's style matches
+    const checkStyleMatch = (filename: string) => {
+        if (!styleKeyword) return true; // No style filter means all styles match
+        switch (styleKeyword) {
+            case 'ap_':
+                return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            case 'story':
+                return filename.includes('story');
+            case 'cartoon':
+                return filename.includes('cartoon');
+            case 'fot':
+                return filename.includes('fot');
+            default:
+                return filename.includes(styleKeyword);
+        }
+    };
+
+    // 1. Get items that match the specific fair AND style
+    let primarilyFiltered = baseItems.filter(item => {
         const filename = item.alt.toLowerCase();
-
-        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
-        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
-
         const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
-        const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-
-        // Logic for style matching
-        let isStyleMatch = !styleKeyword;
-        if (styleKeyword) {
-            switch (styleKeyword) {
-                case 'ap_':
-                    isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-                    break;
-                case 'story':
-                     isStyleMatch = filename.includes('story');
-                    break;
-                case 'cartoon':
-                    isStyleMatch = filename.includes('cartoon');
-                    break;
-                case 'fot':
-                    isStyleMatch = filename.includes('fot');
-                    break;
-                default:
-                    isStyleMatch = filename.includes(styleKeyword);
-            }
-        }
-        
-        // If a fair is selected (and it's not Fla/Laranjeiras), we might need to include generic stories.
-        if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
-            const isGenericStoryOfStyle = isGenericStory && (isStyleMatch || !styleKeyword) ;
-            return (isFairMatch && isStyleMatch) || isGenericStoryOfStyle;
-        }
-
-        // Default behavior for "Todas as Feiras" or "Flamengo e Laranjeiras"
+        const isStyleMatch = checkStyleMatch(filename);
         return isFairMatch && isStyleMatch;
     });
+
+    // 2. If a specific fair is selected (and not Fla/Laranjeiras), also get generic stories that match the style
+    if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
+        const genericStories = baseItems.filter(item => {
+            const filename = item.alt.toLowerCase();
+            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
+            const isStyleMatch = checkStyleMatch(filename);
+            return isGenericStory && isStyleMatch;
+        });
+
+        // 3. Combine the lists and remove duplicates
+        const combined = [...primarilyFiltered, ...genericStories];
+        const uniqueIds = new Set<string>();
+        return combined.filter(item => {
+            if (uniqueIds.has(item.id)) {
+                return false;
+            } else {
+                uniqueIds.add(item.id);
+                return true;
+            }
+        });
+    }
+
+    // 4. If no specific fair is selected (or it's Fla/Laranjeiras), just return the primary list
+    return primarilyFiltered;
+
   }, [items, filters, favoritedIds, showOnlyFavorites]);
   
   const itemsToShow = React.useMemo(() => {
@@ -365,3 +376,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
