@@ -379,5 +379,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
