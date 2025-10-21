@@ -202,8 +202,14 @@ export default function Home() {
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
 
             if (filters.style === 'Story') {
+                if (filters.fair === 'Flamengo e Laranjeiras') {
+                    // Regra exclusiva: Apenas stories da feira, sem genéricos.
+                    return isFairMatch && item.style === 'Story';
+                }
+                // Regra inclusiva para outras feiras: stories da feira OU genéricos
                 return (isFairMatch && item.style === 'Story') || isGenericStory;
             }
+
             if (filters.style === "Animações de Personagens") {
                 return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
             }
