@@ -143,84 +143,74 @@ export default function Home() {
     }
   };
 
-  const filteredItems = React.useMemo(() => {
+
+ const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
-      baseItems = items.filter(item => favoritedIds.has(item.id));
-    }
-    
-    const { fair, style } = filters;
-
-    // Condição especial para "Todas as Feiras" + "Story"
-    if (!fair && style === 'Story') {
-      return baseItems.filter(item => item.style === 'Story');
-    }
-
-    if (!fair && !style) {
-      return baseItems;
+        baseItems = items.filter(item => favoritedIds.has(item.id));
     }
 
     const fairKeywords: { [key: string]: string } = {
-      'Tijuca': 'tijuca',
-      'Grajaú': 'grajau',
-      'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
-      'Botafogo': 'botafogo',
-      'Leme': 'leme',
+        'Tijuca': 'tijuca',
+        'Grajaú': 'grajau',
+        'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
+        'Botafogo': 'botafogo',
+        'Leme': 'leme',
     };
 
     const styleKeywords: { [key: string]: string } = {
-      'Animações de Agricultores': 'aagr',
-      'Animações de Alimentos': 'aali',
-      'Animações de Personagens': 'ap_',
-      'Fotografia': 'fot',
-      'Flyer': 'flyer',
-      'Cartoon': 'cartoon',
-      'Story': 'story',
-      'Datas Especiais': 'especial',
-      'Dias de Chuva': 'chuva',
+        'Animações de Agricultores': 'aagr',
+        'Animações de Alimentos': 'aali',
+        'Animações de Personagens': 'ap_',
+        'Fotografia': 'fot',
+        'Flyer': 'flyer',
+        'Cartoon': 'cartoon',
+        'Story': 'story',
+        'Datas Especiais': 'especial',
+        'Dias de Chuva': 'chuva',
     };
 
     return baseItems.filter((item) => {
-      const filename = item.alt.toLowerCase();
-      
-      const fairKeyword = fair ? fairKeywords[fair] : '';
-      const styleKeyword = style ? styleKeywords[style] : '';
+        const filename = item.alt.toLowerCase();
 
-      const isFairMatch = fair ? filename.includes(fairKeyword) : true;
+        const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
+        const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
 
-      let isStyleMatch = !style;
-      if (style) {
-        switch (style) {
-          case 'Animações de Personagens':
-            isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-            break;
-          case 'Story':
-            // Esta lógica só será executada se uma feira específica estiver selecionada,
-            // por causa da condição especial no topo.
-            isStyleMatch = item.style === 'Story';
-            break;
-          case 'Cartoon':
-            isStyleMatch = filename.includes('cartoon') || filename.startsWith('ap_');
-            break;
-          default:
-            isStyleMatch = filename.includes(styleKeyword);
-        }
-      }
-      
-      // Lógica para incluir 'todas_feiras' quando uma feira específica é selecionada
-      if (fair) {
-        const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
-        const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+        const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
         
-        if (style === 'Story') {
-            return (isFairMatch && item.style === 'Story') || isGenericStory;
+        let isStyleMatch = !styleKeyword;
+        if (styleKeyword) {
+            switch (styleKeyword) {
+                case 'ap_':
+                    isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+                    break;
+                case 'story':
+                     isStyleMatch = filename.includes('story');
+                    break;
+                case 'cartoon':
+                    isStyleMatch = filename.includes('cartoon');
+                    break;
+                case 'fot':
+                    isStyleMatch = filename.includes('fot');
+                    break;
+                default:
+                    isStyleMatch = filename.includes(styleKeyword);
+            }
         }
-         if (style === "Animações de Personagens" || style === "Cartoon") {
-            return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
-        }
-      }
+        
+        if (filters.fair) {
+            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
+            const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
 
-      return isFairMatch && isStyleMatch;
+            if (filters.style === 'Story') {
+                return (isFairMatch && item.style === 'Story') || isGenericStory;
+            }
+            if (filters.style === "Animações de Personagens") {
+                return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
+            }
+        }
+        
+        return isFairMatch && isStyleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
   
