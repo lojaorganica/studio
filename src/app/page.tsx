@@ -150,7 +150,7 @@ export default function Home() {
 
     let results = sourceItems;
 
-    // 1. Filter by Style
+    // 1. Filter by Style (if any)
     if (filters.style) {
       if (filters.style === "Animações de Personagens") {
         results = results.filter(item => item.style === "Animações de Personagens" || item.style === "Cartoon");
@@ -159,11 +159,12 @@ export default function Home() {
       }
     }
     
-    // 2. Filter by Fair
+    // 2. Filter by Fair (if any)
     if (filters.fair) {
       results = results.filter(item => {
         if (item.fair === filters.fair) return true;
-        // Include 'todas_feiras' items unless the fair is "Flamengo e Laranjeiras"
+        // Include 'todas_feiras' items unless a specific fair is selected
+        // This is a general rule that might be overridden by special logic below
         if (item.fair === 'todas_feiras' && filters.fair !== 'Flamengo e Laranjeiras') return true;
         return false;
       });
@@ -171,12 +172,18 @@ export default function Home() {
 
     // 3. Special additive logic for "Animações de Personagens" for Tijuca and Grajaú
     if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
+        const fairSpecificCharacters = sourceItems.filter(item => 
+            item.fair === filters.fair &&
+            (item.style === "Animações de Personagens" || item.style === "Cartoon")
+        );
+
         const genericCharacters = sourceItems.filter(item =>
             item.fair === 'todas_feiras' && 
             (item.style === "Animações de Personagens" || item.style === "Cartoon" || item.style === "Story")
         );
+        
         // Combine the fair-specific results with the generic character results
-        results = [...results, ...genericCharacters];
+        results = [...fairSpecificCharacters, ...genericCharacters];
     }
     
     // 4. Remove duplicates

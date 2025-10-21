@@ -249,7 +249,7 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_botafogo_63_pepino_verde.mp4?alt=media&token=6a9065d8-9de8-48a6-8b23-18ed0456edfb", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_botafogo_76_beterraba_de_ferro.mp4?alt=media&token=71612028-2518-4f71-b62a-743a52626abb", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_17_feira_botafogo.png?alt=media&token=0f21f6fe-99b4-4681-ab29-4a4c00f7424b", idPrefix: "b" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_18_feira_botafogo.png?alt=media&token=0a2a9081-5a5b-461c-80f3-34c1301b9135", idPrefix: "b" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_18_feira_botafogo.png?alt=media&token=0a2a9081-5a5b-4681-80f3-34c1301b9135", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_20_feira_botafogo.png?alt=media&token=80b3b03e-47ed-429f-b627-d5b96173d193", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_22_feira_botafogo.png?alt=media&token=77e3ae70-2104-408b-9a81-ec93e1d85fef", idPrefix: "b" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_35_feira_botafogo.png?alt=media&token=2f43b48e-c15a-45bf-84ba-ddeb51b6dc82", idPrefix: "b" },
@@ -393,6 +393,7 @@ function getFairFromFilename(filename: string): MediaItem['fair'] {
   if (filename.includes('feira_botafogo')) return 'Botafogo';
   if (filename.includes('feira_leme')) return 'Leme';
   if (filename.includes('todas_feiras')) return 'todas_feiras' as any;
+  if (filename.includes('ap_cartoon_feira_grajau')) return 'Grajaú';
   return 'Tijuca'; // Default
 }
 
@@ -430,7 +431,7 @@ function getStory(characterName?: string): string | undefined {
 export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) => {
   const filename = url.split('%2F').pop()?.split('?')[0] || '';
   const type = filename.endsWith('.mp4') ? 'video' : 'image';
-  const id = `${idPrefix}-${index}`;
+  const id = `${idPrefix}-${index}-${Math.random()}`; // Add random element to ID
   const alt = filename.replace(/_/g, ' ').replace(/\.[^/.]+$/, "");
 
   const fair = getFairFromFilename(filename);
