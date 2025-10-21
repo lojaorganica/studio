@@ -168,6 +168,10 @@ export default function Home() {
         'Datas Especiais': 'especial',
         'Dias de Chuva': 'chuva',
     };
+    
+    if (!filters.fair && filters.style === 'Story') {
+      return baseItems.filter(item => item.style === 'Story');
+    }
 
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
@@ -198,14 +202,17 @@ export default function Home() {
         }
         
         if (filters.fair) {
-            const isGenericStory = (item.style === 'Story' || filename.includes("story")) && filename.includes('todas_feiras');
+            const isGenericStory = item.style === 'Story' && filename.includes('story_todas_feiras');
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
 
             if (filters.style === 'Story') {
                  if (filters.fair === 'Botafogo' || filters.fair === 'Leme') {
                     return (isFairMatch && item.style === 'Story') || isGenericStory;
                 }
-                return (isFairMatch && (item.style === 'Story' || filename.includes("story"))) || isGenericStory;
+                if (filters.fair === 'Flamengo e Laranjeiras') {
+                    return isFairMatch && item.style === 'Story' && filename.includes('story_feiras_flamengo_laranjeiras');
+                }
+                return (isFairMatch && item.style === 'Story') || isGenericStory;
             }
             if (filters.style === "Animações de Personagens") {
                 return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
