@@ -149,35 +149,38 @@ export default function Home() {
       ? items.filter(item => favoritedIds.has(item.id))
       : items;
 
+    // Se "Story" for o estilo e "Todas as Feiras" estiver selecionado, retorne TODOS os stories.
+    if (filters.style === 'Story' && !filters.fair) {
+      return sourceItems.filter(item => item.style === 'Story');
+    }
+      
+    // Lógica original para todos os outros casos
     return sourceItems.filter(item => {
       const fairMatch = !filters.fair || item.fair === filters.fair;
       const styleMatch = !filters.style || item.style === filters.style;
 
-      // Corrected logic for Story filter
+      // Lógica específica para "Story" quando uma feira específica é selecionada
       if (filters.style === "Story") {
-        // If "Todas as Feiras" is selected, show ALL stories.
-        if (!filters.fair) {
-          return item.style === "Story";
-        }
-        // If a specific fair is selected, show stories for that fair AND generic stories
+        // Mostra stories da feira específica E stories genéricos (que incluem 'todas_feiras' no nome do arquivo)
         return item.style === "Story" && (item.fair === filters.fair || item.alt.toLowerCase().includes('todas_feiras'));
       }
 
-      // Special logic for "Animações de Personagens"
+      // Lógica específica para "Animações de Personagens"
       if (filters.style === "Animações de Personagens") {
         const isCharacterAnimation = item.style === "Animações de Personagens" || item.style === "Cartoon";
         
-        if (!filters.fair) { // "Todas as Feiras" is selected
+        if (!filters.fair) { // "Todas as Feiras"
           return isCharacterAnimation;
         }
 
-        const isGenericCharacter = (item.alt.toLowerCase().includes('todas_feiras')) && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
+        const isGenericCharacter = item.alt.toLowerCase().includes('todas_feiras') && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
         
+        // Se a feira corresponde e é uma animação de personagem
         if (fairMatch && isCharacterAnimation) {
           return true;
         }
         
-        // When a specific fair is selected, also include generic characters
+        // Incluir personagens genéricos quando uma feira específica é selecionada
         if (filters.fair && isGenericCharacter) {
            return true;
         }
@@ -185,6 +188,7 @@ export default function Home() {
         return false;
       }
       
+      // Lógica padrão para todos os outros filtros
       return fairMatch && styleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
@@ -343,5 +347,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
