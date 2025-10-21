@@ -143,21 +143,23 @@ export default function Home() {
     }
   };
 
-
   const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
       baseItems = items.filter(item => favoritedIds.has(item.id));
     }
   
-    if (!filters.fair && !filters.style) {
+    const { fair, style } = filters;
+  
+    // Original working logic restored
+    if (!fair && !style) {
       return baseItems;
     }
-  
-    if (!filters.fair && filters.style === 'Story') {
+
+    if (!fair && style === 'Story') {
       return baseItems.filter(item => item.style === 'Story');
     }
-  
+
     const fairKeywords: { [key: string]: string } = {
       'Tijuca': 'tijuca',
       'Grajaú': 'grajau',
@@ -180,35 +182,39 @@ export default function Home() {
   
     return baseItems.filter((item) => {
       const filename = item.alt.toLowerCase();
+      
+      const fairKeyword = fair ? fairKeywords[fair] : '';
+      const styleKeyword = style ? styleKeywords[style] : '';
   
-      const fairKeyword = filters.fair ? fairKeywords[filters.fair] : '';
-      const styleKeyword = filters.style ? styleKeywords[filters.style] : '';
+      const isFairMatch = fair ? filename.includes(fairKeyword) : true;
   
-      const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
-  
-      let isStyleMatch = !styleKeyword;
-      if (styleKeyword) {
-        if (styleKeyword === 'ap_') {
-          isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-        } else if (styleKeyword === 'story') {
-          isStyleMatch = filename.includes('story');
-        } else if (styleKeyword === 'cartoon') {
+      let isStyleMatch = !style;
+      if (style) {
+        switch (style) {
+          case 'Animações de Personagens':
+            isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
+            break;
+          case 'Story':
+            isStyleMatch = item.style === 'Story';
+            break;
+          case 'Cartoon':
             isStyleMatch = filename.includes('cartoon') || filename.startsWith('ap_');
-        } else {
-          isStyleMatch = filename.includes(styleKeyword);
+            break;
+          default:
+            isStyleMatch = filename.includes(styleKeyword);
         }
       }
       
-      if (filters.fair) {
-          const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
-          const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
-          
-          if (filters.style === 'Story') {
-              return (isFairMatch && item.style === 'Story') || isGenericStory;
-          }
-           if (filters.style === "Animações de Personagens") {
-              return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
-          }
+      if (fair) {
+        const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
+        const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+        
+        if (style === 'Story') {
+            return (isFairMatch && item.style === 'Story') || isGenericStory;
+        }
+         if (style === "Animações de Personagens") {
+            return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
+        }
       }
   
       return isFairMatch && isStyleMatch;
