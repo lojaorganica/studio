@@ -151,14 +151,16 @@ export default function Home() {
   
     const { fair, style } = filters;
   
-    if (!fair && !style) {
-      return baseItems;
-    }
-
+    // Condição especial para "Todas as Feiras" + "Story"
     if (!fair && style === 'Story') {
       return baseItems.filter(item => item.style === 'Story');
     }
-
+  
+    // Se não há filtros, retorna a lista base
+    if (!fair && !style) {
+      return baseItems;
+    }
+  
     const fairKeywords: { [key: string]: string } = {
       'Tijuca': 'tijuca',
       'Grajaú': 'grajau',
@@ -194,6 +196,8 @@ export default function Home() {
             isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
             break;
           case 'Story':
+            // Esta lógica só será executada se uma feira específica estiver selecionada,
+            // por causa da condição especial no topo.
             isStyleMatch = item.style === 'Story';
             break;
           case 'Cartoon':
@@ -204,6 +208,7 @@ export default function Home() {
         }
       }
       
+      // Lógica para incluir 'todas_feiras' quando uma feira específica é selecionada
       if (fair) {
         const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
         const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
@@ -211,7 +216,7 @@ export default function Home() {
         if (style === 'Story') {
             return (isFairMatch && item.style === 'Story') || isGenericStory;
         }
-         if (style === "Animações de Personagens") {
+         if (style === "Animações de Personagens" || style === "Cartoon") {
             return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
         }
       }
@@ -374,5 +379,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
