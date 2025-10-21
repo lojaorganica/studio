@@ -206,7 +206,7 @@ export default function Home() {
             const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
 
             if (filters.style === 'Story') {
-                 if (filters.fair === 'Botafogo' || filters.fair === 'Leme') {
+                 if (filters.fair === 'Botafogo' || filters.fair === 'Leme' || filters.fair === 'Grajaú') {
                     return (isFairMatch && item.style === 'Story') || isGenericStory;
                 }
                 if (filters.fair === 'Flamengo e Laranjeiras') {
