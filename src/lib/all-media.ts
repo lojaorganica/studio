@@ -22,7 +22,7 @@ A batalha pela saúde começa no seu prato e Uverine já escolheu o lado certo d
 
 
 const mediaUrls: { url: string, idPrefix: string }[] = [
-    // Grajaú - Adicionado novamente
+    // Grajaú - Restaurado
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_36_ivison.mp4?alt=media&token=0a322470-36a8-4034-9df2-50d4d4239843", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_feira_grajau_37_ivison.mp4?alt=media&token=028be5e7-a9a7-47b8-b184-b080b031448b", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faali_083_cenoura_feira_grajau.mp4?alt=media&token=ffdd7676-e8d1-4de5-8d48-8df0e107b22a", idPrefix: "g" },
@@ -56,6 +56,21 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_83_thalhor.png?alt=media&token=cd24decc-3505-4a05-86e8-4b00b920c0b0", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_grajau_86_drshiitaker.mp4?alt=media&token=8eccbe82-8875-4598-832a-2dbbdd844d44", idPrefix: "g" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_85_drshiitaker.png?alt=media&token=efab6150-3778-43ff-9666-4dce58b98fc4", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_64_pepino_verde.png?alt=media&token=e8557342-9907-4286-9a25-e51c890e1f7a", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_60_abobrinha_maravilha.png?alt=media&token=b73652f9-724d-45c1-92d5-4e78a6358482", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_57_mandiorpheus.png?alt=media&token=7c1b52a3-23a5-48b2-8419-48e04b4f0b24", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_55_brulk.png?alt=media&token=6a3b2b8d-9b1a-463a-86c3-16a30c885065", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_54_berinjela_negra.png?alt=media&token=40428d02-39c4-4b52-b108-c89b7b9f5f08", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_51_uverine.png?alt=media&token=24c80327-0c1a-4a64-9273-5182a0e41793", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_49_limao_america.png?alt=media&token=38a8e1b6-7589-491c-8b89-6338b010c792", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_48_coisa_de_milho.png?alt=media&token=e4758548-ab5a-4e20-94d3-0d3f2342be33", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_46_uva_negra.png?alt=media&token=5b098195-2c8c-4f10-9118-208b082531e2", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_43_sporock.png?alt=media&token=1432f628-9844-4b68-b715-2882806bd0f1", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_42_inhame_aranha.png?alt=media&token=24227db0-9b48-40d1-945b-7b0b3014e410", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_40_robinete.png?alt=media&token=f486d38e-9029-4180-8b01-a1d2797e8706", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_39_batatman.png?alt=media&token=c19013c8-e047-4ae9-873b-53c896590c37", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_38_aqualface.png?alt=media&token=c81b53e8-5b23-41c3-8821-2e6396f437c3", idPrefix: "g" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feira_grajau_77_beterraba_de_ferro.png?alt=media&token=d0275815-5945-42a9-8588-4660e5a953e1", idPrefix: "g" },
 
     // Flamengo e Laranjeiras
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Faagr_cartoon_feiras_flamengo_laranjeiras_74_ivison.png?alt=media&token=407a4857-fb2d-46b1-8856-9bb112bfd8c4", idPrefix: "fl" },
@@ -177,13 +192,13 @@ const mediaUrls: { url: string, idPrefix: string }[] = [
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_109_feiras_flamengo_laranjeiras.png?alt=media&token=c3026733-dd66-42d3-9659-ef8e10d197e2", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_116_feiras_flamengo_laranjeiras.png?alt=media&token=99a6bf6c-badb-46fd-b5d3-d19d7871b8c9", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_117_feiras_flamengo_laranjeiras.png?alt=media&token=4e53f6f4-dd95-4ae7-aebe-3b7a9df18c59", idPrefix: "fl" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_120_deadpepper.jpg?alt=media&token=4b915c9a-20fa-4892-a7da-75d84e67f6f0", idPrefix: "fl" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_120_deadpepper.jpg?alt=media&token=4b915c9a-20fa-4892-a7da-75d84e67f6f0", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_112_deadpepper.jpg?alt=media&token=c639be20-a8c4-4a6b-aec7-ae2aadab5efd", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_111_deadpepper.mp4?alt=media&token=e8b8b8c0-7457-4103-933f-368c92bb9628", idPrefix: "fl" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_122_thalhor.png?alt=media&token=e867c826-549b-4dde-b6bb-9f5dd133e4f6", idPrefix: "fl" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_122_thalhor.png?alt=media&token=e867c826-549b-4dde-b6bb-9f5dd133e4f6", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_113_thalhor.mp4?alt=media&token=aacc7aaf-53b5-47ee-9542-591d44621c62", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_114_thalhor.png?alt=media&token=aba3d397-a954-4021-931b-0691ccafa38a", idPrefix: "fl" },
-    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_123_drshiitaker.png?alt=media&token=6ea4f2f7-4914-4e9b-ac94-9015a033637a", idPrefix: "fl" },
+    { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_123_drshiitaker.png?alt=media&token=6ea4f2f7-4914-4e9b-ac94-9015a033637a", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_116_drshiitaker.mp4?alt=media&token=8ba5627e-7bd7-4f31-843a-6a4ea541e308", idPrefix: "fl" },
     { url: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_115_drshiitaker.png?alt=media&token=34fd9367-ae7d-467f-befa-f799e2213191", idPrefix: "fl" },
     // Botafogo
@@ -383,12 +398,12 @@ function getFairFromFilename(filename: string): MediaItem['fair'] {
 
 function getStyleFromFilename(filename: string): MediaItem['style'] {
     if (filename.includes('story')) return 'Story';
+    if (filename.includes('cartoon')) return 'Cartoon';
     if (filename.includes('ap_')) return 'Animações de Personagens';
     if (filename.includes('aali_')) return 'Animações de Alimentos';
     if (filename.includes('aagr_')) return 'Animações de Agricultores';
     if (filename.includes('fot_')) return 'Fotografia';
     if (filename.includes('flyer_')) return 'Flyer';
-    if (filename.includes('cartoon_')) return 'Cartoon';
     if (filename.includes('datas_especiais_')) return 'Datas Especiais';
     if (filename.includes('chuva_')) return 'Dias de Chuva';
     return 'Fotografia'; // Default
@@ -419,12 +434,8 @@ export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) =>
   const alt = filename.replace(/_/g, ' ').replace(/\.[^/.]+$/, "");
 
   const fair = getFairFromFilename(filename);
-  let style = getStyleFromFilename(filename);
+  const style = getStyleFromFilename(filename);
   
-  if ((style === 'Animações de Personagens' || style === 'Animações de Alimentos' || style === 'Animações de Agricultores') && filename.includes('cartoon')) {
-    style = 'Cartoon';
-  }
-
   const characterName = getCharacterName(filename);
   const story = getStory(characterName);
 
@@ -440,3 +451,5 @@ export const allMedia: MediaItem[] = mediaUrls.map(({ url, idPrefix }, index) =>
     story,
   };
 });
+
+    

@@ -148,42 +148,40 @@ export default function Home() {
       ? items.filter(item => favoritedIds.has(item.id))
       : items;
 
-    let baseFilter = sourceItems;
+    let results = sourceItems;
 
-    // Handle Style filter
+    // 1. Filter by Style
     if (filters.style) {
       if (filters.style === "Animações de Personagens") {
-        baseFilter = baseFilter.filter(item => item.style === "Animações de Personagens" || item.style === "Cartoon");
+        results = results.filter(item => item.style === "Animações de Personagens" || item.style === "Cartoon");
       } else {
-        baseFilter = baseFilter.filter(item => item.style === filters.style);
+        results = results.filter(item => item.style === filters.style);
       }
     }
-
-    // Handle Fair filter
-    let fairFilter = baseFilter;
+    
+    // 2. Filter by Fair
     if (filters.fair) {
-      fairFilter = baseFilter.filter(item => {
-        // Item belongs to the specific fair
+      results = results.filter(item => {
         if (item.fair === filters.fair) return true;
-        // Item is generic ('todas_feiras') and the selected fair is not one that excludes generics
+        // Include 'todas_feiras' items unless the fair is "Flamengo e Laranjeiras"
         if (item.fair === 'todas_feiras' && filters.fair !== 'Flamengo e Laranjeiras') return true;
         return false;
       });
     }
-    
-    // Special additive logic for "Animações de Personagens" for Tijuca and Grajaú
+
+    // 3. Special additive logic for "Animações de Personagens" for Tijuca and Grajaú
     if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
         const genericCharacters = sourceItems.filter(item =>
             item.fair === 'todas_feiras' && 
-            (item.style === "Animações de Personagens" || item.style === "Cartoon")
+            (item.style === "Animações de Personagens" || item.style === "Cartoon" || item.style === "Story")
         );
         // Combine the fair-specific results with the generic character results
-        fairFilter = [...fairFilter, ...genericCharacters];
+        results = [...results, ...genericCharacters];
     }
     
-    // Remove duplicates
+    // 4. Remove duplicates
     const uniqueIds = new Set<string>();
-    return fairFilter.filter(item => {
+    return results.filter(item => {
         if (uniqueIds.has(item.id)) {
             return false;
         }
@@ -347,3 +345,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
