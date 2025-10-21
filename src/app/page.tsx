@@ -204,7 +204,7 @@ export default function Home() {
 
             // Caso especial: Flamengo e Laranjeiras + Story (exclusivo)
             if (filters.fair === 'Flamengo e Laranjeiras') {
-                return isFairMatch && item.style === 'Story';
+                return filename.includes('story') && filename.includes('feiras_flamengo_laranjeiras');
             }
             
             // Caso: Qualquer outra feira + Story (inclusivo)
