@@ -148,19 +148,18 @@ export default function Home() {
     if (showOnlyFavorites) {
       baseItems = items.filter(item => favoritedIds.has(item.id));
     }
-  
+    
     const { fair, style } = filters;
-  
+
     // Condição especial para "Todas as Feiras" + "Story"
     if (!fair && style === 'Story') {
       return baseItems.filter(item => item.style === 'Story');
     }
-  
-    // Se não há filtros, retorna a lista base
+
     if (!fair && !style) {
       return baseItems;
     }
-  
+
     const fairKeywords: { [key: string]: string } = {
       'Tijuca': 'tijuca',
       'Grajaú': 'grajau',
@@ -168,7 +167,7 @@ export default function Home() {
       'Botafogo': 'botafogo',
       'Leme': 'leme',
     };
-  
+
     const styleKeywords: { [key: string]: string } = {
       'Animações de Agricultores': 'aagr',
       'Animações de Alimentos': 'aali',
@@ -180,15 +179,15 @@ export default function Home() {
       'Datas Especiais': 'especial',
       'Dias de Chuva': 'chuva',
     };
-  
+
     return baseItems.filter((item) => {
       const filename = item.alt.toLowerCase();
       
       const fairKeyword = fair ? fairKeywords[fair] : '';
       const styleKeyword = style ? styleKeywords[style] : '';
-  
+
       const isFairMatch = fair ? filename.includes(fairKeyword) : true;
-  
+
       let isStyleMatch = !style;
       if (style) {
         switch (style) {
@@ -220,7 +219,7 @@ export default function Home() {
             return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
         }
       }
-  
+
       return isFairMatch && isStyleMatch;
     });
   }, [items, filters, favoritedIds, showOnlyFavorites]);
@@ -379,3 +378,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
