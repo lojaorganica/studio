@@ -148,9 +148,9 @@ export default function Home() {
       ? items.filter(item => favoritedIds.has(item.id))
       : items;
 
-    let results = sourceItems;
+    let results: MediaItem[] = sourceItems;
 
-    // Handle Style filter first
+    // Handle Style filter
     if (filters.style) {
         if (filters.style === "Animações de Personagens") {
             results = sourceItems.filter(item =>
@@ -158,7 +158,7 @@ export default function Home() {
             );
         } else if (filters.style === "Story") {
             results = sourceItems.filter(item =>
-                item.style === "Story" || item.alt.toLowerCase().includes("story")
+                item.style === "Story"
             );
         } else {
             results = sourceItems.filter(item => item.style === filters.style);
@@ -167,32 +167,22 @@ export default function Home() {
 
     // Handle Fair filter
     if (filters.fair) {
-        const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
-        
-        // Special logic for "Animações de Personagens" for Tijuca and Grajaú
-        if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
-            const fairSpecificCharacters = sourceItems.filter(item => 
-                (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
-                item.fair === filters.fair
-            );
-            
-            const genericCharacterStories = sourceItems.filter(item =>
-                (item.fair === 'todas_feiras') && 
-                (item.style === "Animações de Personagens" || item.style === "Cartoon")
-            );
-
-            results = [...fairSpecificCharacters, ...genericCharacterStories];
-
-        } else {
-            // Default logic for other styles and fairs
-            results = results.filter(item => {
-                if (item.fair === filters.fair) return true;
-                if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
-                return false;
-            });
-        }
+        results = results.filter(item => {
+            if (item.fair === filters.fair) return true;
+            if (filters.fair !== 'Flamengo e Laranjeiras' && item.fair === 'todas_feiras') return true;
+            return false;
+        });
     }
 
+    // Special logic for "Animações de Personagens" for Tijuca and Grajaú
+    if (filters.style === "Animações de Personagens" && (filters.fair === "Tijuca" || filters.fair === "Grajaú")) {
+        const genericCharacterStories = sourceItems.filter(item =>
+            item.fair === 'todas_feiras' && 
+            (item.style === "Animações de Personagens" || item.style === "Cartoon")
+        );
+        results = [...results, ...genericCharacterStories];
+    }
+    
     // Remove duplicates
     const uniqueIds = new Set<string>();
     return results.filter(item => {
@@ -359,5 +349,3 @@ export default function Home() {
     </DndContext>
   )
 }
-
-    
