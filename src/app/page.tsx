@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -143,15 +144,10 @@ export default function Home() {
   };
 
 
-  const filteredItems = React.useMemo(() => {
+ const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
-      baseItems = items.filter(item => favoritedIds.has(item.id));
-    }
-
-    // Caso especial e prioritário: "Todas as Feiras" + "Story"
-    if (filters.fair === '' && filters.style === 'Story') {
-      return baseItems.filter(item => item.style === 'Story');
+        baseItems = items.filter(item => favoritedIds.has(item.id));
     }
 
     const fairKeywords: { [key: string]: string } = {
