@@ -150,35 +150,52 @@ export default function Home() {
 
     let results = sourceItems;
 
+    // Handle Style filter first
     if (filters.style) {
-      results = results.filter(item => {
-        if (filters.style === "Animações de Personagens") {
-          return item.style === "Animações de Personagens" || item.style === "Cartoon";
-        }
-        if (filters.style === "Story") {
-          return item.style === "Story" || item.alt.includes("story");
-        }
-        return item.style === filters.style;
-      });
+      if (filters.style === "Animações de Personagens") {
+        results = sourceItems.filter(item => 
+          item.style === "Animações de Personagens" || item.style === "Cartoon"
+        );
+      } else if (filters.style === "Story") {
+        results = sourceItems.filter(item => 
+          item.style === "Story" || item.alt.includes("story")
+        );
+      } else {
+        results = sourceItems.filter(item => item.style === filters.style);
+      }
     }
 
+    // Handle Fair filter
     if (filters.fair) {
-        const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
-        
-        if (filters.style === "Animações de Personagens") {
-            const fairSpecificCharacters = results.filter(item => item.fair === filters.fair);
-            const genericCharacterStories = sourceItems.filter(item => 
-                item.fair === 'todas_feiras' &&
-                (item.alt.includes('ap_cartoon_story_todas_feiras') || item.alt.includes('ap_story_personagem_todas_feiras'))
-            );
-            results = [...fairSpecificCharacters, ...genericCharacterStories];
-        } else {
-            results = results.filter(item => {
-                if (item.fair === filters.fair) return true;
-                if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
-                return false;
-            });
-        }
+      const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
+      
+      // Special logic for "Animações de Personagens"
+      if (filters.style === "Animações de Personagens") {
+          const fairSpecificCharacters = sourceItems.filter(item => 
+              (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
+              item.fair === filters.fair
+          );
+          
+          const genericCharacterStories = sourceItems.filter(item =>
+              (item.fair === 'todas_feiras' || item.fair === 'Tijuca' || item.fair === 'Grajaú') && 
+              (item.style === "Animações de Personagens" || item.style === "Cartoon") &&
+              (item.alt.includes('ap_cartoon_story_todas_feiras') || item.alt.includes('ap_story_personagem_todas_feiras'))
+          );
+          
+          let combinedResults = [...fairSpecificCharacters];
+          if (filters.fair === "Tijuca" || filters.fair === "Grajaú") {
+            combinedResults = [...combinedResults, ...genericCharacterStories];
+          }
+
+          results = combinedResults;
+      } else {
+          // Default logic for other styles
+          results = results.filter(item => {
+              if (item.fair === filters.fair) return true;
+              if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
+              return false;
+          });
+      }
     }
     
     // Remove duplicates
@@ -347,3 +364,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
