@@ -144,36 +144,45 @@ export default function Home() {
   };
 
   const filteredItems = React.useMemo(() => {
-    let baseItems = showOnlyFavorites ? allMedia.filter(item => favoritedIds.has(item.id)) : allMedia;
-    
-    let filteredByFair = baseItems;
-    if (filters.fair) {
-      const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
-      filteredByFair = baseItems.filter(item => {
-        // Direct match
-        if (item.fair === filters.fair) return true;
-        // Include 'todas_feiras' for all except Flamengo e Laranjeiras
-        if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
-        return false;
+    const sourceItems = showOnlyFavorites
+      ? allMedia.filter(item => favoritedIds.has(item.id))
+      : allMedia;
+
+    let results = sourceItems;
+
+    if (filters.style) {
+      results = results.filter(item => {
+        if (filters.style === "Animações de Personagens") {
+          return item.style === "Animações de Personagens" || item.style === "Cartoon";
+        }
+        if (filters.style === "Story") {
+          return item.style === "Story" || item.alt.includes("story");
+        }
+        return item.style === filters.style;
       });
     }
 
-    let filteredByStyle = filteredByFair;
-    if (filters.style) {
-       filteredByStyle = filteredByFair.filter(item => {
-          if (filters.style === "Animações de Personagens") {
-            return item.style === "Animações de Personagens" || item.style === "Cartoon" || (item.style === "Story" && item.alt.includes("ap_"));
-          }
-           if (filters.style === "Story") {
-              return item.style === "Story" || item.alt.includes("story")
-           }
-          return item.style === filters.style;
-       });
+    if (filters.fair) {
+      if (filters.style === "Animações de Personagens") {
+        const fairSpecificCharacters = results.filter(item => item.fair === filters.fair);
+        const genericCharacterStories = sourceItems.filter(item => 
+            item.fair === 'todas_feiras' &&
+            item.alt.includes('ap_cartoon_story_todas_feiras')
+        );
+        results = [...fairSpecificCharacters, ...genericCharacterStories];
+      } else {
+        const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
+        results = results.filter(item => {
+          if (item.fair === filters.fair) return true;
+          if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
+          return false;
+        });
+      }
     }
-
-    // Remove duplicates that might occur from 'todas_feiras'
+    
+    // Remove duplicates
     const uniqueIds = new Set<string>();
-    return filteredByStyle.filter(item => {
+    return results.filter(item => {
       if (uniqueIds.has(item.id)) {
         return false;
       }
