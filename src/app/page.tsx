@@ -143,84 +143,45 @@ export default function Home() {
     }
   };
 
-
   const filteredItems = React.useMemo(() => {
-    const fairKeywords: { [key: string]: string } = {
-        'Tijuca': 'tijuca',
-        'Grajaú': 'grajau',
-        'Flamengo e Laranjeiras': 'feiras_flamengo_laranjeiras',
-        'Botafogo': 'botafogo',
-        'Leme': 'leme',
-    };
-
-    const styleKeywords: { [key: string]: string } = {
-        'Animações de Agricultores': 'aagr',
-        'Animações de Alimentos': 'aali',
-        'Animações de Personagens': 'ap_',
-        'Fotografia': 'fot',
-        'Flyer': 'flyer',
-        'Cartoon': 'cartoon',
-        'Story': 'story',
-        'Datas Especiais': 'especial',
-        'Dias de Chuva': 'chuva',
-    };
-
-    let baseItems = showOnlyFavorites ? items.filter(item => favoritedIds.has(item.id)) : items;
-
-    const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
-    const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
-
-    // Helper function to check if an item's style matches
-    const checkStyleMatch = (filename: string) => {
-        if (!styleKeyword) return true; // No style filter means all styles match
-        switch (styleKeyword) {
-            case 'ap_':
-                return filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
-            case 'story':
-                return filename.includes('story');
-            case 'cartoon':
-                return filename.includes('cartoon');
-            case 'fot':
-                return filename.includes('fot');
-            default:
-                return filename.includes(styleKeyword);
-        }
-    };
-
-    // 1. Get items that match the specific fair AND style
-    let primarilyFiltered = baseItems.filter(item => {
-        const filename = item.alt.toLowerCase();
-        const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
-        const isStyleMatch = checkStyleMatch(filename);
-        return isFairMatch && isStyleMatch;
-    });
-
-    // 2. If a specific fair is selected (and not Fla/Laranjeiras), also get generic stories that match the style
-    if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
-        const genericStories = baseItems.filter(item => {
-            const filename = item.alt.toLowerCase();
-            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-            const isStyleMatch = checkStyleMatch(filename);
-            return isGenericStory && isStyleMatch;
-        });
-
-        // 3. Combine the lists and remove duplicates
-        const combined = [...primarilyFiltered, ...genericStories];
-        const uniqueIds = new Set<string>();
-        return combined.filter(item => {
-            if (uniqueIds.has(item.id)) {
-                return false;
-            } else {
-                uniqueIds.add(item.id);
-                return true;
-            }
-        });
+    let baseItems = showOnlyFavorites ? allMedia.filter(item => favoritedIds.has(item.id)) : allMedia;
+    
+    let filteredByFair = baseItems;
+    if (filters.fair) {
+      const isFlaLaranjeiras = filters.fair === 'Flamengo e Laranjeiras';
+      filteredByFair = baseItems.filter(item => {
+        // Direct match
+        if (item.fair === filters.fair) return true;
+        // Include 'todas_feiras' for all except Flamengo e Laranjeiras
+        if (!isFlaLaranjeiras && item.fair === 'todas_feiras') return true;
+        return false;
+      });
     }
 
-    // 4. If no specific fair is selected (or it's Fla/Laranjeiras), just return the primary list
-    return primarilyFiltered;
+    let filteredByStyle = filteredByFair;
+    if (filters.style) {
+       filteredByStyle = filteredByFair.filter(item => {
+          if (filters.style === "Animações de Personagens") {
+            return item.style === "Animações de Personagens" || item.style === "Cartoon" || (item.style === "Story" && item.alt.includes("ap_"));
+          }
+           if (filters.style === "Story") {
+              return item.style === "Story" || item.alt.includes("story")
+           }
+          return item.style === filters.style;
+       });
+    }
 
-  }, [items, filters, favoritedIds, showOnlyFavorites]);
+    // Remove duplicates that might occur from 'todas_feiras'
+    const uniqueIds = new Set<string>();
+    return filteredByStyle.filter(item => {
+      if (uniqueIds.has(item.id)) {
+        return false;
+      }
+      uniqueIds.add(item.id);
+      return true;
+    });
+
+  }, [filters, favoritedIds, showOnlyFavorites]);
   
   const itemsToShow = React.useMemo(() => {
     return filteredItems.slice(0, visibleCount);
