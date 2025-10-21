@@ -146,7 +146,7 @@ export default function Home() {
   const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
-        baseItems = items.filter(item => favoritedIds.has(item.id));
+      baseItems = items.filter(item => favoritedIds.has(item.id));
     }
 
     // Caso especial e prioritário: "Todas as Feiras" + "Story"
