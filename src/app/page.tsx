@@ -209,7 +209,7 @@ export default function Home() {
             
             // Caso: Qualquer outra feira + Story (inclusivo)
             if (filters.fair) {
-                return (isFairMatch && item.style === 'Story') || (isGenericStory && item.style === 'Story');
+                return (isFairMatch && item.style === 'Story') || isGenericStory;
             }
 
             // Caso: Apenas "Story" selecionado (sem feira)
