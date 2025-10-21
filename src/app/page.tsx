@@ -145,6 +145,16 @@ export default function Home() {
 
 
   const filteredItems = React.useMemo(() => {
+    let baseItems = items;
+    if (showOnlyFavorites) {
+        baseItems = items.filter(item => favoritedIds.has(item.id));
+    }
+
+    // Explicit override for "Todas as Feiras" + "Story"
+    if (filters.fair === '' && filters.style === 'Story') {
+      return baseItems.filter(item => item.style === 'Story');
+    }
+
     const fairKeywords: { [key: string]: string } = {
         'Tijuca': 'tijuca',
         'Grajaú': 'grajau',
@@ -164,11 +174,6 @@ export default function Home() {
         'Datas Especiais': 'especial',
         'Dias de Chuva': 'chuva',
     };
-
-    let baseItems = items;
-    if (showOnlyFavorites) {
-        baseItems = items.filter(item => favoritedIds.has(item.id));
-    }
 
     return baseItems.filter((item) => {
         const filename = item.alt.toLowerCase();
@@ -372,3 +377,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
