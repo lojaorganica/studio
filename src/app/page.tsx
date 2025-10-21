@@ -156,21 +156,31 @@ export default function Home() {
       if (filters.style === "Animações de Personagens") {
         const isCharacterAnimation = item.style === "Animações de Personagens" || item.style === "Cartoon";
         
-        // If a fair is selected (Tijuca or Grajaú), also include generic character animations
-        if ((filters.fair === "Tijuca" || filters.fair === "Grajaú") && item.fair === 'todas_feiras' as any && isCharacterAnimation) {
+        if (!filters.fair) { // "Todas as Feiras" is selected
+          return isCharacterAnimation;
+        }
+
+        const isGenericCharacter = item.fair === 'todas_feiras' as any && (item.style === 'Animações de Personagens' || item.style === 'Cartoon');
+        
+        if (fairMatch && isCharacterAnimation) {
           return true;
         }
         
-        return fairMatch && isCharacterAnimation;
+        // When a specific fair is selected, also include generic characters
+        if (filters.fair && isGenericCharacter) {
+           return true;
+        }
+        
+        return false;
       }
       
       // Special logic for "Story"
-      if(filters.style === "Story" && item.style === "Story") {
-        // If a fair is selected, show its stories and generic stories
-        if (filters.fair && item.fair !== 'todas_feiras' as any && item.fair !== filters.fair) {
-          return false;
-        }
-        return true;
+      if (filters.style === "Story") {
+        if (item.style !== "Story") return false; // Must be a story
+        if (!filters.fair) return true; // If "Todas as Feiras", show all stories
+        
+        // If a specific fair is selected, show stories for that fair AND generic stories
+        return item.fair === filters.fair || item.fair === 'todas_feiras' as any;
       }
 
       return fairMatch && styleMatch;
