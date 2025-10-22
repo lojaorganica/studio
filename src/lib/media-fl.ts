@@ -1,3 +1,4 @@
+
 import type { MediaItem } from './media-types';
 
 const INHAME_ARANHA_STORY = `INHAME-ARANHA, INHAME-ARANHA
@@ -153,7 +154,10 @@ const mediaUrls: string[] = [
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feiras_flamengo_laranjeiras_116_drshiitaker.mp4?alt=media&token=8ba5627e-7bd7-4f31-843a-6a4ea541e308",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_114_thalhor.png?alt=media&token=aba3d397-a954-4021-931b-0691ccafa38a",
   "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_112_deadpepper.jpg?alt=media&token=c639be20-a8c4-4a6b-aec7-ae2aadab5efd",
-  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_115_drshiitaker.png?alt=media&token=34fd9367-ae7d-467f-befa-f799e2213191"
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_feiras_flamengo_laranjeiras_115_drshiitaker.png?alt=media&token=34fd9367-ae7d-467f-befa-f799e2213191",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_122_thalhor.png?alt=media&token=e867c826-549b-4dde-b6bb-9f5dd133e4f6",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_120_deadpepper.jpg?alt=media&token=4b915c9a-20fa-4892-a7da-75d84e67f6f0",
+  "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_feiras_flamengo_laranjeiras_123_drshiitaker.png?alt=media&token=6ea4f2f7-4914-4e9b-ac94-9015a033637a"
 ];
 
 export const mediaFL: MediaItem[] = mediaUrls.map((url, index) => {
