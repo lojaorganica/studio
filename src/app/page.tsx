@@ -178,16 +178,17 @@ export default function Home() {
         
         let isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
         
-        // Exclude 'todas_feiras' from 'Flamengo e Laranjeiras'
         if (filters.fair === 'Flamengo e Laranjeiras' && filename.includes('todas_feiras')) {
-            isFairMatch = false;
+            return false;
         }
-
-        // When a fair is selected (not Fla/Laranjeiras) and 'Todos os Estilos' is active,
-        // also include generic stories.
-        if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras' && !styleKeyword) {
+        
+        if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
             const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-            if (isGenericStory) {
+            if (isGenericStory && !styleKeyword) { // "Todos os Estilos"
+                return true;
+            }
+             const isGenericPhotoStory = styleKeyword === 'fot' && isGenericStory && filename.includes('fot');
+            if (isGenericPhotoStory) {
                 return true;
             }
         }
