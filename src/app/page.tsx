@@ -144,7 +144,7 @@ export default function Home() {
   };
 
 
- const filteredItems = React.useMemo(() => {
+  const filteredItems = React.useMemo(() => {
     let baseItems = items;
     if (showOnlyFavorites) {
         baseItems = items.filter(item => favoritedIds.has(item.id));
@@ -176,10 +176,14 @@ export default function Home() {
         const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
         
-        const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
-        
-        let isStyleMatch = !filters.style; // True if no style is selected
-        if (filters.style && styleKeyword) {
+        let isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
+        if (filters.fair === 'Flamengo e Laranjeiras' && filename.includes('todas_feiras')) {
+            isFairMatch = false;
+        }
+
+        let isStyleMatch = !styleKeyword; // True if no style is selected
+
+        if (styleKeyword) {
             switch (styleKeyword) {
                 case 'ap_':
                     isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
@@ -198,26 +202,36 @@ export default function Home() {
             }
         }
         
-        if (filters.fair === 'Flamengo e Laranjeiras') {
-             if (filename.includes('todas_feiras')) {
-                return false;
+        // Handling for "Todos os Estilos"
+        if (!filters.style) {
+            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
+            
+            if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
+                return isFairMatch || (isGenericStory && item.fair !== 'Flamengo e Laranjeiras');
             }
-            return isFairMatch && isStyleMatch;
+             if (filters.fair === 'Flamengo e Laranjeiras') {
+                const isFLStory = item.style === 'Story' && filename.includes('feiras_flamengo_laranjeiras');
+                return isFairMatch || isFLStory;
+            }
+            return isFairMatch;
         }
 
         if (filters.style === 'Story') {
             const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-
-            if (filters.fair) {
-                return (isFairMatch && item.style === 'Story') || isGenericStory;
+            if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
+                return (isFairMatch && item.style === 'Story') || (isGenericStory && isFairMatch);
             }
-
+            if(filters.fair === 'Flamengo e Laranjeiras') {
+                return isFairMatch && item.style === 'Story';
+            }
             return item.style === 'Story';
         }
 
         if (filters.fair && (filters.style === "Animações de Personagens" || filters.style === "Cartoon")) {
-            const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
-            return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
+             if (filters.fair !== 'Flamengo e Laranjeiras') {
+                const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
+                return (isFairMatch && (item.style === 'Animações de Personagens' || item.style === 'Cartoon')) || isGenericCharacter;
+            }
         }
         
         return isFairMatch && isStyleMatch;
