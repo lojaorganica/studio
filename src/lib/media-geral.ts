@@ -185,7 +185,12 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_10.jpg?alt=media&token=ba4f5d34-e2c2-4dea-ba86-efdd9fe4e845",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_das_maes_10a.jpg?alt=media&token=04867325-bff0-4e2d-a18a-3eedcd98cae7",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_dos_pais_01.png?alt=media&token=1f495bf8-a68e-4371-b223-6474da1007bd",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_dos_pais_112.jpg?alt=media&token=6b46a3dd-498c-4944-b38b-e22f3e148a81"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fespecial_dia_dos_pais_112.jpg?alt=media&token=6b46a3dd-498c-4944-b38b-e22f3e148a81",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_125_todas_feiras.jpg?alt=media&token=6d06fd85-470e-49b3-8983-fa6b3f3e4bf2",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_126_todas_feiras.png?alt=media&token=d241eaaa-ad39-4707-a6a7-b1c8e4793f69",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_127_todas_feiras.jpg?alt=media&token=a299d3dc-3330-4f45-9f02-eb959a19771d",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_128_todas_feiras.png?alt=media&token=b4fad9b4-6918-4a42-a115-5f4f163a3151",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_story_129_todas_feiras.jpg?alt=media&token=c36c6369-65ee-4e45-a629-2102703a85ba"
 ];
 
 export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
