@@ -184,12 +184,17 @@ export default function Home() {
         
         if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
             const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
+            
             if (isGenericStory && !styleKeyword) { // "Todos os Estilos"
                 return true;
             }
-             const isGenericPhotoStory = styleKeyword === 'fot' && isGenericStory && filename.includes('fot');
-            if (isGenericPhotoStory) {
-                return true;
+            
+            if (isGenericStory && styleKeyword === 'fot' && filename.includes('fot')) {
+                 return true;
+            }
+
+            if (isGenericStory && styleKeyword === 'story') {
+                 return true;
             }
         }
         
