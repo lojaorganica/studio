@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -175,7 +176,6 @@ export default function Home() {
         const fairKeyword = filters.fair ? fairKeywords[filters.fair] : null;
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
         
-        // Regra geral de correspondência
         const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
         
         let isStyleMatch = !styleKeyword;
@@ -197,22 +197,18 @@ export default function Home() {
                     isStyleMatch = filename.includes(styleKeyword);
             }
         }
+        
+        if (filters.fair === 'Flamengo e Laranjeiras') {
+            return isFairMatch && isStyleMatch;
+        }
 
-        // Lógica de exceções e inclusões
         if (filters.style === 'Story') {
             const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
 
-            // Caso especial: Flamengo e Laranjeiras + Story (exclusivo)
-            if (filters.fair === 'Flamengo e Laranjeiras') {
-                return filename.includes('story') && filename.includes('feiras_flamengo_laranjeiras');
-            }
-            
-            // Caso: Qualquer outra feira + Story (inclusivo)
             if (filters.fair) {
                 return (isFairMatch && item.style === 'Story') || isGenericStory;
             }
 
-            // Caso: Apenas "Story" selecionado (sem feira)
             return item.style === 'Story';
         }
 
@@ -379,3 +375,5 @@ export default function Home() {
     </DndContext>
   )
 }
+
+    
