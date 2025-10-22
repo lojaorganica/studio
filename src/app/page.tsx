@@ -178,8 +178,8 @@ export default function Home() {
         
         const isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
         
-        let isStyleMatch = !styleKeyword;
-        if (styleKeyword) {
+        let isStyleMatch = !filters.style; // True if no style is selected
+        if (filters.style && styleKeyword) {
             switch (styleKeyword) {
                 case 'ap_':
                     isStyleMatch = filename.startsWith('ap_') || filename.includes('ap_story') || filename.includes('as_story');
@@ -199,6 +199,9 @@ export default function Home() {
         }
         
         if (filters.fair === 'Flamengo e Laranjeiras') {
+             if (filename.includes('todas_feiras')) {
+                return false;
+            }
             return isFairMatch && isStyleMatch;
         }
 
