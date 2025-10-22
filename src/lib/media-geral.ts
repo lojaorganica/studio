@@ -196,7 +196,10 @@ const mediaUrls: string[] = [
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_todas_feiras_116_drshiitaker.mp4?alt=media&token=765a215c-7d00-4009-9363-80ef8ed39011",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_113_thalhor.png?alt=media&token=af6772b1-8e5f-4942-87fb-61f4cd75702e",
     "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_112_deadpepper.jpg?alt=media&token=aaee028e-9c4e-4806-9baa-09af9383d1b2",
-    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_115_drshiitaker.png?alt=media&token=85c6abb9-227b-489c-9fac-e002d22ac0db"
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_todas_feiras_115_drshiitaker.png?alt=media&token=85c6abb9-227b-489c-9fac-e002d22ac0db",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_121_thalhor.png?alt=media&token=32a198fa-3f22-4d83-8e5a-e9bf430fcde0",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_119_deadpepper.jpg?alt=media&token=f10befa0-a936-421f-9f5a-10166d05a10f",
+    "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_cartoon_story_todas_feiras_124_drshiitaker.png?alt=media&token=ba8dc665-9c99-401d-9988-942955428336"
 ];
 
 export const mediaGeral: MediaItem[] = mediaUrls.map((url, index) => {
