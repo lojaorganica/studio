@@ -177,6 +177,7 @@ export default function Home() {
         const styleKeyword = filters.style ? styleKeywords[filters.style] : null;
         
         let isFairMatch = fairKeyword ? filename.includes(fairKeyword) : true;
+        
         if (filters.fair === 'Flamengo e Laranjeiras' && filename.includes('todas_feiras')) {
             isFairMatch = false;
         }
@@ -202,31 +203,6 @@ export default function Home() {
             }
         }
         
-        // Handling for "Todos os Estilos"
-        if (!filters.style) {
-            const isGenericStory = item.style === 'Story' && filename.includes('todas_feiras');
-            
-            if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
-                return isFairMatch || (isGenericStory && item.fair !== 'Flamengo e Laranjeiras');
-            }
-             if (filters.fair === 'Flamengo e Laranjeiras') {
-                const isFLStory = item.style === 'Story' && filename.includes('feiras_flamengo_laranjeiras');
-                return isFairMatch || isFLStory;
-            }
-            return isFairMatch;
-        }
-
-        if (filters.style === 'Story') {
-            const isGenericStory = filename.includes('story') && filename.includes('todas_feiras');
-            if (filters.fair && filters.fair !== 'Flamengo e Laranjeiras') {
-                return (isFairMatch && item.style === 'Story') || (isGenericStory && isFairMatch);
-            }
-            if(filters.fair === 'Flamengo e Laranjeiras') {
-                return isFairMatch && item.style === 'Story';
-            }
-            return item.style === 'Story';
-        }
-
         if (filters.fair && (filters.style === "Animações de Personagens" || filters.style === "Cartoon")) {
              if (filters.fair !== 'Flamengo e Laranjeiras') {
                 const isGenericCharacter = (item.style === 'Animações de Personagens' || item.style === 'Cartoon') && filename.includes('todas_feiras');
