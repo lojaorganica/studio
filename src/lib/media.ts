@@ -192,7 +192,12 @@ export const allMedia: MediaItem[] = [
   { id: 'tijuca-84', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_105_feira_tijuca.png?alt=media&token=3b289e7a-d954-47b3-942d-8f050dfcdce8', type: 'image', alt: 'fot_105_feira_tijuca.png', author: 'Essência Vital', fair: 'Tijuca', style: 'Fotografia' },
   { id: 'tijuca-85', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_106_feira_tijuca.png?alt=media&token=78b040f6-5313-43a4-a2e9-9e4ead9daf91', type: 'image', alt: 'fot_106_feira_tijuca.png', author: 'Essência Vital', fair: 'Tijuca', style: 'Fotografia' },
   { id: 'tijuca-86', src: 'https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Ffot_107_feira_tijuca.png?alt=media&token=1993f58e-72d7-462e-bf76-3bc92f7fe101', type: 'image', alt: 'fot_107_feira_tijuca.png', author: 'Essência Vital', fair: 'Tijuca', style: 'Fotografia' },
+  { id: "tijuca-87", type: "video", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_102_thalhor.mp4?alt=media&token=a4952c6a-1967-46ba-a21a-7a20b445d141", alt: "ap_feira_tijuca_102_thalhor", author: "Essência Vital", fair: "Tijuca", style: "Animações de Personagens" },
+  { id: "tijuca-88", type: "video", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_99_deadpepper.mp4?alt=media&token=f676541f-ad7d-46b0-ae9a-ce7e43605426", alt: "ap_feira_tijuca_99_deadpepper", author: "Essência Vital", fair: "Tijuca", style: "Animações de Personagens" },
+  { id: "tijuca-89", type: "video", src: "https://firebasestorage.googleapis.com/v0/b/verdant-market-x1qp8.firebasestorage.app/o/media_minha_feira%2Fap_feira_tijuca_104_drshiitaker.mp4?alt=media&token=3632cded-6d51-4b11-a55c-40a37c05cfd2", alt: "ap_feira_tijuca_104_drshiitaker", author: "Essência Vital", fair: "Tijuca", style: "Animações de Personagens" },
 ]
 
 export const fairs = [...new Set(allMedia.map((item) => item.fair))].sort((a, b) => a.localeCompare(b));
 export const styles = [...new Set(allMedia.map((item) => item.style))].sort((a, b) => a.localeCompare(b));
+
+    
